@@ -1,0 +1,23 @@
+﻿<Window x:Class="SportConnect.ProfilePage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SportConnect"
+        mc:Ignorable="d"
+        Title="ProfilePage" Height="450" Width="800">
+    <Grid>
+        <Border HorizontalAlignment="Left" Height="110" Margin="74,30,0,0" VerticalAlignment="Top" Width="108" BorderThickness="2px" IsEnabled="False" BorderBrush="Black"  >
+            <Image x:Name="ProfilePic"  IsEnabled="False" />
+        </Border>
+        <TextBox x:Name="AccountName" HorizontalAlignment="Left" Height="24" Margin="217,116,0,0" Text="Account Name" TextWrapping="Wrap" VerticalAlignment="Top" Width="123" TextChanged="TextBox_TextChanged" IsEnabled="False"/>
+        <Button x:Name="EditProfileButton" Content="Edit Profile" HorizontalAlignment="Left" Margin="616,30,0,0" VerticalAlignment="Top" Width="110" Click="Button_Click"/>
+        <TextBox x:Name="BioDesc" HorizontalAlignment="Left" Height="115" Margin="74,176,0,0" Text="This is where the bio/description goes" TextWrapping="Wrap" VerticalAlignment="Top" Width="423" TextChanged="TextBox_TextChanged_1" IsEnabled="False"/>
+        <TextBox x:Name="AddAccInfo" HorizontalAlignment="Left" Height="85" Margin="74,312,0,0" Text="Additional Account Info" TextWrapping="Wrap" VerticalAlignment="Top" Width="423" TextChanged="TextBox_TextChanged_2" IsEnabled="False"/>
+        <Button Opacity="0" x:Name ="EditProfPic" Content="" HorizontalAlignment="Left" Height="32" Margin="152,30,0,0" VerticalAlignment="Top" Width="30" IsEnabled="False" Click="EditProfPic_Click" BorderBrush="{x:Null}"/>
+        <ListBox x:Name ="FriendsList" HorizontalAlignment="Left" Height="221" Margin="547,176,0,0" VerticalAlignment="Top" Width="179" SelectionChanged="FriendsList_SelectionChanged" />
+        <Button Content="Find Friends" HorizontalAlignment="Left" Height="29" Margin="616,123,0,0" VerticalAlignment="Top" Width="110" Click="Button_Click_1"/>
+
+
+    </Grid>
+</Window>

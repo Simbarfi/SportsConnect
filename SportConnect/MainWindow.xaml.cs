@@ -23,6 +23,8 @@ namespace SportConnect
         public MainWindow()
         {
             InitializeComponent();
+            //ProfilePage window1 = new();
+            //window1.Show();
 
         }
 
