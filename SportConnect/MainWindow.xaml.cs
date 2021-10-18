@@ -36,5 +36,10 @@ namespace SportConnect
             // Sharad able to get project 
             // Dalton Finally figure it out
         }
+
+        private void Registration_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
