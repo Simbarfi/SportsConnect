@@ -17,9 +17,9 @@ namespace SportConnect
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class ProfilePage : Window
     {
-        public Window1()
+        public ProfilePage()
         {
             InitializeComponent();
         }
@@ -73,8 +73,8 @@ namespace SportConnect
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Window2 window2 = new Window2();
-            window2.Show();
+            FindFriends findFriends = new();
+            findFriends.Show();
         }
     }
 }
