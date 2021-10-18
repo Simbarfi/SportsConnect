@@ -24,9 +24,11 @@ namespace SportConnect
             InitializeComponent();
         }
 
-        private void Register_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             //test
         }
+
+        
     }
 }
