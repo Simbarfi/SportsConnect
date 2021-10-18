@@ -7,15 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="coverpage.jpg" />
     <None Remove="temp_map.png" />
+    <None Remove="UIcover.jpg" />
     <None Remove="User.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="coverpage.jpg" />
     <Resource Include="Images\chat.png" />
     <Resource Include="Images\profilepic.png" />
     <Resource Include="Images\temp_map.png" />
     <Resource Include="temp_map.png" />
+    <Resource Include="UIcover.jpg" />
     <Resource Include="User.png" />
   </ItemGroup>
 
