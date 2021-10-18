@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="SignIn" Height="450" Width="800">
     <Grid>
-        
+        <Label Content="SportConnect" FontSize="30" HorizontalAlignment="Center" Margin="0,49,0,0" VerticalAlignment="Top" Height="72" Width="248"/>
+        <Label Content="Login" FontSize="30" HorizontalAlignment="Left" Margin="43,121,0,0" VerticalAlignment="Top" Height="72" Width="248"/>
+        <Label Content="Username" HorizontalAlignment="Left" Margin="120,198,0,0" VerticalAlignment="Top"/>
+        <Label Content="Password" HorizontalAlignment="Left" Margin="120,246,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="223,202,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Margin="223,250,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Login" HorizontalAlignment="Left" Margin="253,323,0,0" VerticalAlignment="Top" Width="90" Click="Login_Click"/>
     </Grid>
 </Window>
