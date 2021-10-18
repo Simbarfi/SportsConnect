@@ -17,6 +17,8 @@
         <TextBox Name="Emailtxt" HorizontalAlignment="Left" Margin="283,247,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox Name="Passwordtxt" HorizontalAlignment="Left" Margin="283,284,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label Content="Password" HorizontalAlignment="Left" Margin="190,280,0,0" VerticalAlignment="Top"/>
+        <Button Content="Go to SignIn" HorizontalAlignment="Left" Margin="472,343,0,0" VerticalAlignment="Top" Height="34" Width="88" Click="GoToSignIn"/>
+        <Label Content="Register" FontSize="30" HorizontalAlignment="Left" Margin="42,96,0,0" VerticalAlignment="Top" Height="72" Width="248"/>
 
     </Grid>
 </Window>

@@ -41,5 +41,11 @@ namespace SportConnect
         {
 
         }
+
+        private void GoToSignIn(object sender, RoutedEventArgs e)
+        {
+            SignIn signIn = new SignIn();
+            signIn.Show();
+        }
     }
 }
