@@ -23,13 +23,18 @@ namespace SportConnect
         public MainWindow()
         {
             InitializeComponent();
+
         }
 
         //test
         //Trevor
+
+        //test
+        //Sharad
         public void test()
         {
             // Sharad able to get project 
+            // Dalton Finally figure it out
         }
     }
 }
