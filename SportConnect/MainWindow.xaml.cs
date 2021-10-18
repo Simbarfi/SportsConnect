@@ -39,12 +39,14 @@ namespace SportConnect
             // Dalton Finally figure it out
         }
 
-        private void Registration_Click(object sender, RoutedEventArgs e)
-        {
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            RegistrationPage registration = new RegistrationPage();
+            registration.Show();
         }
 
-        private void GoToSignIn(object sender, RoutedEventArgs e)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             SignIn signIn = new SignIn();
             signIn.Show();

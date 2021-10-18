@@ -6,4 +6,17 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="temp_map.png" />
+    <None Remove="User.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\chat.png" />
+    <Resource Include="Images\profilepic.png" />
+    <Resource Include="Images\temp_map.png" />
+    <Resource Include="temp_map.png" />
+    <Resource Include="User.png" />
+  </ItemGroup>
+
 </Project>

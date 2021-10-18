@@ -24,7 +24,7 @@
                 <DataTemplate>
                     <StackPanel Width="300">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="chat.png"  Width="20" />
+                            <Image Source="/chat.png"  Width="20" />
                             <TextBlock Text="{Binding Sender}" />
                         </StackPanel>
                         <TextBlock Text="{Binding Content}"

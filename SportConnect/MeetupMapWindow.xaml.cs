@@ -26,7 +26,14 @@ namespace SportConnect
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            ProfilePage profile = new ProfilePage();
+            profile.Show();
+        }
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            ChatPage chatPage = new ChatPage();
+            chatPage.ShowDialog();
         }
     }
 }

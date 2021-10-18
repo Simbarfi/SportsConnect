@@ -15,19 +15,18 @@ using System.Windows.Shapes;
 namespace SportConnect
 {
     /// <summary>
-    /// Interaction logic for SignIn.xaml
+    /// Interaction logic for RegistrationPage.xaml
     /// </summary>
-    public partial class SignIn : Window
+    public partial class RegistrationPage : Window
     {
-        public SignIn()
+        public RegistrationPage()
         {
             InitializeComponent();
         }
 
-        private void Login_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MeetupMapWindow meetup = new MeetupMapWindow();
-            meetup.Show();
+            MessageBox.Show("Successfull Registered");
         }
     }
 }
