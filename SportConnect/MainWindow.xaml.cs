@@ -24,5 +24,11 @@ namespace SportConnect
         {
             InitializeComponent();
         }
+
+        //test
+        public void test()
+        {
+
+        }
     }
 }
