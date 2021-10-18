@@ -23,6 +23,7 @@ namespace SportConnect
         public MainWindow()
         {
             InitializeComponent();
+
         }
 
         //test
@@ -30,6 +31,7 @@ namespace SportConnect
         public void test()
         {
             // Sharad able to get project 
+            // Dalton Finally figure it out
         }
     }
 }
