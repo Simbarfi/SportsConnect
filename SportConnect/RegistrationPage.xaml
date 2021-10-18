@@ -11,7 +11,7 @@
         <Label Content="First Name" HorizontalAlignment="Left" Margin="185,165,0,0" VerticalAlignment="Top"/>
         <Label Content="Last Name" HorizontalAlignment="Left" Margin="185,0,0,0" VerticalAlignment="Center" Width="67"/>
         <Label Content="Email" HorizontalAlignment="Left" Margin="190,243,0,0" VerticalAlignment="Top" Width="67"/>
-        <Button Content="Sign Up" HorizontalAlignment="Left" Margin="296,343,0,0" VerticalAlignment="Top" Height="34" Width="88" Click="Button_Click"/>
+        <Button Content="Sign Up" HorizontalAlignment="Left" Margin="296,343,0,0" VerticalAlignment="Top" Height="34" Width="88" />
         <TextBox Name="FirstNametxt" HorizontalAlignment="Left" Margin="283,173,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox Name="LastNametxt" HorizontalAlignment="Left" Margin="283,212,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox Name="Emailtxt" HorizontalAlignment="Left" Margin="283,247,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
