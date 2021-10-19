@@ -76,5 +76,10 @@ namespace SportConnect
             FindFriends findFriends = new();
             findFriends.Show();
         }
+
+        private void TextBox_TextChanged_3(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

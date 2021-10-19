@@ -6,16 +6,25 @@
         xmlns:local="clr-namespace:SportConnect"
         mc:Ignorable="d"
         Title="ProfilePage" Height="450" Width="800">
-    <Grid>
-        <Border HorizontalAlignment="Left" Height="110" Margin="74,30,0,0" VerticalAlignment="Top" Width="108" BorderThickness="2px" IsEnabled="False" BorderBrush="Black"  >
-            <Image x:Name="ProfilePic"  IsEnabled="False" />
-        </Border>
-        <TextBox x:Name="AccountName" HorizontalAlignment="Left" Height="24" Margin="217,116,0,0" Text="Account Name" TextWrapping="Wrap" VerticalAlignment="Top" Width="123" TextChanged="TextBox_TextChanged" IsEnabled="False"/>
+    <Grid Margin="0,10,0,0">
+        <Image x:Name="ProfilePic"  IsEnabled="False" Source="user.png" Margin="74,27,609,278"/>
+
+        <TextBox x:Name="AccountName" HorizontalAlignment="Left" Height="24" Margin="217,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="123" TextChanged="TextBox_TextChanged" IsEnabled="False" Text="Sam" BorderBrush="White"/>
         <Button x:Name="EditProfileButton" Content="Edit Profile" HorizontalAlignment="Left" Margin="616,30,0,0" VerticalAlignment="Top" Width="110" Click="Button_Click"/>
-        <TextBox x:Name="BioDesc" HorizontalAlignment="Left" Height="115" Margin="74,176,0,0" Text="This is where the bio/description goes" TextWrapping="Wrap" VerticalAlignment="Top" Width="423" TextChanged="TextBox_TextChanged_1" IsEnabled="False"/>
+        <TextBox x:Name="BioDesc" HorizontalAlignment="Left" Height="115" Margin="74,176,0,0" Text="Hey I'm Sam&#xD;&#xA;Study at UW-Oshkosh&#xD;&#xA;&#xD;&#xA;I like to shoot pool and join lots of tournaments" TextWrapping="Wrap" VerticalAlignment="Top" Width="423" TextChanged="TextBox_TextChanged_1" IsEnabled="False"/>
         <TextBox x:Name="AddAccInfo" HorizontalAlignment="Left" Height="85" Margin="74,312,0,0" Text="Additional Account Info" TextWrapping="Wrap" VerticalAlignment="Top" Width="423" TextChanged="TextBox_TextChanged_2" IsEnabled="False"/>
         <Button Opacity="0" x:Name ="EditProfPic" Content="" HorizontalAlignment="Left" Height="32" Margin="152,30,0,0" VerticalAlignment="Top" Width="30" IsEnabled="False" Click="EditProfPic_Click" BorderBrush="{x:Null}"/>
-        <ListBox x:Name ="FriendsList" HorizontalAlignment="Left" Height="221" Margin="547,176,0,0" VerticalAlignment="Top" Width="179" SelectionChanged="FriendsList_SelectionChanged" />
+        <ListBox x:Name ="FriendsList" HorizontalAlignment="Left" Height="221" Margin="518,176,0,0" VerticalAlignment="Top" Width="208" SelectionChanged="FriendsList_SelectionChanged">
+            <ListBoxItem>
+                <Grid Height="Auto"  Width="165">
+                    <Image Source="user.png" Height="40" Margin="0,0,119,0"/>
+                    <TextBox Height="20" Margin="48,0,0,0" Text="Daniel" TextWrapping="Wrap" VerticalAlignment="Center" TextChanged="TextBox_TextChanged_3" TextAlignment="Left" BorderBrush="White"/>
+
+
+                </Grid>
+
+            </ListBoxItem>
+        </ListBox>
         <Button Content="Find Friends" HorizontalAlignment="Left" Height="29" Margin="616,123,0,0" VerticalAlignment="Top" Width="110" Click="Button_Click_1"/>
 
 
