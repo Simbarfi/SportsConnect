@@ -20,9 +20,9 @@
         </Grid>
         <Grid Margin="40,92,40,10">
             <Label Content="Username" Height="34" HorizontalAlignment="Left" Margin="10,144,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Width="90"/>
-            <TextBox Margin="88,144,88,0" Height="24" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtUserName" Margin="88,144,88,0" Height="24" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
             <Label Content="Password" Margin="10,190,0,0" Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90" FontSize="14" FontWeight="Bold"/>
-            <TextBox Margin="88,195,88,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="24"/>
+            <TextBox x:Name="txtPassword" Margin="88,195,88,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="24"/>
             <Button Content="Login" Margin="150,255,150,0" VerticalAlignment="Top" Click="Login_Click" Height="30" FontSize="14"/>
             <Image Height="92" Margin="133,10,133,0" VerticalAlignment="Top" Source="/User.png" Stretch="Uniform"/>
         </Grid>

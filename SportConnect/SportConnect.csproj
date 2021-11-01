@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="coverpage.jpg" />
     <Resource Include="Images\chat.png" />
     <Resource Include="Images\profilepic.png" />
