@@ -1,0 +1,24 @@
+h1, h2, p{
+    padding: 5px;
+    max-width: 70%;
+}
+h1, h2 {
+    margin: 0;
+}
+ p {
+    margin-right: 0;
+    border-bottom-color: white;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+section {
+    display: block;
+}
+#mapid{
+    align-self: center;
+    margin: 5px;
+    height: 500px;
+    width: 700px;
+    max-width: 90%;
+}
+

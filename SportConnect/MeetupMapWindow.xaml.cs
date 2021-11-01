@@ -19,21 +19,25 @@ namespace SportConnect
     /// </summary>
     public partial class MeetupMapWindow : Window
     {
+        private const string MAPPATH = "./Map/location.html";
         public MeetupMapWindow()
         {
             InitializeComponent();
+            MapBro.Source = new Uri(System.IO.Path.GetFullPath(MAPPATH));
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ProfilePage profile = new ProfilePage();
             profile.Show();
+            Close();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             ChatPage chatPage = new ChatPage();
             chatPage.ShowDialog();
+            Close();
         }
     }
 }

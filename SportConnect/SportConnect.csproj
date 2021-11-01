@@ -21,4 +21,20 @@
     <Resource Include="Images\temp_map.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Map\CSS\location.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Map\CSS\main.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Map\JS\map.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Map\location.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+
 </Project>
