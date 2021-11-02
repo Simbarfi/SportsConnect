@@ -26,7 +26,22 @@ namespace SportConnect
             InitializeComponent();
         }
 
-       
+       private void InsertData() 
+       {
+            SqlConnection cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\EE-LT-10033\Source\Repos\lab6.5\SportConnect\SportConnectDatabase.mdf;Integrated Security=True");
+            SqlCommand cmd;
+            cmd = new SqlCommand("insert into LoginTable values(@username,@password)", cn);
+            cmd.Parameters.AddWithValue("username", txtUsername.Text);
+            cmd.Parameters.AddWithValue("password", txtPassword.Text);
+            cmd.ExecuteNonQuery();
+            MessageBox.Show("You Account is created.", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private SqlCommand SelectData()
+        {
+            SqlConnection cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\EE-LT-10033\Source\Repos\lab6.5\SportConnect\SportConnectDatabase.mdf;Integrated Security=True");
+            return new SqlCommand("select * from LoginTable where username = '" + txtUsername.Text + "'", cn);
+        }
 
         private void BtnRegister_Click(object sender, RoutedEventArgs e)
         {
@@ -41,7 +56,7 @@ namespace SportConnect
             {
                 if(txtPassword.Text == txtConfirmPassword.Text)
                 {
-                    cmd = new SqlCommand("select * from LoginTable where username = '" + txtUsername.Text + "'", cn);
+                    cmd = SelectData();
                     dr = cmd.ExecuteReader();
                     if (dr.Read())
                     {
@@ -51,11 +66,7 @@ namespace SportConnect
                     else
                     {
                         dr.Close();
-                        cmd = new SqlCommand("insert into LoginTable values(@username,@password)", cn);
-                        cmd.Parameters.AddWithValue("username", txtUsername.Text);
-                        cmd.Parameters.AddWithValue("password", txtPassword.Text);
-                        cmd.ExecuteNonQuery();
-                        MessageBox.Show("You Account is created.", "Done",MessageBoxButton.OK, MessageBoxImage.Information);
+                        InsertData();
 
                     }
                 }
