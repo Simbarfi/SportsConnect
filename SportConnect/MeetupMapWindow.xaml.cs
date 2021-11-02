@@ -24,20 +24,26 @@ namespace SportConnect
         {
             InitializeComponent();
             MapBro.Source = new Uri(System.IO.Path.GetFullPath(MAPPATH));
+            MapBro.ObjectForScripting = this;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ProfileButtonOnClick(object sender, RoutedEventArgs e)
         {
             ProfilePage profile = new ProfilePage();
             profile.Show();
             Close();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ChatButtonOnClick(object sender, RoutedEventArgs e)
         {
             ChatPage chatPage = new ChatPage();
             chatPage.ShowDialog();
             Close();
+        }
+
+        public void CreateEvent(string msg)
+        {
+            MessageBox.Show(this, msg);
         }
     }
 }

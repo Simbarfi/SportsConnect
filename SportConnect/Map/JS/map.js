@@ -6,3 +6,14 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 	accessToken: 'pk.eyJ1IjoiYWJlbHQiLCJhIjoiY2t2aDVodHpzMmZzZjMxczFjbGgxZXM3dSJ9.kSVKQeL9NP2AICuS_dUAzA'
 }).addTo(myMap);
 
+var popup = L.popup();
+
+function onMapClick(e) {
+    window.external.CreateEvent(e.latlng);
+}
+
+myMap.on('click', onMapClick);
+
+var q = L.marker([44.0262, -88.5517]).addTo(myMap);
+var p = L.marker([44.0262, -88.5520]).addTo(myMap);
+

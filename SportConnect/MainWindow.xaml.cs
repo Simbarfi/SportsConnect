@@ -24,7 +24,6 @@ namespace SportConnect
         {
             InitializeComponent();
             //ProfilePage window1 = new();
-            new MeetupMapWindow().Show();
             //window1.Show();
 
         }
