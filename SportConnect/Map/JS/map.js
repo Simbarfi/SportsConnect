@@ -8,12 +8,26 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
 var popup = L.popup();
 
+var MapMarker = L.Marker.extend({
+	initialize: function (latlng) {
+		L.Marker.prototype.initialize.call(this, latlng);
+	},
+	click: function () {
+		L.Marker.prototype.click.call(this, latlng);
+		window.external.ViewEvent();
+	}
+});
+
 function onMapClick(e) {
-    window.external.CreateEvent(e.latlng);
+	var tempMarker = L.marker(e.latlng).addTo(myMap);
+	tempMarker.on('click', function () { window.external.ViewEvent() });
+	//var tm = new MapMarker(e.latlng);
+	window.external.CreateEvent(e.latlng);
+	tempMarker.removeFrom(myMap);
 }
 
-myMap.on('click', onMapClick);
 
-var q = L.marker([44.0262, -88.5517]).addTo(myMap);
-var p = L.marker([44.0262, -88.5520]).addTo(myMap);
+myMap.on('click', onMapClick); 
+
+
 
