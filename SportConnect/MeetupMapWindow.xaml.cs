@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
 namespace SportConnect
 {
     /// <summary>
@@ -19,12 +9,12 @@ namespace SportConnect
     /// </summary>
     public partial class MeetupMapWindow : Window
     {
-        private const string MAPPATH = "./Map/location.html";
+        private const string MAP_PATH = "./Map/location.html";
         public MeetupMapWindow()
         {
             InitializeComponent();
-            MapBro.Source = new Uri(System.IO.Path.GetFullPath(MAPPATH));
-            MapBro.ObjectForScripting = this;
+            MapBro.Source = new Uri(System.IO.Path.GetFullPath(MAP_PATH));
+            MapBro.ObjectForScripting = new MapInteraction(MapBro, this);
         }
 
         private void ProfileButtonOnClick(object sender, RoutedEventArgs e)
@@ -41,9 +31,6 @@ namespace SportConnect
             Close();
         }
 
-        public void CreateEvent(string msg)
-        {
-            MessageBox.Show(this, msg);
-        }
+        
     }
 }
