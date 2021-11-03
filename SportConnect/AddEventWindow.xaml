@@ -5,8 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SportConnect"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="800">
+        Title="Add Event" Height="450" Width="800">
     <Grid>
-        
+        <Label x:Name="ClueLab" Content="Event Name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18"/>
+        <TextBox x:Name="ClueText" HorizontalAlignment="Left" Margin="100,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" VerticalScrollBarVisibility="Auto" MaxLines="1"/>
+        <Label x:Name="AnswerLab" Content="Sport" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18"/>
+        <TextBox x:Name="AnswerText" HorizontalAlignment="Left" Margin="100,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" MaxLines="1"/>
+        <Label x:Name="DateLab" Content="Start" HorizontalAlignment="Left" Margin="10,116,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18"/>
+        <TextBox x:Name="DateText" HorizontalAlignment="Left" Margin="100,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" MaxLines="1"/>
+        <Label x:Name="DifficultyLab" Content="End" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18"/>
+        <TextBox x:Name="DifficultyText" HorizontalAlignment="Left" Margin="100,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" MaxLines="1" IsUndoEnabled="False"/>
+        <Label x:Name="MaxPlayersLab" Content="Max Players" HorizontalAlignment="Left" Margin="10,147,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18"/>
+        <TextBox x:Name="MaxPlayersText" HorizontalAlignment="Left" Margin="121,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" MaxLines="1" IsUndoEnabled="False"/>
+        <Label x:Name="SkillLevelLab" Content="Skill Level" HorizontalAlignment="Left" Margin="9,177,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18"/>
+        <TextBox x:Name="SkillLevelText" HorizontalAlignment="Left" Margin="116,189,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" MaxLines="1" IsUndoEnabled="False"/>
+        <Label x:Name="LocationLab" Content="Location" HorizontalAlignment="Left" Margin="9,208,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18"/>
+        <TextBox x:Name="LocationText" HorizontalAlignment="Left" Margin="116,221,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" MaxLines="1" IsUndoEnabled="False"/>
+        <Button x:Name="AddEntryBut" Content="Add Entry" HorizontalAlignment="Center" Margin="0,160,0,0" VerticalAlignment="Top" Height="30" Width="100" FontFamily="Times New Roman" FontSize="18" />
     </Grid>
 </Window>
