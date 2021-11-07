@@ -19,9 +19,20 @@ namespace SportConnect
     /// </summary>
     public partial class AddEventWindow : Window
     {
-        public AddEventWindow()
+        public Event NewEvent { get; set; }
+        public AddEventWindow(){}
+
+        private void AddEntryButOnClick(object sender, RoutedEventArgs e)
         {
-            InitializeComponent(); 
+            NewEvent = new Event(EventText.Text,
+                SportText.Text,
+                StartText.Text,
+                EndText.Text,
+                int.Parse(MaxPlayersText.Text),
+                SkillLevelText.Text,
+                LocationText.Text
+                );
+
         }
     }
 }

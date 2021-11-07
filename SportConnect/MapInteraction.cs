@@ -21,17 +21,15 @@ namespace SportConnect
         {
             AddEventWindow addWin = new AddEventWindow();
             addWin.Owner = parentWindow;
-            addWin.ShowDialog();
+            bool? didAddEvent = addWin.ShowDialog();
 
-            //try
-            //{
-            //    //browser.InvokeScript("AddEvent");
-            //}
-            //catch (COMException)
-            //{
+            if (didAddEvent.Value)
+            {
+                //Add the event to the db
+                return true; //Creates an event on the map
+            }
 
-            //}
-            return true;
+            return false;
         }
         public string[] ViewEvent()
         {
