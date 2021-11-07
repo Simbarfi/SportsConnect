@@ -9,8 +9,6 @@ function getMarker(latlng) {
 function onMapClick(e) {
 	var tempMarker = getMarker(e.latlng);
 	tempMarker.addTo(myMap);
-	//var tempMarker = L.marker(e.latlng).addTo(myMap);
-	//tempMarker.on('click', function () { window.external.ViewEvent() });
 	var res = window.external.CreateEvent(e.latlng);
 	if(!res)
 		tempMarker.removeFrom(myMap);
