@@ -2,6 +2,10 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Runtime.InteropServices;
+using System.Text.Json;
+using System.IO;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 namespace SportConnect
 {
@@ -17,7 +21,7 @@ namespace SportConnect
             parentWindow = win;
             browser = wb;
         }
-        public bool CreateEvent(string msg)
+        public string CreateEvent(string msg)
         {
             AddEventWindow addWin = new AddEventWindow();
             addWin.Owner = parentWindow;
@@ -26,12 +30,18 @@ namespace SportConnect
             if (didAddEvent.Value)
             {
                 //Add the event to the db
-                return true; //Creates an event on the map
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin),
+                    WriteIndented = true
+                };
+                string eventJson = JsonSerializer.Serialize(addWin.NewEvent, options);
+                return eventJson;
             }
 
-            return false;
+            return null;
         }
-        public string[] ViewEvent()
+        public string[] ViewEvent(double lat, double lng)
         {
             MessageBox.Show("Future Event Information Handling");
 

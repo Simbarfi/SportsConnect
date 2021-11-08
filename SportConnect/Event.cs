@@ -3,6 +3,7 @@ using System.Globalization;
 
 namespace SportConnect
 {
+    [Serializable]
     public class Event
     {
         public Event() { }
@@ -42,5 +43,7 @@ namespace SportConnect
         public int MaxPlayers { get; set; }
         public string SkillLevel { get; set; }
         public string Location { get; set; }
+
+        
     }
 }

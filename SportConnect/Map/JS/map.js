@@ -2,16 +2,28 @@ var myMap;
 
 function getMarker(latlng) {
 	var mark = L.marker(latlng);
-	mark.on('click', function () { window.external.ViewEvent() });
+	//mark.on('click', function () { window.external.ViewEvent() });
 	return mark;
 }
 
 function onMapClick(e) {
 	var tempMarker = getMarker(e.latlng);
 	tempMarker.addTo(myMap);
-	var res = window.external.CreateEvent(e.latlng);
-	if(!res)
+	var eventInfo = window.external.CreateEvent(e.latlng);
+	if (eventInfo) {
+		//eventInfo = JSON.parse(eventInfo);
+		/*var popupMessage = '<p>' + eventInfo.Name + '</p>' + 
+						   '<p>' + eventInfo.Sport + '</p>'
+						   '<p>' + eventInfo.Start + '  ' +  eventInfo.End + '</p>' + 
+						   '<p>' + eventInfo.MaxPlayers + '</p>' + 
+						   '<p>' + eventInfo.SkillLevel + '</p>' + 
+						   '<p>' + eventInfo.Location + '</p>';*/
+		//tempMarker.bindPopup(popupMessage);
+		tempMarker.bindPopup(eventInfo);
+	}
+	else {
 		tempMarker.removeFrom(myMap);
+	}
 }
 
 function CreateEvent() {

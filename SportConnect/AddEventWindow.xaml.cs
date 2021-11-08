@@ -20,7 +20,9 @@ namespace SportConnect
     public partial class AddEventWindow : Window
     {
         public Event NewEvent { get; set; }
-        public AddEventWindow(){}
+        public AddEventWindow(){
+            InitializeComponent();
+        }
 
         private void AddEntryButOnClick(object sender, RoutedEventArgs e)
         {
@@ -32,7 +34,8 @@ namespace SportConnect
                 SkillLevelText.Text,
                 LocationText.Text
                 );
-
+            DialogResult = true;
+            Close(); 
         }
     }
 }
