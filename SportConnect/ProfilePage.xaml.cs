@@ -19,20 +19,20 @@ namespace SportConnect
         private int user_Id = -1;
         private Window previousWindow;
 
-        public ProfilePage(int userId, Window previous)
+        public ProfilePage(int profileUserId, int currentUserId, Window previous)
         {
             //Depending on who views the profile page hide the edit profile button
             //Also Depending on profile viewed...pull their info
             previousWindow = previous;
-            user_Id = userId;
+            user_Id = profileUserId;
             InitializeComponent();
             InsertInfo(user_Id);
 
             //Cannot edit if not
-            if(userId != 1)
+            if(profileUserId != currentUserId)
             {
                 EditProfileButton.IsEnabled = false;
-                EditProfileButton.Opacity = '0';
+                EditProfileButton.Visibility = Visibility.Hidden;
             }
 
         }
@@ -54,7 +54,7 @@ namespace SportConnect
                 //Go to save info and check info
 
                 EditProfPic.IsEnabled = false;
-                EditProfPic.Opacity = 0;
+                EditProfPic.Opacity = 100;
                 BioDesc.IsEnabled = false;
                 EditProfileButton.Content = "Edit Profile";
 

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <None Remove="coverpage.jpg" />
+    <None Remove="editPencilImg.png" />
     <None Remove="UIcover.jpg" />
     <None Remove="User.png" />
   </ItemGroup>
@@ -19,6 +20,7 @@
 
   <ItemGroup>
     <Resource Include="coverpage.jpg" />
+    <Resource Include="editPencilImg.png" />
     <Resource Include="Images\chat.png" />
     <Resource Include="Images\profilepic.png" />
     <Resource Include="Images\temp_map.png" />

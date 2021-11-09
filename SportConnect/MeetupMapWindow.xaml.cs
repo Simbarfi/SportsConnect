@@ -19,7 +19,9 @@ namespace SportConnect
 
         private void ProfileButtonOnClick(object sender, RoutedEventArgs e)
         {
-            ProfilePage profile = new ProfilePage(1,this);
+            //Dalton- when calling profile page call in the order (the id of the profile your viewing, the id of the current user, this)
+            //Also make sure to only hide your window instead of close it. That way I can use the back button to reopen your window
+            ProfilePage profile = new ProfilePage(1,1,this);
             profile.Show();
             this.Hide();
         }
