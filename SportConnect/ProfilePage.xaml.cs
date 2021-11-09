@@ -17,11 +17,13 @@ namespace SportConnect
         private string connectionStringToDB =
             ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString;
         private int user_Id = -1;
+        private Window previousWindow;
 
-        public ProfilePage(int userId)
+        public ProfilePage(int userId, Window previous)
         {
             //Depending on who views the profile page hide the edit profile button
             //Also Depending on profile viewed...pull their info
+            previousWindow = previous;
             user_Id = userId;
             InitializeComponent();
             InsertInfo(user_Id);
@@ -107,6 +109,7 @@ namespace SportConnect
         {
             //MeetupMapWindow window = new();
             //window.Show();
+            previousWindow.Show();
             this.Close();
         }
 
