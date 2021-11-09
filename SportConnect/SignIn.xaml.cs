@@ -32,7 +32,7 @@ namespace SportConnect
         private MySqlConnection conexion()
         {
             return new MySqlConnection(connectionStringToDB);
-            //return new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\EE-LT-10033\Source\Repos\lab6.5\SportConnect\SportConnectDatabase.mdf;Integrated Security=True");
+           
         }
         private void Login_Click(object sender, RoutedEventArgs e)
         {
