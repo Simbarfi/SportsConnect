@@ -5,21 +5,90 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SportConnect"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Height="450" Width="800"
+        Background="#36393F"
+        WindowStyle="None"
+        AllowsTransparency="True">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-    <Grid Margin="10,10,10,21">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="800"/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <Label Content="SportConnect"
+               Foreground="Gray"
+               FontWeight="SemiBold"/>
+
+            <StackPanel HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                <Button Width="20" 
+                    Height="20"
+                    Content="_" 
+                    Background="Transparent" 
+                    BorderThickness="0" 
+                    Foreground="Gray" 
+                    FontWeight="Bold" 
+                    Margin="0,0,0,3"
+                    Click="Minimize_Click"/>
+
+                <Button Width="20" 
+                            Height="20" 
+                            Content="☐" 
+                            Background="Transparent"
+                            BorderThickness="0" 
+                            Foreground="Gray"
+                            FontWeight="Bold"
+                            Click="Maximize_Click"/>
+
+                <Button Width="20" 
+                            Height="20" 
+                            Content="✕" 
+                            Background="Transparent" 
+                            BorderThickness="0"
+                            Foreground="Gray" 
+                            FontWeight="Bold"
+                            Click="Close_Click"/>
+            </StackPanel>
+        </Grid>
+        <Grid Background="#2F3136"
+              Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <Label Content="SportConnect"
+                   HorizontalAlignment="Center"
+                   FontWeight="Medium"
+                   FontStyle="Italic"
+                   FontSize="35"
+                   Foreground="Gray"/>
+            <Image HorizontalAlignment="Left" Height="283" Margin="163,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="493" Source="/UIcover.jpg"/>
+            <Button Content="Login" HorizontalAlignment="Left" Margin="246,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="89" Height="40" Click="btnLoginUp"/>
+            <Button Content="Sign Up" HorizontalAlignment="Left" Margin="400,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="89" Height="40" Click="btnSignUp"/>
+
+        </Grid>
+
+
+    </Grid>
+
+
+    <!--<Grid Margin="10,10,10,21">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <Image Height="310" VerticalAlignment="Top" Stretch="Fill" Margin="157,80,157,0" Source="/UIcover.jpg"/>
         <Grid Margin="0,0,0,328">
-            <Button Content="SignUp" HorizontalAlignment="Left" Margin="696,0,0,0" VerticalAlignment="Center" Width="54" Click="Button_Click"/>
-            <Button Content="Login" HorizontalAlignment="Left" Margin="651,0,0,0" VerticalAlignment="Center" Width="40" Click="Button_Click_1"/>
             <Label Content="SportConnect" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" Height="56" Width="190"/>
 
         </Grid>
 
-    </Grid>
+    </Grid>-->
 
 </Window>

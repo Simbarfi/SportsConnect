@@ -23,7 +23,7 @@ namespace SportConnect
         public MainWindow()
         {
             InitializeComponent();
-            //ProfilePage window1 = new();
+            //MeetupMapWindow window1 = new();
             //window1.Show();
 
         }
@@ -40,16 +40,39 @@ namespace SportConnect
         }
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+        private void btnSignUp(object sender, RoutedEventArgs e)
         {
             RegistrationPage registration = new RegistrationPage();
             registration.Show();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void btnLoginUp(object sender, RoutedEventArgs e)
         {
             SignIn signIn = new SignIn();
             signIn.Show();
+        }
+
+        private void Minimize_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;
+        }
+
+        private void Maximize_Click(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current.MainWindow.WindowState != WindowState.Maximized)
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Maximized;
+            }
+            else
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Normal;
+            }
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }
