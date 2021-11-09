@@ -25,37 +25,66 @@ namespace SportConnect
         {
             InitializeComponent();
         }
-
-       
-
+        //MODIFIED
+        //insert data inot the database
+       private void InsertData() 
+       {
+            //MODIFIED
+            SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=
+               C:\Users\EE-LT-10033\Source\Repos\lab6.5\SportConnect\SportConnectDatabase.mdf;Integrated Security=True");
+            SqlCommand cmd;
+            //MODIFIED
+            cmd = new SqlCommand("ISERT INTO LoginTable VALUES(@username,@password)", connect);
+            cmd.Parameters.AddWithValue("username", txtUsername.Text);
+            cmd.Parameters.AddWithValue("password", txtPassword.Text);
+            cmd.ExecuteNonQuery();
+            MessageBox.Show("You Account is created.", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        //MODIFIED
+        //select data from database
+        private SqlCommand SelectData()
+        {
+            //MODIFIED
+            SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename
+            =C:\Users\EE-LT-10033\Source\Repos\lab6.5\SportConnect\SportConnectDatabase.mdf;Integrated Security=True");
+            //MODIFIED
+            return new SqlCommand("SELECT * FROM LoginTable WHERE username = '" + txtUsername.Text + "'", connect);
+        }
+        //MODIFIED
+        // check if the infomation inseted are correct
         private void BtnRegister_Click(object sender, RoutedEventArgs e)
         {
             SqlCommand cmd;
-            SqlConnection cn;
-            SqlDataReader dr;
-            cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\EE-LT-10033\Source\Repos\lab6.5\SportConnect\SportConnectDatabase.mdf;Integrated Security=True");
-            cn.Open();
+            //MODIFIED
+            SqlConnection connect;
+            //MODIFIED
+            SqlDataReader datareader;
+            //MODIFIED
+            connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=
+            C:\Users\EE-LT-10033\Source\Repos\lab6.5\SportConnect\SportConnectDatabase.mdf;Integrated Security=True");
+            connect.Open();
 
-
-            if (txtConfirmPassword.Text != string.Empty || txtPassword.Text != string.Empty || txtLastName.Text != string.Empty || txtFirstName.Text != string.Empty || txtEmail.Text != string.Empty)
+            //MODIFIED
+            if (txtConfirmPassword.Text != string.Empty || txtPassword.Text != string.Empty || 
+                txtLastName.Text != string.Empty || txtFirstName.Text != string.Empty || txtEmail.Text != string.Empty)
             {
                 if(txtPassword.Text == txtConfirmPassword.Text)
                 {
-                    cmd = new SqlCommand("select * from LoginTable where username = '" + txtUsername.Text + "'", cn);
-                    dr = cmd.ExecuteReader();
-                    if (dr.Read())
+                    cmd = SelectData();
+                    //MODIFIED
+                    datareader = cmd.ExecuteReader();
+                    //MODIFIED
+                    if (datareader.Read())
                     {
-                        dr.Close();
+                        //MODIFIED
+                        datareader.Close();
                         MessageBox.Show("Username Already exist please try another ", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else
                     {
-                        dr.Close();
-                        cmd = new SqlCommand("insert into LoginTable values(@username,@password)", cn);
-                        cmd.Parameters.AddWithValue("username", txtUsername.Text);
-                        cmd.Parameters.AddWithValue("password", txtPassword.Text);
-                        cmd.ExecuteNonQuery();
-                        MessageBox.Show("You Account is created.", "Done",MessageBoxButton.OK, MessageBoxImage.Information);
+                        //MODIFIED
+                        datareader.Close();
+                        InsertData();
 
                     }
                 }

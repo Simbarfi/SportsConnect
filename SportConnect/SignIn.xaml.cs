@@ -25,13 +25,17 @@ namespace SportConnect
             InitializeComponent();
         }
 
+        private SqlConnection conexion()
+        {
+            return new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\EE-LT-10033\Source\Repos\lab6.5\SportConnect\SportConnectDatabase.mdf;Integrated Security=True");
+        }
         private void Login_Click(object sender, RoutedEventArgs e)
         {
             SqlCommand cmd;
             SqlConnection cn;
             SqlDataReader dr;
 
-            cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\EE-LT-10033\Source\Repos\lab6.5\SportConnect\SportConnectDatabase.mdf;Integrated Security=True");
+            cn = conexion();
             cn.Open();
 
             if (txtUserName.Text != string.Empty || txtPassword.Text != string.Empty)
