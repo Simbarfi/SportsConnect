@@ -169,7 +169,8 @@ namespace SportConnect
                 "FROM AttendedEvents, Events " +
                 "WHERE user_id = " + userid + " " +
                 "AND AttendedEvents.event_id = Events.event_id " +
-                "AND Events.start_date > NOW()";
+                "AND Events.start_date > NOW()" + 
+                " ORDER BY Events.start_date ASC";
 
 
             connection.Open();
