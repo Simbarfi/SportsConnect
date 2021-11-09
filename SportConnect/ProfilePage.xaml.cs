@@ -54,7 +54,7 @@ namespace SportConnect
                 //Go to save info and check info
 
                 EditProfPic.IsEnabled = false;
-                EditProfPic.Opacity = 100;
+                EditProfPic.Opacity = 0;
                 BioDesc.IsEnabled = false;
                 EditProfileButton.Content = "Edit Profile";
 
@@ -183,10 +183,10 @@ namespace SportConnect
                 {
                     //for each event in reader2 add a listboxitem to upcomingEvents
 
-                    string eventStr = reader2["start_date"].ToString() + " " +
-                        reader2["max_players"].ToString() + " " +
-                        reader2["sport"].ToString() + " " +
-                        reader2["location"].ToString();
+                    string eventStr = "Start: " + reader2["start_date"].ToString() + "\n" +
+                        "Max Players: " + reader2["max_players"].ToString() + "\n" +
+                        "Sport: " + reader2["sport"].ToString() + "\n" +
+                        "Location: " + reader2["location"].ToString();
                     /**
                     MessageBox.Show(reader2["start_date"].ToString());
                     MessageBox.Show(reader2["max_players"].ToString());
