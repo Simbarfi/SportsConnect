@@ -19,9 +19,9 @@ namespace SportConnect
 
         private void ProfileButtonOnClick(object sender, RoutedEventArgs e)
         {
-            ProfilePage profile = new ProfilePage(1);
+            ProfilePage profile = new ProfilePage(1,this);
             profile.Show();
-            Close();
+            this.Hide();
         }
 
         private void ChatButtonOnClick(object sender, RoutedEventArgs e)
