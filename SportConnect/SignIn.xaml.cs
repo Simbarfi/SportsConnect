@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MySql.Data.MySqlClient;
+using System.Configuration;
 
 namespace SportConnect
 {
@@ -20,27 +22,30 @@ namespace SportConnect
     /// </summary>
     public partial class SignIn : Window
     {
+        private string connectionStringToDB =
+            ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString;
         public SignIn()
         {
             InitializeComponent();
         }
 
-        private SqlConnection conexion()
+        private MySqlConnection conexion()
         {
-            return new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\EE-LT-10033\Source\Repos\lab6.5\SportConnect\SportConnectDatabase.mdf;Integrated Security=True");
+            return new MySqlConnection(connectionStringToDB);
+            //return new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\EE-LT-10033\Source\Repos\lab6.5\SportConnect\SportConnectDatabase.mdf;Integrated Security=True");
         }
         private void Login_Click(object sender, RoutedEventArgs e)
         {
-            SqlCommand cmd;
-            SqlConnection cn;
-            SqlDataReader dr;
+            MySqlCommand cmd;
+            MySqlConnection cn;
+            MySqlDataReader dr;
 
             cn = conexion();
             cn.Open();
 
             if (txtUserName.Text != string.Empty || txtPassword.Text != string.Empty)
             {
-                cmd = new SqlCommand("select * from LoginTable where username='" + txtUserName.Text + "' and password='" + txtPassword.Text+"'", cn);
+                cmd = new MySqlCommand("select * from Users where email='" + txtUserName.Text + "' and password='" + txtPassword.Text+"'", cn);
                 dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {

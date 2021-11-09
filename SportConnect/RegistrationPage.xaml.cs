@@ -34,7 +34,7 @@ namespace SportConnect
                C:\Users\EE-LT-10033\Source\Repos\lab6.5\SportConnect\SportConnectDatabase.mdf;Integrated Security=True");
             SqlCommand cmd;
             //MODIFIED
-            cmd = new SqlCommand("ISERT INTO LoginTable VALUES(@username,@password)", connect);
+            cmd = new SqlCommand("INSERT INTO LoginTable VALUES(@username,@password)", connect);
             cmd.Parameters.AddWithValue("username", txtUsername.Text);
             cmd.Parameters.AddWithValue("password", txtPassword.Text);
             cmd.ExecuteNonQuery();

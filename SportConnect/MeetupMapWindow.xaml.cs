@@ -19,7 +19,7 @@ namespace SportConnect
 
         private void ProfileButtonOnClick(object sender, RoutedEventArgs e)
         {
-            ProfilePage profile = new ProfilePage();
+            ProfilePage profile = new ProfilePage(1);
             profile.Show();
             Close();
         }
