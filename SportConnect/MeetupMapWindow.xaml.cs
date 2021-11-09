@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace SportConnect
 {
     /// <summary>
@@ -26,7 +27,7 @@ namespace SportConnect
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ProfilePage profile = new ProfilePage();
+            ProfilePage profile = new ProfilePage(1);
             profile.Show();
         }
 

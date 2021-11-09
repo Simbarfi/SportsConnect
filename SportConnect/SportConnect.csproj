@@ -8,10 +8,12 @@
 
   <ItemGroup>
     <None Remove="coverpage.jpg" />
+    <None Remove="User.png" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="MySql.Data" Version="8.0.27" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +21,7 @@
     <Resource Include="Images\chat.png" />
     <Resource Include="Images\profilepic.png" />
     <Resource Include="Images\temp_map.png" />
+    <Resource Include="User.png" />
   </ItemGroup>
 
   <ItemGroup>
