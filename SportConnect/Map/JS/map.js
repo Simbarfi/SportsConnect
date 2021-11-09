@@ -11,15 +11,15 @@ function onMapClick(e) {
 	tempMarker.addTo(myMap);
 	var eventInfo = window.external.CreateEvent(e.latlng);
 	if (eventInfo) {
-		//eventInfo = JSON.parse(eventInfo);
-		/*var popupMessage = '<p>' + eventInfo.Name + '</p>' + 
-						   '<p>' + eventInfo.Sport + '</p>'
+		eventInfo = JSON.parse(eventInfo);
+		var popupMessage = '<p>' + eventInfo.Name + '</p>' + 
+						   '<p>' + eventInfo.Sport + '</p>' +
 						   '<p>' + eventInfo.Start + '  ' +  eventInfo.End + '</p>' + 
 						   '<p>' + eventInfo.MaxPlayers + '</p>' + 
 						   '<p>' + eventInfo.SkillLevel + '</p>' + 
-						   '<p>' + eventInfo.Location + '</p>';*/
-		//tempMarker.bindPopup(popupMessage);
-		tempMarker.bindPopup(eventInfo);
+						   '<p>' + eventInfo.Location + '</p>';
+		tempMarker.bindPopup(popupMessage);
+		//tempMarker.bindPopup(eventInfo);
 	}
 	else {
 		tempMarker.removeFrom(myMap);

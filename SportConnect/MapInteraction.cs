@@ -25,7 +25,7 @@ namespace SportConnect
         {
             AddEventWindow addWin = new AddEventWindow();
             addWin.Owner = parentWindow;
-            bool? didAddEvent = addWin.ShowDialog();
+            bool? didAddEvent = addWin.ShowDialog(); 
 
             if (didAddEvent.Value)
             {

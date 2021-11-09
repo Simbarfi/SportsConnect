@@ -5,19 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SportConnect"
         mc:Ignorable="d"
-        Title="Meetups" Height="498" Width="613">
+        Title="Meetups" Height="692" Width="613">
     <Grid Margin="10,10,10,21">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="499*"/>
         </Grid.ColumnDefinitions>
         <Grid Margin="0,0,0,375" Grid.ColumnSpan="2">
             <Image HorizontalAlignment="Left" Stretch="UniformToFill" Height="43" VerticalAlignment="Center" Width="47" Margin="10,0,0,0" Source="/profilepic.png" RenderTransformOrigin="0.596,0.488"/>
-            <Button Content="Chat" HorizontalAlignment="Left" Margin="521,0,0,0" VerticalAlignment="Center" Width="40" Click="ChatButtonOnClick"/>
-            <Button Content="Profile" HorizontalAlignment="Left" Margin="476,0,0,0" VerticalAlignment="Center" Width="40" Click="ProfileButtonOnClick"/>
+            <Button Content="Chat" HorizontalAlignment="Left" Margin="521,61,0,0" VerticalAlignment="Top" Width="40" Click="ChatButtonOnClick"/>
+            <Button Content="Profile" HorizontalAlignment="Left" Margin="476,61,0,0" VerticalAlignment="Top" Width="40" Click="ProfileButtonOnClick"/>
             <Label Content="SportConnect" FontSize="30" HorizontalAlignment="Left" Margin="159,8,0,0" VerticalAlignment="Top" Height="56" Width="190"/>
 
         </Grid>
-        <WebBrowser x:Name="MapBro" Margin="0,135,10,0"/>
+        <WebBrowser x:Name="MapBro" Margin="20,104,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
 
     </Grid>
 
