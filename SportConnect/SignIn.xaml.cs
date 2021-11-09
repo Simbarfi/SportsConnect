@@ -24,41 +24,45 @@ namespace SportConnect
     {
         private string connectionStringToDB =
             ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString;
+        DataConnection DT = new DataConnection();
         public SignIn()
         {
             InitializeComponent();
+            
         }
 
-        private MySqlConnection conexion()
-        {
-            return new MySqlConnection(connectionStringToDB);
+        //private MySqlConnection conexion()
+        //{
+        //    return new MySqlConnection(connectionStringToDB);
            
-        }
+        //}
         private void Login_Click(object sender, RoutedEventArgs e)
         {
             MySqlCommand cmd;
-            MySqlConnection cn;
+            //MySqlConnection cn;
             MySqlDataReader dr;
 
-            cn = conexion();
-            cn.Open();
+            //cn = conexion();
+            //cn.Open();
 
             if (txtUserName.Text != string.Empty || txtPassword.Text != string.Empty)
             {
-                cmd = new MySqlCommand("select * from Users where email='" + txtUserName.Text + "' and password='" + txtPassword.Text+"'", cn);
-                dr = cmd.ExecuteReader();
-                if (dr.Read())
-                {
-                    dr.Close();
+                cmd = DT.SelectUsers(txtUserName.Text, txtPassword.Text);
+
+                
+                //dr = cmd.ExecuteReader();
+                //if (dr.Read())
+                //{
+                    //dr.Close();
                     this.Hide();
                     MeetupMapWindow meetup = new MeetupMapWindow();
                     meetup.Show();
-                }
-                else
-                {
-                    dr.Close();
-                    MessageBox.Show("No Account available with this username and password ", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                //}
+                //else
+                //{
+                //    dr.Close();
+                //    MessageBox.Show("No Account available with this username and password ", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                //}
             }
             else
             {

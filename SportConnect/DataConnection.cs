@@ -10,6 +10,14 @@ namespace SportConnect
 {
    public class DataConnection
     {
+
+        public MySqlCommand SelectUsers(string email, string password)
+        {
+            MySqlConnection connectionStringToDB = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
+            MySqlCommand cmd = new MySqlCommand("select email, password from d6304c5_nasrir.Users where email='" + email + "' and password='" + password + "'", connectionStringToDB);
+            return cmd;
+        }
+
         public string InsertUserIntoDatabase(string FName, string LName, string Email, string Password, string bio, DateTime DOB, string image)
         {
             MySqlConnection connectionStringToDB = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
