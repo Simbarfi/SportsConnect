@@ -11,20 +11,22 @@ namespace SportConnect
    public class DataConnection
     {
 
-        public MySqlCommand SelectUsers(string email, string password)
+        public MySqlCommand SelectUsers(string username, string password)
         {
             MySqlConnection connectionStringToDB = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
-            MySqlCommand cmd = new MySqlCommand("select email, password from d6304c5_nasrir.Users where email='" + email + "' and password='" + password + "'", connectionStringToDB);
+            MySqlCommand cmd = new MySqlCommand("select user_name, password from d6304c5_nasrir.Users where user_name='" + username + "' and password='" + password + "'", connectionStringToDB);
             return cmd;
         }
 
-        public string InsertUserIntoDatabase(string FName, string LName, string Email, string Password, string bio, DateTime DOB, string image)
+        
+
+        public string InsertUserIntoDatabase(string Username, string FName, string LName, string Email, string Password, string bio, string DOB, string image)
         {
             MySqlConnection connectionStringToDB = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
 
             string query;
-            return query = "INSERT INTO d6304c5_Team3.Users (first_name, last_name, email, password, bio, DOB, image)" +
-                "values ('" + FName + "','" + LName + "','" + Email + "','" + Password + "', '" + bio + "', '" + DOB + "', '" + image + "');";
+            return query = "INSERT INTO d6304c5_Team3.Users (user_name, first_name, last_name, email, password, bio, DOB, image)" +
+                "values ('" + Username + "','" + FName + "','" + LName + "','" + Email + "','" + Password + "', '" + bio + "', '" + DOB + "', '" + image + "');";
         }
 
 
