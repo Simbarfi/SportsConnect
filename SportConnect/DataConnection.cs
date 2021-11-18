@@ -14,7 +14,7 @@ namespace SportConnect
         public MySqlCommand SelectUsers(string username, string password)
         {
             MySqlConnection connectionStringToDB = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
-            MySqlCommand cmd = new MySqlCommand("select user_name, password from d6304c5_nasrir.Users where user_name='" + username + "' and password='" + password + "'", connectionStringToDB);
+            MySqlCommand cmd = new MySqlCommand("select user_name, password from d6304c5_Team3.Users where user_name='" + username + "' and password='" + password + "'", connectionStringToDB);
             return cmd;
         }
 
