@@ -1,9 +1,11 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Configuration;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace SportConnect
 {
@@ -18,6 +20,7 @@ namespace SportConnect
             ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString;
         private int user_Id = -1;
         private Window previousWindow;
+        DataConnection db = new();
 
         public ProfilePage(int profileUserId, int currentUserId, Window previous)
         {
@@ -52,7 +55,6 @@ namespace SportConnect
             else if (EditProfileButton.Content.ToString() == "Save")
             {
                 //Go to save info and check info
-
                 EditProfPic.IsEnabled = false;
                 EditProfPic.Opacity = 0;
                 BioDesc.IsEnabled = false;
@@ -61,35 +63,47 @@ namespace SportConnect
                 if (checkValues())
                 {
                     //Update in sql
-
                     string bioString = BioDesc.Text.ToString();
-                    if (updateUser(bioString))
-                    {
-                        MessageBox.Show("SAVED");
-                    } else
+                    if (updateUser(bioString, ProfilePic.Source))
+                    {/**All Good**/} 
+                    else
                     {
                         MessageBox.Show("COULD NOT SAVE");
                     }
-
-
-
                 }
                 else
                 {
                     MessageBox.Show("Could not update your profile");
                 }
-
-
             }
-
         }
 
         private void EditProfPic_Click(object sender, RoutedEventArgs e)
         {
-            //Ask to upload a file
-            MessageBox.Show("Input valid image");
-            
-            //Put file into database as a blob
+            //Get An Image
+            string fileLocation = "";
+
+            // Create OpenFileDialog 
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            // Set filter for file extension and default file extension 
+            dlg.DefaultExt = ".png";
+            dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
+
+
+            // Display OpenFileDialog by calling ShowDialog method 
+            Nullable<bool> result = dlg.ShowDialog();
+
+
+            // Get the selected file name and display in a TextBox 
+            if (result == true)
+            {
+                // Open document 
+                string filename = dlg.FileName;
+                fileLocation = filename;
+                ProfilePic.Source = new BitmapImage(new Uri(fileLocation));
+            }
+
 
 
         }
@@ -115,8 +129,6 @@ namespace SportConnect
 
         private Boolean checkValues()
         {
-            //Image
-
             //Biography
             if (BioDesc.Text.Length > 1000)
             {
@@ -128,14 +140,10 @@ namespace SportConnect
 
         private void InsertInfo(int userid)
         {
-            string userQueryString = "SELECT first_name, last_name, image, bio " +
-                "FROM Users " +
-                "WHERE Users.user_id = " + userid;
 
             MySqlConnection connection = new MySqlConnection(connectionStringToDB);
             connection.Open();
-            MySqlCommand command = new MySqlCommand(userQueryString, connection);
-            
+            MySqlCommand command = new MySqlCommand(db.GetUserInfo(userid), connection);
             MySqlDataReader reader = command.ExecuteReader();
 
             try
@@ -149,32 +157,23 @@ namespace SportConnect
                     }
                     FirstLast.Content = reader["first_name"] + " " + reader["last_name"];
 
-                    if(reader["image"] != null)
+                    if (!(reader["image"].Equals(System.DBNull.Value)))
                     {
-                        
+                        //take blob and covert into source
+                        ProfilePic.Source = ConvertByteArrayToBitmapImage((byte[])reader["Image"]);
+
                     } else
                     {
-                        
+
                     }
                 }
             }
             finally
-            {
-                // Always call Close when done reading.
+            { 
                 reader.Close();
             }
-            connection.Close();
 
-            string upcomingEventString = "SELECT Events.start_date, Events.max_players, Events.sport, Events.location " +
-                "FROM AttendedEvents, Events " +
-                "WHERE user_id = " + userid + " " +
-                "AND AttendedEvents.event_id = Events.event_id " +
-                "AND Events.start_date > NOW()" + 
-                " ORDER BY Events.start_date ASC";
-
-
-            connection.Open();
-            MySqlCommand command2 = new MySqlCommand(upcomingEventString, connection);
+            MySqlCommand command2 = new MySqlCommand(db.getUpcomingEvents(user_Id), connection);
             MySqlDataReader reader2 = command2.ExecuteReader();
 
             try
@@ -205,20 +204,44 @@ namespace SportConnect
             
         }
 
-        private Boolean updateUser(string bio)
+        /**
+         * 
+         * Method takes user bio and updates in database.
+         * Returns boolean, true if successful
+         * 
+         **/
+        private Boolean updateUser(string bio, ImageSource imgsource)
         {
             MySqlConnection connection = new MySqlConnection(connectionStringToDB);
             connection.Open();
 
-            string updateStr = "UPDATE Users" +
-                " SET bio = '" + bio + "'" +
-                " WHERE user_id = " + user_Id;
+            //convert ImageSource into byte array
+            var bmp = imgsource as BitmapImage;
 
-            MySqlCommand command = new MySqlCommand(updateStr, connection);
+            int height = bmp.PixelHeight;
+            int width = bmp.PixelWidth;
+            int stride = width * ((bmp.Format.BitsPerPixel + 7) / 8);
+
+            byte[] bits = new byte[height * stride];
+            bmp.CopyPixels(bits, stride, 0);
+
+
+            MySqlCommand command = new MySqlCommand(db.UpdateUserBioInDatabase(user_Id,bio, bits), connection);
             int result = command.ExecuteNonQuery();
             return result == 1;
         }
 
-        
+        public static BitmapImage ConvertByteArrayToBitmapImage(Byte[] bytes)
+        {
+            var stream = new MemoryStream(bytes);
+            stream.Seek(0, SeekOrigin.Begin);
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.StreamSource = stream;
+            image.EndInit();
+            return image;
+        }
+
+
     }
 }

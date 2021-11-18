@@ -54,5 +54,27 @@ namespace SportConnect
             return query = "INSERT INTO d6304c5_Team3.AttendedEvents (att_event_id, user_id, event_id)" +
                 "values ('" + attEventId + "','" + UserId + "','" + Event_Id + "');";
         }
+
+        public string UpdateUserBioInDatabase(int user_Id, string bio, Byte[] img)
+        {
+            return "UPDATE Users SET bio = '" + bio + "', image = '" + img + "' WHERE user_id = " + user_Id;
+        }
+
+        public string getUpcomingEvents(int user_Id)
+        {
+            return "SELECT Events.start_date, Events.max_players, Events.sport, Events.location " +
+                "FROM AttendedEvents, Events " +
+                "WHERE user_id = " + user_Id + " " +
+                "AND AttendedEvents.event_id = Events.event_id " +
+                "AND Events.start_date > NOW()" +
+                " ORDER BY Events.start_date ASC";
+        }
+
+        public string GetUserInfo(int user_Id)
+        {
+            return "SELECT first_name, last_name, image, bio " +
+                "FROM Users " +
+                "WHERE Users.user_id = " + user_Id;
+        }
     }
 }
