@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 using System.Configuration;
+using System.Data;
 
 namespace SportConnect
 {
@@ -25,50 +26,43 @@ namespace SportConnect
         private string connectionStringToDB =
             ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString;
         DataConnection DT = new DataConnection();
+
+        BusinessLogic BL = new BusinessLogic();
         public SignIn()
         {
             InitializeComponent();
-            
+
         }
 
         //private MySqlConnection conexion()
         //{
         //    return new MySqlConnection(connectionStringToDB);
-           
+
         //}
         private void Login_Click(object sender, RoutedEventArgs e)
         {
-            MySqlCommand cmd;
-            //MySqlConnection cn;
-            MySqlDataReader dr;
-
-            //cn = conexion();
-            //cn.Open();
 
             if (txtUserName.Text != string.Empty || txtPassword.Text != string.Empty)
             {
-                cmd = DT.SelectUsers(txtUserName.Text, txtPassword.Text);
+                using (BL.selectForlogin(txtUserName.Text, txtPassword.Text))
+                {
+                    if (BL.selectForlogin(txtUserName.Text, txtPassword.Text).HasRows)
+                    {
 
-                
-                //dr = cmd.ExecuteReader();
-                //if (dr.Read())
-                //{
-                    //dr.Close();
-                    this.Hide();
-                    MeetupMapWindow meetup = new MeetupMapWindow();
-                    meetup.Show();
-                //}
-                //else
-                //{
-                //    dr.Close();
-                //    MessageBox.Show("No Account available with this username and password ", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                //}
+                        MeetupMapWindow meetup = new MeetupMapWindow();
+                        meetup.Show();
+
+                        //dr.close();
+                        MessageBox.Show("no account available with this username and password ", "error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please fill out all fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
+                    }
+                }
+
             }
-            else
-            {
-                MessageBox.Show("Please fill out all fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
-            }
-            
         }
     }
 }
