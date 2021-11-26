@@ -5,19 +5,82 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SportConnect"
         mc:Ignorable="d"
-        Title="Meetups" Height="692" Width="613">
-    <Grid Margin="10,10,10,21">
+        Title="Meetups" Height="650" Width="800"
+        WindowStyle="None"
+        Background="#36393F"
+        AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip"
+        >
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="499*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid Margin="0,0,0,375" Grid.ColumnSpan="2">
-            <Image HorizontalAlignment="Left" Stretch="UniformToFill" Height="43" VerticalAlignment="Center" Width="47" Margin="10,0,0,0" Source="/profilepic.png" RenderTransformOrigin="0.596,0.488"/>
-            <Button Content="Chat" HorizontalAlignment="Left" Margin="521,61,0,0" VerticalAlignment="Top" Width="40" Click="ChatButtonOnClick"/>
-            <Button Content="Profile" HorizontalAlignment="Left" Margin="476,61,0,0" VerticalAlignment="Top" Width="40" Click="ProfileButtonOnClick"/>
-            <Label Content="SportConnect" FontSize="30" HorizontalAlignment="Left" Margin="159,8,0,0" VerticalAlignment="Top" Height="56" Width="190"/>
+
+        <Border x:Name="WindowBor" Grid.ColumnSpan="3"
+                Background="#252520"
+                MouseDown="WindowBorMouseDown">
+
+            <Grid HorizontalAlignment="Stretch" >
+                <Label Content="SportConnect"
+                           Foreground="Gray"
+                           FontWeight="SemiBold"/>
+
+                <StackPanel HorizontalAlignment="Right"
+                            Orientation="Horizontal">
+                    <Button x:Name="MinimizeBut" Width="20" 
+                                Height="20" 
+                                Content="_" 
+                                Background="Transparent" 
+                                BorderThickness="0" 
+                                Foreground="Gray" 
+                                FontWeight="Bold" 
+                                Margin="0,0,0,3"
+                                Click="MinimizeButOnClick"/>
+
+                    <Button x:Name="MaximizeBut" Width="20" 
+                            Height="20" 
+                            Content="☐" 
+                            Background="Transparent"
+                            BorderThickness="0" 
+                            Foreground="Gray"
+                            FontWeight="Bold"
+                            Click="MaximizeButOnClick"/>
+
+                    <Button x:Name="CloseBut" Width="20" 
+                                Height="20" 
+                                Content="✕" 
+                                Background="Transparent" 
+                                BorderThickness="0"
+                                Foreground="Gray" 
+                                FontWeight="Bold"
+                                Click="CloseButOnClick"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid HorizontalAlignment="Stretch" Grid.ColumnSpan="3" Grid.Row="1">
+
+            <Label Content="SportConnect" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Top" Height="56" Width="190"/>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Content="Chat" HorizontalAlignment="Left" VerticalAlignment="Center" Width="40" Click="ChatButtonOnClick" Background="#FF6E6E60" BorderBrush="Black"/>
+                <Button Content="Profile" HorizontalAlignment="Left" VerticalAlignment="Center" Width="40" Click="ProfileButtonOnClick"/>
+            </StackPanel>
 
         </Grid>
-        <WebBrowser x:Name="MapBro" Margin="20,104,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
+        <WebBrowser x:Name="MapBro" 
+                    
+                    ScrollViewer.VerticalScrollBarVisibility="Hidden" 
+                    ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                    Grid.Row="2"
+                    Grid.ColumnSpan="3" Margin="10,8,10,10"/>
 
     </Grid>
 
