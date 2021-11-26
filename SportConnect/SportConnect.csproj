@@ -32,9 +32,6 @@
     <None Update="Map\CSS\location.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Map\CSS\main.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Map\JS\map.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
