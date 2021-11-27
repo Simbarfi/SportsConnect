@@ -48,20 +48,27 @@ namespace SportConnect
                 {
                     if (BL.selectForlogin(txtUserName.Text, txtPassword.Text).HasRows)
                     {
-
-                        MeetupMapWindow meetup = new MeetupMapWindow();
+                        MySqlDataReader userInfo = BL.selectForlogin(txtUserName.Text, txtPassword.Text);
+                        userInfo.Read();
+                        //On successful login create
+                        MeetupMapWindow meetup = new MeetupMapWindow(new User(Int16.Parse(userInfo["user_id"].ToString())));
                         meetup.Show();
 
                         //dr.close();
-                        MessageBox.Show("no account available with this username and password ", "error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        //MessageBox.Show("no account available with this username and password ", "error", MessageBoxButton.OK, MessageBoxImage.Error);
                     
                     }
                     else
                     {
-                        MessageBox.Show("Please fill out all fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
+                        MessageBox.Show("no account available with this username and password ", "error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        //MessageBox.Show("Please fill out all fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
                     }
                 }
 
+            } else
+            {
+                MessageBox.Show("Please fill out all fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
             }
         }
     }
