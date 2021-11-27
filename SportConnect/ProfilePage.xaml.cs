@@ -160,11 +160,11 @@ namespace SportConnect
                     if (!(reader["image"].Equals(System.DBNull.Value)))
                     {
                         //take blob and covert into source
-                        ProfilePic.Source = ConvertByteArrayToBitmapImage((byte[])reader["Image"]);
+                        //ProfilePic.Source = ConvertByteArrayToBitmapImage((byte[])reader["Image"]);
 
                     } else
                     {
-
+                        ProfilePic.Source = new BitmapImage( new Uri("User.png"));
                     }
                 }
             }
@@ -242,6 +242,14 @@ namespace SportConnect
             return image;
         }
 
-
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            // if no selection made in upcoming events
+            if(UpcomingEvents.SelectedItem != null)
+            {
+                object currentEvent = UpcomingEvents.SelectedItem;
+                MessageBox.Show(currentEvent.ToString());
+            }
+        }
     }
 }
