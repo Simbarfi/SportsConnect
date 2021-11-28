@@ -35,6 +35,7 @@ namespace SportConnect
         {
             await WebView.EnsureCoreWebView2Async(null);
             WebView.CoreWebView2.WebMessageReceived += RespondToEvent;
+            
         }
 
         private void RespondToEvent(object sender, CoreWebView2WebMessageReceivedEventArgs e)
@@ -73,12 +74,21 @@ namespace SportConnect
                 case WindowState.Normal:
                     ResizeMode = ResizeMode.NoResize;
                     WindowState = WindowState.Maximized;
+                    ResizeMap();
                     break;
                 case WindowState.Maximized:
                     ResizeMode = ResizeMode.CanResizeWithGrip;
                     WindowState = WindowState.Normal;
+                    ResizeMap();
                     break;
             }
+        }
+
+        private void ResizeMap()
+        {
+            WebView.CoreWebView2.ExecuteScriptAsync($"document.getElementById('mapid').style.height = '{WebView.ActualHeight}px';");
+            WebView.CoreWebView2.ExecuteScriptAsync($"document.getElementById('mapid').style.width = '{WebView.ActualWidth}px';");
+            WebView.CoreWebView2.ExecuteScriptAsync("myMap.invalidateSize(15);");
         }
 
         private void MinimizeButOnClick(object sender, RoutedEventArgs e)
