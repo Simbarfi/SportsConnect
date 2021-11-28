@@ -34,7 +34,7 @@ namespace SportConnect
 
         }
 
-        
+        User user = new User();
         DataConnection dc = new DataConnection();
         private void Login_Click(object sender, RoutedEventArgs e)
         {
@@ -45,7 +45,7 @@ namespace SportConnect
                 {
                     if (BL.selectForlogin(txtUserName.Text, txtPassword.Text).HasRows)
                     {
-                        MeetupMapWindow meetup = new MeetupMapWindow();
+                        MeetupMapWindow meetup = new MeetupMapWindow(user);
                         meetup.Show();
                     }
                     else
