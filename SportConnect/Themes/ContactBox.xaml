@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Style TargetType="TextBox" x:Key="MessageBox">
+    <Style TargetType="TextBox" x:Key="ContactBox">
         <Setter Property="Foreground" Value="Gray"/>
         <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="Margin" Value="8"/>
@@ -16,23 +16,23 @@
                             <TextBox VerticalAlignment="Stretch"
                                      VerticalContentAlignment="Center"
                                      HorizontalAlignment="Stretch"
-                                     x:Name="MessageBox"
+                                     x:Name="ContactBox"
                                      Background="Transparent"
                                      TextWrapping="Wrap"
                                      BorderThickness="0"
                                      Foreground="Gray"
                                      CaretBrush="Gray"
                                      Margin="8,0,0,0"
-                                     Text="{Binding Message, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                                     Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                                 <TextBox.InputBindings>
                                     <KeyBinding Command="{Binding SendMessageCommand}" Key="Return"/>
                                 </TextBox.InputBindings>
-                                
+
                             </TextBox>
 
                             <TextBlock IsHitTestVisible="False"
-                                       Text="Enter message"
+                                       Text="@Contacts"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Left"
                                        Margin="10,0,0,0"
@@ -42,13 +42,13 @@
                                     <Style TargetType="TextBlock">
                                         <Setter Property="Visibility" Value="Collapsed"/>
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Text, ElementName=MessageBox}" Value="">
+                                            <DataTrigger Binding="{Binding Text, ElementName=ContactBox}" Value="">
                                                 <Setter Property="Visibility" Value="Visible"/>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </TextBlock.Style>
-                                
+
                             </TextBlock>
                         </Grid>
                     </Border>
@@ -56,5 +56,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
 </ResourceDictionary>

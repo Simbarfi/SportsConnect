@@ -13,9 +13,11 @@ namespace SportConnect
     public partial class MeetupMapWindow : Window
     {
         private const string MAP_PATH = "./Map/location.html";
+        private User curUser;
         private MapInteraction mapInteract;
-        public MeetupMapWindow()
+        public MeetupMapWindow(User currentUser)
         {
+            curUser = currentUser; 
             InitializeComponent();
             //MapBro.Source = new Uri(System.IO.Path.GetFullPath(MAP_PATH));
             //MapBro.ObjectForScripting = new MapInteraction(MapBro, this);
@@ -52,7 +54,7 @@ namespace SportConnect
         {
             //Dalton- when calling profile page call in the order (the id of the profile your viewing, the id of the current user, this)
             //Also make sure to only hide your window instead of close it. That way I can use the back button to reopen your window
-            ProfilePage profile = new ProfilePage(1,1,this);
+            ProfilePage profile = new ProfilePage(curUser.UserId ,curUser.UserId,this);
             profile.Show();
             Hide();
         }
@@ -86,7 +88,7 @@ namespace SportConnect
 
         private void CloseButOnClick(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            this.Close();
         }
 
         private void WindowBorMouseDown(object sender, MouseButtonEventArgs e)

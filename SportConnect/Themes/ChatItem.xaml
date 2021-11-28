@@ -6,25 +6,17 @@
             <Setter.Value>
                 <ControlTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Ellipse Width="30" Height="30"
-                                 Margin="10,0,0,-5">
-                            <Ellipse.Fill>
-                                <ImageBrush ImageSource="{Binding ImageSource}"
-                                            RenderOptions.BitmapScalingMode="Fant"/>
-                            </Ellipse.Fill>
-                        </Ellipse>
 
                         <StackPanel>
 
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="{Binding Username}"
-                                   Foreground="{Binding UsernameColor}"
                                    FontWeight="SemiBold"
                                    VerticalAlignment="Center"
                                    Margin="0,0,-5,0"/>
 
                                 <Label Content="{Binding Time}"
-                                   Foreground="#44474D"
+                                   Foreground="White"
                                    FontWeight="SemiBold"
                                    FontSize="12"
                                    VerticalAlignment="Center"/>
@@ -37,9 +29,9 @@
                                    VerticalAlignment="Center"/>
                         </StackPanel>
 
-                        
-                        
-                        
+
+
+
                     </StackPanel>
                 </ControlTemplate>
             </Setter.Value>
@@ -57,10 +49,10 @@
         </Style.Resources>
 
         <Style.Triggers>
-            <DataTrigger Binding="{Binding FirstMessage}" Value="False">
+            <DataTrigger Binding="{Binding Messages}" Value="False">
                 <Setter Property="Template" Value="{StaticResource CustomRow}"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>
-    
+
 </ResourceDictionary>

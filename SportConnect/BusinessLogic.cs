@@ -17,19 +17,20 @@ namespace SportConnect
 
         public MySqlDataReader selectForlogin(string username, string password)
         {
+            MySqlDataReader dataReader;
             MySqlConnection connectionStringToDB = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
-            connectionStringToDB.Open();
-            MySqlCommand cmd = connectionStringToDB.CreateCommand();
-            cmd = dc.SelectUsers( username,  password);
+            
+            string query = dc.SelectUsers(username, password);
+            MySqlCommand cmd = new MySqlCommand(query, connectionStringToDB);
             cmd.Parameters.AddWithValue("@username", username);
             cmd.Parameters.AddWithValue("@password", password);
-
-            MySqlDataReader dataReader = cmd.ExecuteReader();
+            connectionStringToDB.Open();
+            dataReader = cmd.ExecuteReader();
             return dataReader;
 
         }
 
-        
+
 
         public bool InsertUser(string Username, string FName, string LName, string Email, string Password, string bio, string DOB, string image)
         {
@@ -41,17 +42,9 @@ namespace SportConnect
                 MySqlDataReader MyReader;
                 connectionStringToDB.Open();
                 MyReader = cmd.ExecuteReader();
-                
-
-                while (MyReader.Read())
-                {
-
-                }
                 connectionStringToDB.Close();
                 return true;
-
             }
-
             catch (Exception ex)
             {
 

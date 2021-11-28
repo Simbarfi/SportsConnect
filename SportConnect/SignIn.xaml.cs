@@ -34,11 +34,8 @@ namespace SportConnect
 
         }
 
-        //private MySqlConnection conexion()
-        //{
-        //    return new MySqlConnection(connectionStringToDB);
-
-        //}
+        User user = new User();
+        DataConnection dc = new DataConnection();
         private void Login_Click(object sender, RoutedEventArgs e)
         {
 
@@ -48,21 +45,41 @@ namespace SportConnect
                 {
                     if (BL.selectForlogin(txtUserName.Text, txtPassword.Text).HasRows)
                     {
-
-                        MeetupMapWindow meetup = new MeetupMapWindow();
+                        MeetupMapWindow meetup = new MeetupMapWindow(user);
                         meetup.Show();
-
-                        //dr.close();
-                        MessageBox.Show("no account available with this username and password ", "error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    
                     }
                     else
                     {
-                        MessageBox.Show("Please fill out all fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
+                        MessageBox.Show("no account available with this username and password ", "error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
-
             }
+            else
+            {
+                MessageBox.Show("Please fill out all fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
+            }
+        }
+
+        private void Minimize_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;
+        }
+
+        private void Maximize_Click(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current.MainWindow.WindowState != WindowState.Maximized)
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Maximized;
+            }
+            else
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Normal;
+            }
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

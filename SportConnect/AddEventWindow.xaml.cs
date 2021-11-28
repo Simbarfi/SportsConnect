@@ -37,5 +37,10 @@ namespace SportConnect
             DialogResult = true;
             Close(); 
         }
+
+        private void btnClose(object sender, RoutedEventArgs e)
+        {
+            this.Close(); 
+        }
     }
 }
