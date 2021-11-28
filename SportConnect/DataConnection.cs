@@ -11,10 +11,10 @@ namespace SportConnect
    public class DataConnection
     {
 
-        public MySqlCommand SelectUsers(string username, string password)
+        public MySqlCommand SelectUsers(string username, string password, MySqlConnection connectionStringToDB)
         {
-            MySqlConnection connectionStringToDB = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
-            MySqlCommand cmd = new MySqlCommand("select user_name, password from d6304c5_Team3.Users where user_name='" + username + "' and password='" + password + "'", connectionStringToDB);
+            //MySqlConnection connectionStringToDB = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
+            MySqlCommand cmd = new MySqlCommand("select * from d6304c5_Team3.Users where user_name='" + username + "' and password='" + password + "'", connectionStringToDB);
             return cmd;
         }
 
@@ -64,7 +64,7 @@ namespace SportConnect
 
         public string getUpcomingEvents(int user_Id)
         {
-            return "SELECT Events.start_date, Events.max_players, Events.sport, Events.location " +
+            return "SELECT Events.* " +
                 "FROM AttendedEvents, Events " +
                 "WHERE user_id = " + user_Id + " " +
                 "AND AttendedEvents.event_id = Events.event_id " +
