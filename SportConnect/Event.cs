@@ -40,7 +40,9 @@ namespace SportConnect
                     string end,
                     int maxPlayers,
                     string skill, 
-                    string location)
+                    string location,
+                    double latitude,
+                    double longitude)
         {
             Name = name;
             Sport = sport;
@@ -61,6 +63,8 @@ namespace SportConnect
             MaxPlayers = MaxPlayers;
             SkillLevel = skill;
             Location = location;
+            Latitude = latitude;
+            Longitude = longitude;
             
         }
         public int Id {get; set;}
@@ -73,5 +77,10 @@ namespace SportConnect
         public string Location { get; set; }
 
         public string DisplayString { get; set; }
+
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+
+
     }
 }
