@@ -1,137 +1,69 @@
 ﻿using SportConnect.Core;
 using SportConnect.MVVM.Model;
+using SportConnect.Net;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SportConnect.MVVM.ViewModel
 {
-    class ChatViewModel : OberservableObject
+    class MainViewModel
     {
-        public ObservableCollection<MessageModel> Messages { get; set; }
 
-        public ObservableCollection<ContactModel> Contacts { get; set; }
+        public ObservableCollection<UserModel> Users { get; set; }
+        public ObservableCollection<string> Messages { get; set; }
 
-        /* Commands */
-        public RelayCommand SendCommand { get; set; }
+        public RelayCommand ConnectToServerCommand { get; set; }
+        public RelayCommand SendMessageCommand { get; set; }
 
-        private ContactModel _selectedContact;
+        public string Username { get; set; }
+        public string Message { get; set; }
+        public string Sport { get; set; }
 
-
-        // 
-        public ContactModel SelectedContact
+        private Server _server;
+        public MainViewModel()
         {
-            get { return _selectedContact; }
-            set
-            {
-                _selectedContact = value;
-                OnPropertyChanged();
-            }
+            Users = new ObservableCollection<UserModel>();
+            Messages = new ObservableCollection<string>();
+            _server = new Server();
+            _server.connectedEvent += UserConnected;
+            _server.msgReceivedEvent += MessageReceived;
+            _server.userDisconnectedEvent += RemoveUser;
+            ConnectToServerCommand = new RelayCommand(o => _server.ConnectToServer(Username), o => !string.IsNullOrEmpty(Username));
+
+            SendMessageCommand = new RelayCommand(o => _server.SendMessageToServer(Message), o => !string.IsNullOrEmpty(Message));
         }
 
-
-
-        private string _message;
-
-        public string Message
+        private void RemoveUser()
         {
-            get { return _message; }
-            set
-            {
-                _message = value;
-                OnPropertyChanged();
-            }
+            var uid = _server.PacketReader.ReadMessage();
+            var user = Users.Where(x => x.UserId == uid).FirstOrDefault();
+            Application.Current.Dispatcher.Invoke(() => Users.Remove(user));
         }
 
-
-        public ChatViewModel()
+        private void MessageReceived()
         {
-            Messages = new ObservableCollection<MessageModel>();
-            Contacts = new ObservableCollection<ContactModel>();
 
-            SendCommand = new RelayCommand(o =>
+            var msg = _server.PacketReader.ReadMessage();
+            Application.Current.Dispatcher.Invoke(() => Messages.Add(msg));
+        }
+
+        private void UserConnected()
+        {
+            var user = new UserModel
             {
-                Messages.Add(new MessageModel
-                {
-                    Message = Message,
-                    FirstMessage = false
-                });
+                UserName = _server.PacketReader.ReadMessage(),
+                UserId = _server.PacketReader.ReadMessage(),
+            };
 
-                Message = "";
-            });
-
-            /*Example of chat that has taken place. 
-             * Will be replaced with real time chat 
-             * Message will get username, message 
-            */
-
-            Messages.Add(new MessageModel
+            if (!Users.Any(x => x.UserId == user.UserId))
             {
-                Username = "Soccer Event 10/21/24",
-                IsNativeOrigin = true,
-                FirstMessage = true
-            });
-
-            for (int i = 0; i < 1; i++)
-            {
-                Messages.Add(new MessageModel
-                {
-
-                    Username = "DragonFly35",
-                    UsernameColor = "#409aff",
-                    ImageSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOVU7QwAUz6IRXEorrT5Cn8tdnMLgSA6besg&usqp=CAU",
-                    Message = "I plan to go around 2pm",
-                    Time = DateTime.Now,
-                    IsNativeOrigin = false,
-                    FirstMessage = true
-                });
-                Messages.Add(new MessageModel
-                {
-                    Username = "RonaldoWooo",
-                    UsernameColor = "#409aff",
-                    ImageSource = "C:/Users/Sharad Ranpara/source/repos/TestChat/Zebra.jpg",
-                    Message = "Same here going at 2 for shooting practice",
-                    Time = DateTime.Now,
-                    IsNativeOrigin = false,
-                    FirstMessage = true
-                });
-                Messages.Add(new MessageModel
-                {
-                    Username = "Messi91",
-                    UsernameColor = "#409aff",
-                    ImageSource = "C:/Users/Sharad Ranpara/source/repos/TestChat/Lion.jpg",
-                    Message = "I may come a little late!",
-                    Time = DateTime.Now,
-                    IsNativeOrigin = false,
-                    FirstMessage = true
-                });
-                Messages.Add(new MessageModel
-                {
-                    Username = "BearStillSuck",
-                    UsernameColor = "#409aff",
-                    ImageSource = "C:/Users/Sharad Ranpara/source/repos/TestChat/lamborghini.jpg",
-                    Message = "What time is the game starting?",
-                    Time = DateTime.Now,
-                    IsNativeOrigin = false,
-                    FirstMessage = true
-                });
+                Application.Current.Dispatcher.Invoke(() => Users.Add(user));
             }
-
-
-            for (int i = 0; i < 5; i++)
-            {
-                /*This will show the title of the event with the chat details */
-                Contacts.Add(new ContactModel
-                {
-                    Username = $"Soccer Event 10/21/24{i}",
-                    ImageSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOVU7QwAUz6IRXEorrT5Cn8tdnMLgSA6besg&usqp=CAU",
-                    Messages = Messages
-                });
-            }
-
         }
     }
 }

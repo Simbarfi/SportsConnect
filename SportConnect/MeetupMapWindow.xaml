@@ -86,7 +86,8 @@
                     </LinearGradientBrush>
                 </Label.BorderBrush>
             </Label>
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Margin="691,0,0,0" Width="109">
+                <Button Content="Chat" Padding="auto" HorizontalAlignment="Left" VerticalAlignment="Center" Width="40" Click="ChatButtonOnClick" RenderTransformOrigin="-0.072,0.559"/>
                 <Button Content="Profile" Padding="auto" HorizontalAlignment="Left" VerticalAlignment="Center" Width="40" Click="ProfileButtonOnClick"/>
             </StackPanel>
 
