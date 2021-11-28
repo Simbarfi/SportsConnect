@@ -52,5 +52,34 @@ namespace SportConnect
                 return false;
             }
         }
+
+        //Trevor Abel
+        public bool InsertEvent(Event newEvent, User currUser)
+        {
+            string query = dc.InsertEventIntoDatabase(currUser.UserId,
+                newEvent.Name,
+                (float)newEvent.Latitude,
+                (float)newEvent.Longitude,
+                newEvent.Sport,
+                newEvent.Start,
+                newEvent.End,
+                newEvent.MaxPlayers,
+                newEvent.SkillLevel,
+                newEvent.Location);
+            try
+            {
+                MySqlConnection connectionStringToDB = new 
+                    MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
+                MySqlCommand cmd = new MySqlCommand(query, connectionStringToDB);
+                connectionStringToDB.Open();
+                int rowsAffected = cmd.ExecuteNonQuery();
+                connectionStringToDB.Close();
+                return rowsAffected == 1;
+            }
+            catch (MySqlException ex)
+            {
+            }
+            return false;
+        }
     }
 }
