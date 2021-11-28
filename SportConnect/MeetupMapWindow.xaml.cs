@@ -41,12 +41,13 @@ namespace SportConnect
         private void RespondToEvent(object sender, CoreWebView2WebMessageReceivedEventArgs e)
         {
             string response = e.TryGetWebMessageAsString();
-            string[] splitResponse = response.Split(',');
+            string[] splitResponse = response.Split('@');
             switch (splitResponse[0])
             {
-                case "CreateEvent": 
+                case "CreateEvent":
                     string eventDetails = mapInteract.CreateEvent(splitResponse[1]);
                     WebView.CoreWebView2.PostWebMessageAsString(eventDetails);
+                    WebView.CoreWebView2.ExecuteScriptAsync($"console.log({eventDetails})");
                     break;
             }
         }
@@ -98,7 +99,7 @@ namespace SportConnect
 
         private void CloseButOnClick(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void WindowBorMouseDown(object sender, MouseButtonEventArgs e)

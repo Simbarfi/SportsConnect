@@ -19,8 +19,11 @@ namespace SportConnect
             parentWindow = win;
         }
         public string CreateEvent(string msg)
-        {
-            AddEventWindow addWin = new AddEventWindow();
+        { //"LatLng(44.024483, -88.550062)"
+            double latitude = 0;
+            double longitude = 0;
+            GetLatLngFromMessage(ref latitude, ref longitude, msg);
+            AddEventWindow addWin = new AddEventWindow(latitude, longitude);
             addWin.Owner = parentWindow;
             bool? didAddEvent = addWin.ShowDialog(); 
 
@@ -38,16 +41,15 @@ namespace SportConnect
 
             return "";
         }
-        public string[] ViewEvent(double lat, double lng)
+        
+        private bool GetLatLngFromMessage(ref double lat, ref double lng, string msg)
         {
-            MessageBox.Show("Future Event Information Handling");
-
-            return null;
+            bool success = false;
+            string[] editedMessage = msg.Replace("LatLng(", "").Replace(')', ' ').Trim().Split(',');
+            success = double.TryParse(editedMessage[0], out lat);
+            success = double.TryParse(editedMessage[1], out lng);
+            return success;
         }
-
-        public void DisplayEvents()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
