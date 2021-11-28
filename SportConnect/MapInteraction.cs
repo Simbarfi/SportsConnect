@@ -13,13 +13,10 @@ namespace SportConnect
     public class MapInteraction
     {
         private Window parentWindow;
-        private WebBrowser browser;
 
-        public MapInteraction(WebBrowser wb,
-                              Window win)
+        public MapInteraction(Window win)
         {
             parentWindow = win;
-            browser = wb;
         }
         public string CreateEvent(string msg)
         {
@@ -39,7 +36,7 @@ namespace SportConnect
                 return eventJson;
             }
 
-            return null;
+            return "";
         }
         public string[] ViewEvent(double lat, double lng)
         {

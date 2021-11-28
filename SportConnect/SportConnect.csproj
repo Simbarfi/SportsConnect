@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1020.30" />
     <PackageReference Include="MySql.Data" Version="8.0.27" />
   </ItemGroup>
 
@@ -30,9 +31,6 @@
 
   <ItemGroup>
     <None Update="Map\CSS\location.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Map\CSS\main.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Map\JS\map.js">

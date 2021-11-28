@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using Microsoft.Web.WebView2.Core;
 
 namespace SportConnect
 {
@@ -12,13 +13,39 @@ namespace SportConnect
     public partial class MeetupMapWindow : Window
     {
         private const string MAP_PATH = "./Map/location.html";
+        private MapInteraction mapInteract;
         public MeetupMapWindow()
         {
             InitializeComponent();
-            MapBro.Source = new Uri(System.IO.Path.GetFullPath(MAP_PATH));
-            MapBro.ObjectForScripting = new MapInteraction(MapBro, this);
+            //MapBro.Source = new Uri(System.IO.Path.GetFullPath(MAP_PATH));
+            //MapBro.ObjectForScripting = new MapInteraction(MapBro, this);
             MaxHeight = SystemParameters.WorkArea.Height;
             MaxWidth = SystemParameters.WorkArea.Width;
+            WebView.Source = new Uri(System.IO.Path.GetFullPath(MAP_PATH));
+            InitializeAsync();
+            mapInteract = new MapInteraction(this);
+        }
+        /**
+         * Trevor Abel
+         * Ensure webview is intialized before starting and add responses to map inputs
+         */
+        async void InitializeAsync()
+        {
+            await WebView.EnsureCoreWebView2Async(null);
+            WebView.CoreWebView2.WebMessageReceived += RespondToEvent;
+        }
+
+        private void RespondToEvent(object sender, CoreWebView2WebMessageReceivedEventArgs e)
+        {
+            string response = e.TryGetWebMessageAsString();
+            string[] splitResponse = response.Split(',');
+            switch (splitResponse[0])
+            {
+                case "CreateEvent": 
+                    string eventDetails = mapInteract.CreateEvent(splitResponse[1]);
+                    WebView.CoreWebView2.PostWebMessageAsString(eventDetails);
+                    break;
+            }
         }
 
         private void ProfileButtonOnClick(object sender, RoutedEventArgs e)
