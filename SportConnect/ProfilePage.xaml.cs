@@ -262,7 +262,7 @@ namespace SportConnect
 
                 //I will send a user and event to the chat window and hide the 
                 ChatPage chat = new ChatPage();
-                //ChatPage chat = new ChatPage(user_Id, currentEvent, this);
+                //ChatPage chat = new ChatPage(user_Id,currentEvent, this);
                 chat.Show();
                 Hide();
             } 
