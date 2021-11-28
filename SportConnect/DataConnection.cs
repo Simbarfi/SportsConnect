@@ -28,15 +28,14 @@ namespace SportConnect
             return query = "INSERT INTO d6304c5_Team3.Users (user_name, first_name, last_name, email, password, bio, DOB, image)" +
                 "values ('" + Username + "','" + FName + "','" + LName + "','" + Email + "','" + Password + "', '" + bio + "', '" + DOB + "', '" + image + "');";
         }
-
+        
 
         public string InsertEventIntoDatabase(int owner, string eventName, float latitude, float longitude, string sport, DateTime startDate, DateTime endDate, int maxPlayers, string skillLevel, string location)
         {
             MySqlConnection connectionStringToDB = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
-
             string query;
             return query = "INSERT INTO d6304c5_Team3.Events (owner, event_name, latitude, longitude, sport, start_date, end_date, max_players, skill_level, location)" +
-                "values ('" + owner + "','" + eventName + "','" + latitude + "','" + longitude + "', '" + sport + "', '" + startDate + "', '" + endDate + "','" + maxPlayers + "','" + skillLevel + "','" + location + "');";
+                "values ('" + owner + "','" + eventName + "','" + latitude + "','" + longitude + "', '" + sport + "', '" + startDate.ToString("s") + "', '" + endDate.ToString("s") + "','" + maxPlayers + "','" + skillLevel + "','" + location + "');";
         }
 
         public string InsertChatIntoDatabase(int userID, string dataSent, string dataReceived, string messagelogs, string context)
