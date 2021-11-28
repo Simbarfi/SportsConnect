@@ -30,7 +30,7 @@ namespace SportConnect
 
         }
 
-        
+
 
         public bool InsertUser(string Username, string FName, string LName, string Email, string Password, string bio, string DOB, string image)
         {

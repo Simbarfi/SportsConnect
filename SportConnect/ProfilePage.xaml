@@ -21,10 +21,20 @@
         <Button Opacity="0" x:Name ="EditProfPic" HorizontalAlignment="Left" Height="45" Margin="97,10,0,0" VerticalAlignment="Top" Width="45" IsEnabled="False" Click="EditProfPic_Click" BorderBrush="{x:Null}">
             <Image Source="/editPencilImg.png" Height="34" Width="36"></Image>
         </Button>
-        <ListBox x:Name ="UpcomingEvents" HorizontalAlignment="Left" Height="277" Margin="460,143,0,0" VerticalAlignment="Top" Width="317" SelectionChanged="UpcomingEvents_SelectionChanged" Foreground="Black"/>
-        <Label Name="FirstLast" Content="First Last" HorizontalAlignment="Left" Margin="142,62,0,0" VerticalAlignment="Top" Width="247" Height="63" FontSize="37" FontWeight="Bold" Foreground="#FFF9F4F4"/>
+        <ListBox x:Name ="UpcomingEvents" HorizontalAlignment="Left" Height="277" Margin="460,143,0,0" VerticalAlignment="Top" Width="317" SelectionChanged="UpcomingEvents_SelectionChanged" Foreground="Black">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock Text="{Binding DisplayString}" FontSize="10" FontWeight="Bold" ></TextBlock>
+                        <Button Content="Leave Event"></Button>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+            <Label Name="FirstLast" Content="First Last" HorizontalAlignment="Left" Margin="142,62,0,0" VerticalAlignment="Top" Width="247" Height="63" FontSize="37" FontWeight="Bold" Foreground="#FFF9F4F4"/>
         <Button Content="Back" HorizontalAlignment="Left" Margin="731,13,0,0" VerticalAlignment="Top" Click="Back_Click_1" Height="23" Width="46"/>
-        <Label Name="EventHeader" Content="Upcoming Events" HorizontalAlignment="Left" Height="58" Margin="489,70,0,0" VerticalAlignment="Top" Width="259" FontSize="30" FontWeight="Bold" Foreground="White"/>
+        <Label Name="EventHeader" Content="Upcoming Events" HorizontalAlignment="Left" Height="58" Margin="460,72,0,0" VerticalAlignment="Top" Width="259" FontSize="30" FontWeight="Bold" Foreground="White"/>
+        <Button Content="Chat" HorizontalAlignment="Left" Height="24" Margin="724,92,0,0" VerticalAlignment="Top" Width="46" Click="openChat"/>
 
 
     </Grid>

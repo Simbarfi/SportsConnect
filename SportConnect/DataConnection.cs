@@ -64,7 +64,7 @@ namespace SportConnect
 
         public string getUpcomingEvents(int user_Id)
         {
-            return "SELECT Events.start_date, Events.max_players, Events.sport, Events.location " +
+            return "SELECT Events.* " +
                 "FROM AttendedEvents, Events " +
                 "WHERE user_id = " + user_Id + " " +
                 "AND AttendedEvents.event_id = Events.event_id " +

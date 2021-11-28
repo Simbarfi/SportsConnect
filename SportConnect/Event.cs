@@ -6,8 +6,35 @@ namespace SportConnect
     [Serializable]
     public class Event
     {
-        public Event() { }
-        public Event(string name,
+        public Event(int eventId,
+                    string name,
+                    string sport,
+                    string start,
+                    string end,
+                    int maxPlayers,
+                    string skill,
+                    string location) 
+        {
+            Name = name;
+            Sport = sport;
+            Start = DateTime.Parse(start);
+            End = DateTime.Parse(end);
+            MaxPlayers = maxPlayers;
+            SkillLevel = skill;
+            Location = location;
+            Id = eventId;
+
+            //How to set Display String
+            DisplayString = "Name: " + Name + "\n" +
+                            "Sport: " + Sport + "\n" +
+                            "Start: " + Start + "\n" +
+                            "End: " + End + "\n" +
+                            "Maximum Players: " + MaxPlayers + "\n" +
+                            "Skill Level: " + SkillLevel + "\n" +
+                            "Location: " + Location;
+        }
+        public Event(
+                    string name,
                     string sport,
                     string start,
                     string end,
@@ -34,6 +61,7 @@ namespace SportConnect
             MaxPlayers = MaxPlayers;
             SkillLevel = skill;
             Location = location;
+            
         }
         public int Id {get; set;}
         public string Name { get; set; }
@@ -44,6 +72,6 @@ namespace SportConnect
         public string SkillLevel { get; set; }
         public string Location { get; set; }
 
-        
+        public string DisplayString { get; set; }
     }
 }

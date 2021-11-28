@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Windows;
@@ -160,11 +161,11 @@ namespace SportConnect
                     if (!(reader["image"].Equals(System.DBNull.Value)))
                     {
                         //take blob and covert into source
-                        ProfilePic.Source = ConvertByteArrayToBitmapImage((byte[])reader["Image"]);
+                        //ProfilePic.Source = ConvertByteArrayToBitmapImage((byte[])reader["Image"]);
 
                     } else
                     {
-
+                        ProfilePic.Source = new BitmapImage( new Uri("User.png"));
                     }
                 }
             }
@@ -178,14 +179,22 @@ namespace SportConnect
 
             try
             {
+                List<Event> myList = new List<Event>(); 
                 while (reader2.Read())
                 {
                     //for each event in reader2 add a listboxitem to upcomingEvents
+                    //create an event class for each row
+                    Event currentEvent = new Event(Int16.Parse(reader2["event_id"].ToString()),
+                    reader2["event_name"].ToString(),
+                    reader2["sport"].ToString(),
+                    reader2["start_date"].ToString(),
+                    reader2["end_date"].ToString(),
+                    Int16.Parse(reader2["max_players"].ToString()),
+                    reader2["skill_level"].ToString(),
+                    reader2["location"].ToString());
 
-                    string eventStr = "Start: " + reader2["start_date"].ToString() + "\n" +
-                        "Max Players: " + reader2["max_players"].ToString() + "\n" +
-                        "Sport: " + reader2["sport"].ToString() + "\n" +
-                        "Location: " + reader2["location"].ToString();
+                    myList.Add(currentEvent);
+
                     /**
                     MessageBox.Show(reader2["start_date"].ToString());
                     MessageBox.Show(reader2["max_players"].ToString());
@@ -193,8 +202,9 @@ namespace SportConnect
                     MessageBox.Show(reader2["location"].ToString());
                     **/
                     
-                    UpcomingEvents.Items.Add(eventStr);
+                    
                 }
+                UpcomingEvents.ItemsSource = myList;
             }
             finally
             {
@@ -242,6 +252,23 @@ namespace SportConnect
             return image;
         }
 
+        private void openChat(object sender, RoutedEventArgs e)
+        {
+            // if no selection made in upcoming events
+            if(UpcomingEvents.SelectedItem != null)
+            {
+                Event currentEvent = (Event)UpcomingEvents.SelectedItem;
+                MessageBox.Show(currentEvent.Name);
 
+                //I will send a user and event to the chat window and hide the 
+                ChatPage chat = new ChatPage();
+                //ChatPage chat = new ChatPage(user_Id,currentEvent, this);
+                chat.Show();
+                Hide();
+            } 
+            else{
+                MessageBox.Show("Select An Event");
+            }
+        }
     }
 }
