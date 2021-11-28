@@ -10,7 +10,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
                     <Border CornerRadius="8"
-                            Background="#3e4147">
+                            Background="#FF422F2F">
 
                         <Grid>
                             <TextBox VerticalAlignment="Stretch"
@@ -26,13 +26,13 @@
                                      Text="{Binding Message, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
 
                                 <TextBox.InputBindings>
-                                    <KeyBinding Command="{Binding SendCommand}" Key="Return"/>
+                                    <KeyBinding Command="{Binding SendMessageCommand}" Key="Return"/>
                                 </TextBox.InputBindings>
                                 
                             </TextBox>
 
                             <TextBlock IsHitTestVisible="False"
-                                       Text="@Message"
+                                       Text="Enter message"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Left"
                                        Margin="10,0,0,0"

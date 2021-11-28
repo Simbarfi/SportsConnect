@@ -61,7 +61,7 @@ namespace SportConnect
 
         private void CloseButOnClick(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            this.Close();
         }
 
         private void WindowBorMouseDown(object sender, MouseButtonEventArgs e)

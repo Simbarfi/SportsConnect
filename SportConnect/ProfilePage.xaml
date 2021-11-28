@@ -15,10 +15,17 @@
             <RowDefinition/>
             <RowDefinition Height="0*"/>
         </Grid.RowDefinitions>
+        
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black"/>
+                <GradientStop Color="#FF6C3939" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Image x:Name="ProfilePic"  IsEnabled="False" Source="/User.png" Margin="10,6,0,0" Height="138" VerticalAlignment="Top" HorizontalAlignment="Left" Width="132"/>
-        <Button x:Name="EditProfileButton" Content="Edit Profile" HorizontalAlignment="Left" Margin="639,15,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click" Height="20"/>
+        <Button x:Name="EditProfileButton" Style="{DynamicResource RoundedButtonStyle}" Content="Edit Profile" HorizontalAlignment="Left" Margin="639,15,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click" Height="20"/>
         <TextBox Name="BioDesc" Foreground="black" AcceptsReturn="True" HorizontalAlignment="Left" Height="277" Margin="20,143,0,0" Text="Insert Bio Here" TextWrapping="Wrap" VerticalAlignment="Top" Width="417" TextChanged="TextBox_TextChanged_1" IsEnabled="False" RenderTransformOrigin="0.5,0.5" Background="White" FontSize="14"/>
-        <Button Opacity="0" x:Name ="EditProfPic" HorizontalAlignment="Left" Height="45" Margin="97,10,0,0" VerticalAlignment="Top" Width="45" IsEnabled="False" Click="EditProfPic_Click" BorderBrush="{x:Null}">
+        <Button Opacity="0" x:Name ="EditProfPic" Style="{DynamicResource RoundedButtonStyle}" HorizontalAlignment="Left" Height="45" Margin="97,10,0,0" VerticalAlignment="Top" Width="45" IsEnabled="False" Click="EditProfPic_Click" BorderBrush="{x:Null}">
             <Image Source="/editPencilImg.png" Height="34" Width="36"></Image>
         </Button>
         <ListBox x:Name ="UpcomingEvents" HorizontalAlignment="Left" Height="277" Margin="460,143,0,0" VerticalAlignment="Top" Width="317" SelectionChanged="UpcomingEvents_SelectionChanged" Foreground="Black">
@@ -26,15 +33,15 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" >
                         <TextBlock Text="{Binding DisplayString}" FontSize="10" FontWeight="Bold" ></TextBlock>
-                        <Button Content="Leave Event"></Button>
+                        <Button Content="Leave Event" Style="{DynamicResource RoundedButtonStyle}"></Button>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
             <Label Name="FirstLast" Content="First Last" HorizontalAlignment="Left" Margin="142,62,0,0" VerticalAlignment="Top" Width="247" Height="63" FontSize="37" FontWeight="Bold" Foreground="#FFF9F4F4"/>
-        <Button Content="Back" HorizontalAlignment="Left" Margin="731,13,0,0" VerticalAlignment="Top" Click="Back_Click_1" Height="23" Width="46"/>
+        <Button Content="Back" Style="{DynamicResource RoundedButtonStyle}" HorizontalAlignment="Left" Margin="731,13,0,0" VerticalAlignment="Top" Click="Back_Click_1" Height="23" Width="46"/>
         <Label Name="EventHeader" Content="Upcoming Events" HorizontalAlignment="Left" Height="58" Margin="460,72,0,0" VerticalAlignment="Top" Width="259" FontSize="30" FontWeight="Bold" Foreground="White"/>
-        <Button Content="Chat" HorizontalAlignment="Left" Height="24" Margin="724,92,0,0" VerticalAlignment="Top" Width="46" Click="openChat"/>
+        <Button Content="Chat" Style="{DynamicResource RoundedButtonStyle}" HorizontalAlignment="Left" Height="24" Margin="724,92,0,0" VerticalAlignment="Top" Width="46" Click="openChat"/>
 
 
     </Grid>

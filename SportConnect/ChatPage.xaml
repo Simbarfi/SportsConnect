@@ -20,6 +20,12 @@
             <RowDefinition Height="25"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black"/>
+                <GradientStop Color="#FF6C3939" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="276"/>
@@ -69,13 +75,19 @@
 
         </Border>
 
-        <Grid Background="#2F3136"
+        <Grid 
               Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFD6A5A5" Offset="1"/>
+                    <GradientStop Color="#FF6C3939" Offset="0.655"/>
+                </LinearGradientBrush>
+            </Grid.Background>
 
             <TextBox Height="25"
                      Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
@@ -88,19 +100,23 @@
                     Grid.RowSpan="2"
                     Background="Transparent" 
                     BorderThickness="0" 
-                    Foreground="Gray" 
+                    Foreground="White" 
                     FontWeight="Bold"
-                    Command="{Binding ConnectToServerCommand}"/>
+                    Command="{Binding ConnectToServerCommand}"
+                    Style="{DynamicResource RoundedButtonStyle}"/>
 
             <!--Might Want to change that to EmailID of people in an event-->
             <ListView ItemsSource="{Binding Users}"
+                      SelectedItem="{StaticResource ContactCard}"
                       Background="Transparent"
-                      Foreground="White"
                       BorderThickness="0"
-                      Grid.Row="1" Margin="0,40,0,0">
+                      Grid.Row="1" Margin="0,40,0,0"
+                      ItemContainerStyle="{StaticResource ContactCard}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding UserName}"/>
+                        <TextBlock Text="{Binding UserName}" 
+                                   Background="Transparent" 
+                                   Foreground="White" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
 
@@ -108,7 +124,7 @@
 
             <StackPanel Grid.Row="2"
                         Orientation="Horizontal"
-                        Background="#292B2F">
+                        Background="#FF6C3939">
 
                 <Border CornerRadius="25"
                         Width="30" Height="30"
@@ -135,12 +151,14 @@
                 <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
 
+
             <Border BorderBrush="#2F3136"
                     BorderThickness="0,0,0,2">
                 <Grid HorizontalAlignment="Stretch"
                       Margin="8">
 
-                    <Label Content="{Binding Sport }"
+                    <Label Content="Event Name: {Binding Sport }"
+                           Background="#FF422F2F"
                            Foreground="White"
                            FontWeight="Bold"
                            Margin="5,0,5,0"
@@ -154,9 +172,9 @@
                       Foreground="White"
                       BorderThickness="0"
                       Margin="8,0,0,0"
-                      Grid.Row="1">
+                      Grid.Row="1"/>
 
-            </ListView>
+
 
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
@@ -166,7 +184,7 @@
 
                 <TextBox Grid.Row="1"
                          Height="50"
-                         Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}"
+                         Text="Message @UserName"
                          Style="{StaticResource MessageBox}"
                          Grid.ColumnSpan="2"/>
 
@@ -174,18 +192,20 @@
                             HorizontalAlignment="Right"
                             Grid.Column="1"
                             Margin="0,0,16,0">
-                    <Button Name="btnSend" 
-                            Command="{Binding SendMessageCommand}" 
-                            Foreground="Transparent"
-                            Background="Transparent"
-                            Height="33" Visibility="Visible">
-                        <Border CornerRadius="50" Background="Transparent">
-                            <Image Source="/send.png" Cursor="ArrowCD" Width="27"/>
+                    <Border CornerRadius="50" Background="Transparent">
+                        <Image Source="/send.png"
+                                   Width="33"
+                                   RenderOptions.BitmapScalingMode="Fant" Height="30">
+                            <Image.OpacityMask>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFDC7628"/>
+                                    <GradientStop Color="#FFC51AA1" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Image.OpacityMask>
+                        </Image>
 
-                        </Border>
+                    </Border>
 
-
-                    </Button>
 
 
                 </StackPanel>

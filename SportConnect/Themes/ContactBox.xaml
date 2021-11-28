@@ -10,7 +10,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
                     <Border CornerRadius="8"
-                            Background="#3e4147">
+                            Background="#FF422F2F">
 
                         <Grid>
                             <TextBox VerticalAlignment="Stretch"

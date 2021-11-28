@@ -5,7 +5,7 @@
     <Style TargetType="ListViewItem" x:Key="ContactCard">
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="Beige"/>
+                <Setter Property="Background" Value="SlateGray"/>
             </Trigger>
         </Style.Triggers>
 
@@ -24,16 +24,13 @@
 
                             <Ellipse Width="30" Height="30">
                                 <Ellipse.Fill>
-                                    <ImageBrush ImageSource="{Binding ImageSource}"/>
+                                    <ImageBrush ImageSource="{Binding Image}"/>
                                 </Ellipse.Fill>
                             </Ellipse>
 
                             <StackPanel>
-                                <Label Content="{Binding Username}"
+                                <Label Content="{Binding UserName}"
                                        Foreground="White"/>
-                                <Label Content="{Binding LastMessage}"
-                                       Foreground="Gray"
-                                       FontSize="10"/>
                             </StackPanel>
 
                         </StackPanel>

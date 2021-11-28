@@ -5,8 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SportConnect"
         mc:Ignorable="d"
-        Title="SignIn" Height="465" Width="460">
+        Title="SignIn" Height="465" Width="460"
+        Background="#36393F"
+        WindowStyle="None"
+        AllowsTransparency="True">
+
     <Grid Margin="0,0,0,-16" >
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black"/>
+                <GradientStop Color="#FF6C3939" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
@@ -16,11 +26,48 @@
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
         <Grid Margin="10,0,10,353">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="83*"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <StackPanel HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <Button Width="20" 
+                    Height="20"
+                    Content="_" 
+                    Background="Transparent" 
+                    BorderThickness="0" 
+                    Foreground="Gray" 
+                    FontWeight="Bold" 
+                    Margin="0,0,0,3"
+                    Click="Minimize_Click"/>
+
+                    <Button Width="20" 
+                            Height="20" 
+                            Content="☐" 
+                            Background="Transparent"
+                            BorderThickness="0" 
+                            Foreground="Gray"
+                            FontWeight="Bold"
+                            Click="Maximize_Click"/>
+
+                    <Button Width="20" 
+                            Height="20" 
+                            Content="✕" 
+                            Background="Transparent" 
+                            BorderThickness="0"
+                            Foreground="Gray" 
+                            FontWeight="Bold"
+                            Click="Close_Click"/>
+                </StackPanel>
+            </Grid>
+
             <Label Content="SportConnect"
                    HorizontalAlignment="Center"
                    FontWeight="Normal"
                    FontStyle="Italic"
-                   FontSize="35" FontFamily="Jokerman" OpacityMask="#FF02FF01">
+                   FontSize="35" FontFamily="Jokerman" OpacityMask="#FF02FF01" Grid.Row="1">
                 <Label.Foreground>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FFDC7628" Offset="0.267"/>
@@ -36,11 +83,11 @@
             </Label>
         </Grid>
         <Grid Margin="40,92,40,10">
-            <Label Content="Username" Height="34" HorizontalAlignment="Left" Margin="10,144,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Width="90"/>
+            <Label Content="Username:" Height="34" HorizontalAlignment="Left" Foreground="WhiteSmoke" Margin="10,144,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Width="90"/>
             <TextBox x:Name="txtUserName" Margin="88,144,88,0" Height="24" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <Label Content="Password" Margin="10,190,0,0" Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90" FontSize="14" FontWeight="Bold"/>
+            <Label Content="Password:" Margin="10,190,0,0" Height="34" VerticalAlignment="Top" Foreground="WhiteSmoke" HorizontalAlignment="Left" Width="90" FontSize="14" FontWeight="Bold"/>
             <TextBox x:Name="txtPassword" Margin="88,195,88,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="24"/>
-            <Button Content="Login" Margin="150,255,150,0" VerticalAlignment="Top" Click="Login_Click" Height="30" FontSize="14"/>
+            <Button Content="Login" Style="{DynamicResource RoundedButtonStyle}" Margin="150,255,150,0" VerticalAlignment="Top" Click="Login_Click" Height="30" FontSize="14"/>
             <Image Height="92" Margin="133,10,133,0" VerticalAlignment="Top" Source="/User.png" Stretch="Uniform"/>
         </Grid>
     </Grid>
