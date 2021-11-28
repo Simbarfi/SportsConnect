@@ -34,11 +34,8 @@ namespace SportConnect
 
         }
 
-        //private MySqlConnection conexion()
-        //{
-        //    return new MySqlConnection(connectionStringToDB);
-
-        //}
+        User user = new User();
+        DataConnection dc = new DataConnection();
         private void Login_Click(object sender, RoutedEventArgs e)
         {
 
@@ -48,25 +45,16 @@ namespace SportConnect
                 {
                     if (BL.selectForlogin(txtUserName.Text, txtPassword.Text).HasRows)
                     {
-                        MySqlDataReader userInfo = BL.selectForlogin(txtUserName.Text, txtPassword.Text);
-                        userInfo.Read();
-                        //On successful login create
-                        MeetupMapWindow meetup = new MeetupMapWindow(new User(Int16.Parse(userInfo["user_id"].ToString())));
+                        MeetupMapWindow meetup = new MeetupMapWindow(user);
                         meetup.Show();
-
-                        //dr.close();
-                        //MessageBox.Show("no account available with this username and password ", "error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    
                     }
                     else
                     {
                         MessageBox.Show("no account available with this username and password ", "error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                        //MessageBox.Show("Please fill out all fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
                     }
                 }
-
-            } else
+            }
+            else
             {
                 MessageBox.Show("Please fill out all fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
             }

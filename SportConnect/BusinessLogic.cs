@@ -17,26 +17,15 @@ namespace SportConnect
 
         public MySqlDataReader selectForlogin(string username, string password)
         {
+            MySqlDataReader dataReader;
             MySqlConnection connectionStringToDB = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
-            connectionStringToDB.Open();
-            MySqlCommand cmd = dc.SelectUsers( username,  password, connectionStringToDB);
+            
+            string query = dc.SelectUsers(username, password);
+            MySqlCommand cmd = new MySqlCommand(query, connectionStringToDB);
             cmd.Parameters.AddWithValue("@username", username);
             cmd.Parameters.AddWithValue("@password", password);
-
-            MySqlDataReader dataReader = cmd.ExecuteReader();
-            return dataReader;
-
-        }
-
-        public MySqlDataReader createCurrent(string username, string password)
-        {
-            MySqlConnection connectionStringToDB = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
             connectionStringToDB.Open();
-            MySqlCommand cmd = dc.SelectUsers(username, password, connectionStringToDB);
-            cmd.Parameters.AddWithValue("@username", username);
-            cmd.Parameters.AddWithValue("@password", password);
-
-            MySqlDataReader dataReader = cmd.ExecuteReader();
+            dataReader = cmd.ExecuteReader();
             return dataReader;
 
         }
@@ -53,17 +42,9 @@ namespace SportConnect
                 MySqlDataReader MyReader;
                 connectionStringToDB.Open();
                 MyReader = cmd.ExecuteReader();
-                
-
-                while (MyReader.Read())
-                {
-
-                }
                 connectionStringToDB.Close();
                 return true;
-
             }
-
             catch (Exception ex)
             {
 
