@@ -57,15 +57,15 @@ namespace SportConnect
         public bool InsertEvent(Event newEvent, User currUser)
         {
             string query = dc.InsertEventIntoDatabase(currUser.UserId,
-                newEvent.Name,
-                (float)newEvent.Latitude,
-                (float)newEvent.Longitude,
-                newEvent.Sport,
-                newEvent.Start,
-                newEvent.End,
-                newEvent.MaxPlayers,
-                newEvent.SkillLevel,
-                newEvent.Location);
+                                newEvent.Name,
+                                (float)newEvent.Latitude,
+                                (float)newEvent.Longitude,
+                                newEvent.Sport,
+                                newEvent.Start,
+                                newEvent.End,
+                                newEvent.MaxPlayers,
+                                newEvent.SkillLevel,
+                                newEvent.Location);
             try
             {
                 MySqlConnection connectionStringToDB = new 
@@ -81,5 +81,12 @@ namespace SportConnect
             }
             return false;
         }
+        //Trevor Abel
+        public List<Event> GetAllEvents()
+        {
+            return null;
+        }
     }
+
+    
 }

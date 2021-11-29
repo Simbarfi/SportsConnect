@@ -6,30 +6,32 @@ using System.Text.Json;
 using System.IO;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
+using System.Configuration;
 
 namespace SportConnect
 {
     [ComVisible(true)]
     public class MapInteraction
     {
-        private Window parentWindow;
+        private MeetupMapWindow parentWindow;
 
-        public MapInteraction(Window win)
+        public MapInteraction(MeetupMapWindow win)
         {
             parentWindow = win;
         }
         public string CreateEvent(string msg)
-        { //"LatLng(44.024483, -88.550062)"
+        { 
             double latitude = 0;
             double longitude = 0;
             GetLatLngFromMessage(ref latitude, ref longitude, msg);
             AddEventWindow addWin = new AddEventWindow(latitude, longitude);
             addWin.Owner = parentWindow;
-            bool? didAddEvent = addWin.ShowDialog(); 
+            addWin.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            bool? didAddEvent = addWin.ShowDialog();
 
             if (didAddEvent.Value)
             {
-                //Add the event to the db
+                AddEventToDB(addWin.NewEvent);
                 JsonSerializerOptions options = new JsonSerializerOptions
                 {
                     Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin),
@@ -43,12 +45,21 @@ namespace SportConnect
         }
         
         private bool GetLatLngFromMessage(ref double lat, ref double lng, string msg)
-        {
+        { //"LatLng(44.024483, -88.550062)"
             bool success = false;
             string[] editedMessage = msg.Replace("LatLng(", "").Replace(')', ' ').Trim().Split(',');
             success = double.TryParse(editedMessage[0], out lat);
             success = double.TryParse(editedMessage[1], out lng);
             return success;
+        }
+
+        private void AddEventToDB(Event newEvent)
+        {
+            BusinessLogic dbLogic = new BusinessLogic();
+            if (dbLogic.InsertEvent(newEvent, parentWindow.CurUser))
+                MessageBox.Show("It worked");
+            else
+                MessageBox.Show("it didnt");
         }
         
     }

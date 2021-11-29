@@ -13,27 +13,29 @@ namespace SportConnect
     public partial class MeetupMapWindow : Window
     {
         private const string MAP_PATH = "./Map/location.html";
-        private User curUser;
+        public User CurUser { get; private set; }
         private MapInteraction mapInteract;
         public MeetupMapWindow(User currentUser)
         {
-            curUser = currentUser; 
+            //CurUser = currentUser;
+            User fu = new User(1);
+            CurUser = fu;
             InitializeComponent();
-            //MapBro.Source = new Uri(System.IO.Path.GetFullPath(MAP_PATH));
-            //MapBro.ObjectForScripting = new MapInteraction(MapBro, this);
             MaxHeight = SystemParameters.WorkArea.Height;
             MaxWidth = SystemParameters.WorkArea.Width;
             WebView.Source = new Uri(System.IO.Path.GetFullPath(MAP_PATH));
             InitializeAsync();
             mapInteract = new MapInteraction(this);
         }
+
         /**
-         * Trevor Abel
-         * Ensure webview is intialized before starting and add responses to map inputs
-         */
+* Trevor Abel
+* Ensure webview is intialized before starting and add responses to map inputs
+*/
         async void InitializeAsync()
         {
             await WebView.EnsureCoreWebView2Async(null);
+            await WebView.CoreWebView2.ExecuteScriptAsync("window.addEventListener('contextmenu', window => {window.preventDefault();});");
             WebView.CoreWebView2.WebMessageReceived += RespondToEvent;
             
         }
@@ -45,6 +47,7 @@ namespace SportConnect
             switch (splitResponse[0])
             {
                 case "CreateEvent":
+                    
                     string eventDetails = mapInteract.CreateEvent(splitResponse[1]);
                     WebView.CoreWebView2.PostWebMessageAsString(eventDetails);
                     WebView.CoreWebView2.ExecuteScriptAsync($"console.log({eventDetails})");
@@ -56,7 +59,7 @@ namespace SportConnect
         {
             //Dalton- when calling profile page call in the order (the id of the profile your viewing, the id of the current user, this)
             //Also make sure to only hide your window instead of close it. That way I can use the back button to reopen your window
-            ProfilePage profile = new ProfilePage(curUser.UserId ,curUser.UserId,this);
+            ProfilePage profile = new ProfilePage(CurUser.UserId , CurUser.UserId, this);
             profile.Show();
             Hide();
         }
@@ -86,7 +89,7 @@ namespace SportConnect
         }
 
         private void ResizeMap()
-        {
+        { 
             WebView.CoreWebView2.ExecuteScriptAsync($"document.getElementById('mapid').style.height = '{WebView.ActualHeight}px';");
             WebView.CoreWebView2.ExecuteScriptAsync($"document.getElementById('mapid').style.width = '{WebView.ActualWidth}px';");
             WebView.CoreWebView2.ExecuteScriptAsync("myMap.invalidateSize(15);");
