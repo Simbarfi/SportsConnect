@@ -86,7 +86,7 @@
             <Label Content="Username:" Height="34" HorizontalAlignment="Left" Foreground="WhiteSmoke" Margin="10,144,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Width="90"/>
             <TextBox x:Name="txtUserName" Margin="88,144,88,0" Height="24" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
             <Label Content="Password:" Margin="10,190,0,0" Height="34" VerticalAlignment="Top" Foreground="WhiteSmoke" HorizontalAlignment="Left" Width="90" FontSize="14" FontWeight="Bold"/>
-            <TextBox x:Name="txtPassword" Margin="88,195,88,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="24"/>
+            <PasswordBox  x:Name="txtPassword" Margin="88,195,88,0"  VerticalAlignment="Top" Height="24" />
             <Button Content="Login" Style="{DynamicResource RoundedButtonStyle}" Margin="150,255,150,0" VerticalAlignment="Top" Click="Login_Click" Height="30" FontSize="14"/>
             <Image Height="92" Margin="133,10,133,0" VerticalAlignment="Top" Source="/User.png" Stretch="Uniform"/>
         </Grid>

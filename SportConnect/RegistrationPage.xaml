@@ -91,7 +91,7 @@
             <TextBox x:Name="txtLastName" Margin="137,216,137,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="24"/>
             <Button Content="Register" Style="{DynamicResource RoundedButtonStyle}" Margin="173,390,173,0" VerticalAlignment="Top"  Height="30" FontSize="14" Click="BtnRegister_Click"/>
             <Image Height="103" Margin="172,10,172,0" VerticalAlignment="Top" Source="/User.png" Stretch="Uniform"/>
-            <TextBox x:Name="txtPassword" Margin="137,300,137,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="24"/>
+            <PasswordBox x:Name="txtPassword" Margin="137,300,137,0"   VerticalAlignment="Top" Height="24"  PasswordChar="●" />
             <Label Content="Password:" Margin="5,300,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="127" FontSize="13" FontWeight="Bold" Background="{x:Null}" Foreground="White"/>
             <Label Content="First Name:" Margin="5,174,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="127" FontSize="13" FontWeight="Bold" Foreground="#FFF7F6F6"/>
             <TextBox x:Name="txtUsername" Margin="137,132,137,0" Height="24" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
@@ -100,7 +100,7 @@
             <TextBox x:Name="txtEmail" Margin="137,258,137,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="24"/>
             <Label Content="Email:" Margin="5,258,0,0" Foreground="WhiteSmoke" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="127" FontSize="13" FontWeight="Bold"/>
             <Label Content="Confirm Password:" Foreground="WhiteSmoke" Margin="5,342,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="127" FontSize="13" FontWeight="Bold"/>
-            <TextBox x:Name="txtConfirmPassword" Margin="137,342,137,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="24"/>
+            <PasswordBox x:Name="txtConfirmPassword" Margin="137,342,137,0"  VerticalAlignment="Top" Height="24" PasswordChar="●"/>
         </Grid>
     </Grid>
 

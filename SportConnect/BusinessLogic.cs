@@ -27,10 +27,7 @@ namespace SportConnect
             connectionStringToDB.Open();
             dataReader = cmd.ExecuteReader();
             return dataReader;
-
         }
-
-
 
         public bool InsertUser(string Username, string FName, string LName, string Email, string Password, string bio, string DOB, string image)
         {
