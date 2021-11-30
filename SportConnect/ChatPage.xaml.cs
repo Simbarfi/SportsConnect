@@ -24,6 +24,12 @@ namespace SportConnect
             InitializeComponent();
         }
 
+        public ChatPage(int user_Id, Event currentEvent, Window previous)
+        {
+            InitializeComponent();
+            SportName.Content = "Event Name: " + currentEvent.Name.ToString();
+        }
+
         private void Minimize_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.MainWindow.WindowState = WindowState.Minimized;

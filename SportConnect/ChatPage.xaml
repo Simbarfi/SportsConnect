@@ -162,7 +162,8 @@
                            Foreground="White"
                            FontWeight="Bold"
                            Margin="5,0,5,0"
-                           VerticalAlignment="Center"/>
+                           VerticalAlignment="Center"
+                           Name ="SportName"/>
 
                 </Grid>
             </Border>

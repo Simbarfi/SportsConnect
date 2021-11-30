@@ -13,7 +13,8 @@ namespace SportConnect
                     string end,
                     int maxPlayers,
                     string skill,
-                    string location) 
+                    string location,
+                    int owner) 
         {
             Name = name;
             Sport = sport;
@@ -23,6 +24,7 @@ namespace SportConnect
             SkillLevel = skill;
             Location = location;
             Id = eventId;
+            Owner = owner;
 
             //How to set Display String
             DisplayString = "Name: " + Name + "\n" +
@@ -123,6 +125,7 @@ namespace SportConnect
         public double Latitude { get; set; }
         public double Longitude { get; set; }
 
+        public int Owner { get; set; }
 
     }
 }

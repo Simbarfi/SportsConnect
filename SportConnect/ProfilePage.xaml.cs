@@ -163,11 +163,16 @@ namespace SportConnect
                     }
                     FirstLast.Content = reader["first_name"] + " " + reader["last_name"];
 
-                    if ((reader["image"].Equals(System.DBNull.Value)))
+                    if ((reader["image"].Equals(System.DBNull.Value))) //NEEDS TO BE CHANGED BACK
                     {
                         //take blob and covert into source
-                        ProfilePic.Source = ConvertByteArrayToBitmapImage((byte[])reader["image"]);
+                        //ProfilePic.Source = ConvertByteArrayToBitmapImage((byte[])reader["image"]);
+                        BitmapImage basicImg = new BitmapImage();
+                        basicImg.BeginInit();
+                        basicImg.UriSource = new Uri(@"/User.png", UriKind.RelativeOrAbsolute);
+                        basicImg.EndInit();
 
+                        ProfilePic.Source = basicImg;
                     } else
                     {
                         BitmapImage basicImg = new BitmapImage();
@@ -201,7 +206,8 @@ namespace SportConnect
                     reader2["end_date"].ToString(),
                     Int16.Parse(reader2["max_players"].ToString()),
                     reader2["skill_level"].ToString(),
-                    reader2["location"].ToString());
+                    reader2["location"].ToString(),
+                    Int16.Parse(reader2["owner"].ToString()));
 
                     myList.Add(currentEvent);
 
@@ -264,9 +270,9 @@ namespace SportConnect
         }
         public static BitmapImage ConvertByteArrayToBitmapImage(Byte[] bytes)
         {
-            System.IO.MemoryStream Stream = new System.IO.MemoryStream(bytes);
-            Stream.Write(bytes, 0, bytes.Length);
-            Stream.Position = 0;
+            System.IO.MemoryStream Stream = new System.IO.MemoryStream(bytes,0,bytes.Length);
+            //Stream.Write(bytes, 0, bytes.Length);
+            //Stream.Position = 0;
             System.Drawing.Image img = System.Drawing.Image.FromStream(Stream);
             BitmapImage bitImage = new BitmapImage();
             bitImage.BeginInit();
@@ -287,8 +293,8 @@ namespace SportConnect
                 MessageBox.Show(currentEvent.Name);
 
                 //I will send a user and event to the chat window and hide the 
-                ChatPage chat = new ChatPage();
-                //ChatPage chat = new ChatPage(user_Id,currentEvent, this);
+                //ChatPage chat = new ChatPage();
+                ChatPage chat = new ChatPage(user_Id,currentEvent, this);
                 chat.Show();
                 Hide();
             } 
@@ -297,4 +303,14 @@ namespace SportConnect
             }
         }
     }
+
+
+
+    //
+    //
+    //
+    //
+    
+    
+
 }
