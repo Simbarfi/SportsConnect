@@ -20,7 +20,6 @@ namespace SportConnect
     /// </summary>
     public partial class ChatPage : Window
     {
-        private Window previousWindow;
         private User currentUser;
 
         public ChatPage()
