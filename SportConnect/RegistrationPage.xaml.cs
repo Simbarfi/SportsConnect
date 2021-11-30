@@ -42,6 +42,9 @@ namespace SportConnect
                     basicImg.EndInit();
                     BL.InsertUser(txtUsername.Text, txtFirstName.Text, txtLastName.Text, txtEmail.Text, txtPassword.Password, "", "", BL.BitmapToByteArray(basicImg));
                     MessageBox.Show("User Added");
+                    SignIn sign = new SignIn();
+                    sign.Show();
+                    Hide();
                 }
                 else
                 {

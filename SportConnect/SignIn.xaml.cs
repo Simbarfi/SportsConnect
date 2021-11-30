@@ -49,6 +49,7 @@ namespace SportConnect
                         user = new User(Int16.Parse(userReader["user_id"].ToString()));
                         MeetupMapWindow meetup = new MeetupMapWindow(user);
                         meetup.Show();
+                        Hide();
                     }
                     else
                     {
