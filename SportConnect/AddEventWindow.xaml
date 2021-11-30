@@ -44,6 +44,6 @@
             <TextBox x:Name="LocationText" TextWrapping="Wrap" Width="60" MaxLines="1" IsUndoEnabled="False" Canvas.Left="100" Canvas.Top="6"/>
         </Canvas>
         <Button x:Name="AddEntryBut" Style="{DynamicResource RoundedButtonStyle}" Content="Add Entry" HorizontalAlignment="Left" Margin="240,217,0,0" VerticalAlignment="Top" Height="30" Width="100" FontFamily="Times New Roman" FontSize="18" Click="AddEntryButOnClick" />
-        <Button x:Name="Exit" Style="{DynamicResource RoundedButtonStyle}" Content="Exit" HorizontalAlignment="Left" Margin="240,252,0,0" VerticalAlignment="Top" Height="30" Width="100" FontFamily="Times New Roman" FontSize="18" Click="btnClose" />
+        <Button x:Name="ExitBut" Style="{DynamicResource RoundedButtonStyle}" Content="Exit" HorizontalAlignment="Left" Margin="240,252,0,0" VerticalAlignment="Top" Height="30" Width="100" FontFamily="Times New Roman" FontSize="18" Click="ExitButOnClose" />
     </Grid>
 </Window>

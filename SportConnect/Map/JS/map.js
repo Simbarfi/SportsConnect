@@ -1,33 +1,34 @@
+//window.chrome.webview.postMessage()
+//window.chrome.webview.addEventListener(\'message\', event => alert(event.data));"
 var myMap;
+var wv = window.chrome.webview;
+var tempMarker;
 
 function getMarker(latlng) {
 	var mark = L.marker(latlng);
-	//mark.on('click', function () { window.external.ViewEvent() });
 	return mark;
 }
 
 function onMapClick(e) {
-	var tempMarker = getMarker(e.latlng);
+	tempMarker = getMarker(e.latlng);
 	tempMarker.addTo(myMap);
-	var eventInfo = window.external.CreateEvent(e.latlng);
-	if (eventInfo) {
-		eventInfo = JSON.parse(eventInfo);
-		var popupMessage = '<p>' + eventInfo.Name + '</p>' + 
-						   '<p>' + eventInfo.Sport + '</p>' +
-						   '<p>' + eventInfo.Start + '  ' +  eventInfo.End + '</p>' + 
-						   '<p>' + eventInfo.MaxPlayers + '</p>' + 
-						   '<p>' + eventInfo.SkillLevel + '</p>' + 
-						   '<p>' + eventInfo.Location + '</p>';
+	wv.postMessage(`CreateEvent@${e.latlng}`);
+}
+
+function CreateEvent(response) {
+	if (response.length !== 0) {
+		response = JSON.parse(response);
+		var popupMessage = '<p>' + response.Name + '</p>' +
+			'<p>' + response.Sport + '</p>' +
+			'<p>' + response.Start + '  ' + response.End + '</p>' +
+			'<p>' + response.MaxPlayers + '</p>' +
+			'<p>' + response.SkillLevel + '</p>' +
+			'<p>' + response.Location + '</p>';
 		tempMarker.bindPopup(popupMessage);
-		//tempMarker.bindPopup(eventInfo);
 	}
 	else {
 		tempMarker.removeFrom(myMap);
 	}
-}
-
-function CreateEvent() {
-
 }
 
 function setup() {
@@ -41,7 +42,17 @@ function setup() {
 
 	myMap.on('click', onMapClick);
 }
+
+function reactToMessage(event) {
+	
+}
+
+
 setup();
+
+wv.addEventListener('message', event => CreateEvent(event.data));
+
+
 
 
 
