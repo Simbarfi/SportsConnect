@@ -41,7 +41,9 @@ namespace SportConnect
 
         }
 
-
+        public ProfilePage()
+        {
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

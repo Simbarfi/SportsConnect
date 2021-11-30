@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SportConnect
@@ -19,6 +20,9 @@ namespace SportConnect
     /// </summary>
     public partial class ChatPage : Window
     {
+        private Window previousWindow;
+        private User currentUser;
+
         public ChatPage()
         {
             InitializeComponent();
@@ -52,6 +56,13 @@ namespace SportConnect
             {
                 DragMove();
             }
+        }
+
+        private void btnBack(object sender, RoutedEventArgs e)
+        {
+            MeetupMapWindow meetup = new MeetupMapWindow(currentUser);
+            meetup.Show();
+            this.Hide();
         }
     }
 }
