@@ -85,7 +85,7 @@ namespace SportConnect
 
         private void ChatButtonOnClick(object sender, RoutedEventArgs e)
         {
-            ChatPage chatPage = new ChatPage();
+            ChatPage chatPage = new ChatPage(this);
             chatPage.Show();
             Hide();
         }

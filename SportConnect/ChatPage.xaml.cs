@@ -21,16 +21,25 @@ namespace SportConnect
     public partial class ChatPage : Window
     {
         private User currentUser;
+        private Window previousWindow;
 
         public ChatPage()
         {
             InitializeComponent();
         }
 
+        public ChatPage(Window previous)
+        {
+            InitializeComponent();
+            previousWindow = previous;
+        }
+
         public ChatPage(int user_Id, Event currentEvent, Window previous)
         {
             InitializeComponent();
             SportName.Content = "Event Name: " + currentEvent.Name.ToString();
+            previousWindow = previous;
+
         }
 
         private void Minimize_Click(object sender, RoutedEventArgs e)
@@ -65,9 +74,10 @@ namespace SportConnect
 
         private void btnBack(object sender, RoutedEventArgs e)
         {
-            MeetupMapWindow meetup = new MeetupMapWindow(currentUser);
-            meetup.Show();
-            this.Hide();
+            //MeetupMapWindow meetup = new MeetupMapWindow(currentUser);
+            //meetup.Show();
+            previousWindow.Show();
+            this.Close();
         }
     }
 }
