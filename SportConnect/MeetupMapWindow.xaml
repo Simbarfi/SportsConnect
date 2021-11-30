@@ -105,7 +105,7 @@
 
         </Grid>
 
-        <Wpf:WebView2 x:Name="WebView" Margin="10,10,10,10" Grid.Row="2" Grid.ColumnSpan="3" IsEnabled="False" />
+        <Wpf:WebView2 x:Name="WebView" Margin="10,10,10,10" Grid.Row="2" Grid.ColumnSpan="3" />
 
     </Grid>
 

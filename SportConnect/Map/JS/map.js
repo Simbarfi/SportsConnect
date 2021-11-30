@@ -6,28 +6,25 @@ var tempMarker;
 
 function getMarker(latlng) {
 	var mark = L.marker(latlng);
-	//mark.on('click', function () { window.external.ViewEvent() });
 	return mark;
 }
 
 function onMapClick(e) {
 	tempMarker = getMarker(e.latlng);
 	tempMarker.addTo(myMap);
-	wv.postMessage(`CreateEvent,${e.latlng}`);
+	wv.postMessage(`CreateEvent@${e.latlng}`);
 }
 
 function CreateEvent(response) {
-	//var eventInfo = window.external.CreateEvent(e.latlng);
-	if (response.length === 0) {
+	if (response.length !== 0) {
 		response = JSON.parse(response);
-		var popupMessage = '<p>' + eventInfo.Name + '</p>' +
+		var popupMessage = '<p>' + response.Name + '</p>' +
 			'<p>' + response.Sport + '</p>' +
 			'<p>' + response.Start + '  ' + response.End + '</p>' +
 			'<p>' + response.MaxPlayers + '</p>' +
 			'<p>' + response.SkillLevel + '</p>' +
 			'<p>' + response.Location + '</p>';
 		tempMarker.bindPopup(popupMessage);
-		//tempMarker.bindPopup(eventInfo);
 	}
 	else {
 		tempMarker.removeFrom(myMap);
@@ -46,10 +43,14 @@ function setup() {
 	myMap.on('click', onMapClick);
 }
 
+function reactToMessage(event) {
+	
+}
+
 
 setup();
 
-wv.addEventListener("message", event => CreateEvent(event.data));
+wv.addEventListener('message', event => CreateEvent(event.data));
 
 
 
