@@ -110,7 +110,7 @@
                       SelectedItem="{StaticResource ContactCard}"
                       Background="Transparent"
                       BorderThickness="0"
-                      Grid.Row="1" Margin="0,40,0,0"
+                      Grid.Row="1" Margin="0,75,0,0"
                       ItemContainerStyle="{StaticResource ContactCard}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -140,6 +140,15 @@
                 </StackPanel>
 
             </StackPanel>
+            <Button Height="25"
+                Content="Leave Room"
+                Margin="101,27,101,463"
+                Background="Transparent" 
+                BorderThickness="0" 
+                Foreground="White" 
+                FontWeight="Bold"
+                Click="btnBack"
+                Style="{DynamicResource RoundedButtonStyle}" Grid.Row="1"/>
 
         </Grid>
 
@@ -157,7 +166,7 @@
                 <Grid HorizontalAlignment="Stretch"
                       Margin="8">
 
-                    <Label Content="Event Name: {Binding Sport }"
+                    <Label Content="{Binding Sport }"
                            Background="#FF422F2F"
                            Foreground="White"
                            FontWeight="Bold"
