@@ -20,7 +20,7 @@ namespace SportConnect
         }
 
 
-        public string InsertUserIntoDatabase(string Username, string FName, string LName, string Email, string Password, string bio, string DOB, string image)
+        public string InsertUserIntoDatabase(string Username, string FName, string LName, string Email, string Password, string bio, string DOB, byte[] image)
         {
             MySqlConnection connectionStringToDB = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
 
