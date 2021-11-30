@@ -19,28 +19,36 @@ namespace SportConnect
     /// </summary>
     public partial class AddEventWindow : Window
     {
-        public Event NewEvent { get; set; }
-        public AddEventWindow(){
+        public Event NewEvent { get; private set; }
+        private double lat;
+        private double lng;
+        public AddEventWindow(double latitude, double longitude){
             InitializeComponent();
+            lat = latitude;
+            lng = longitude;
+            
         }
 
         private void AddEntryButOnClick(object sender, RoutedEventArgs e)
         {
+            //validate input
             NewEvent = new Event(EventText.Text,
                 SportText.Text,
                 StartText.Text,
                 EndText.Text,
                 int.Parse(MaxPlayersText.Text),
                 SkillLevelText.Text,
-                LocationText.Text
-                );
+                LocationText.Text,
+                lat,
+                lng);
             DialogResult = true;
-            Close(); 
+            Close();
         }
 
-        private void btnClose(object sender, RoutedEventArgs e)
+        private void ExitButOnClose(object sender, RoutedEventArgs e)
         {
-            this.Close(); 
+            DialogResult = false;
+            Close();
         }
     }
 }

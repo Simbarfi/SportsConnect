@@ -1,7 +1,11 @@
+body {
+    overflow: hidden;
+    margin: 0;
+}
 #mapid{
     align-self: center;
-    height: 500px;
-    width: 700px;
-    max-width: 100%;
+    height: 555px;
+    width: 780px;
+    background-color: transparent;
 }
 

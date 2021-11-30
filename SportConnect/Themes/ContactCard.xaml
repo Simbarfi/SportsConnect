@@ -5,11 +5,11 @@
     <Style TargetType="ListViewItem" x:Key="ContactCard">
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="SlateGray"/>
+                <Setter Property="Background" Value="DarkSalmon"/>
             </Trigger>
         </Style.Triggers>
 
-        <Setter Property="Background" Value="LightGray"/>
+        <Setter Property="Background" Value ="#FFD6A5A5"/>
 
         <Setter Property="Template">
             <Setter.Value>
