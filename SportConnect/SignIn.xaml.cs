@@ -44,6 +44,9 @@ namespace SportConnect
                 {
                     if (BL.selectForlogin(txtUserName.Text, txtPassword.Password).HasRows)
                     {
+                        MySqlDataReader userReader = BL.selectForlogin(txtUserName.Text, txtPassword.Password);
+                        userReader.Read();
+                        user = new User(Int16.Parse(userReader["user_id"].ToString()));
                         MeetupMapWindow meetup = new MeetupMapWindow(user);
                         meetup.Show();
                     }
