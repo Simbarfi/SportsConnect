@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -17,15 +19,17 @@ namespace SportConnect
         private MapInteraction mapInteract;
         public MeetupMapWindow(User currentUser)
         {
-            //CurUser = currentUser;
-            User fu = new User(1);
-            CurUser = fu;
+            CurUser = currentUser;
+            //User fu = new User(1);
+            //CurUser = fu;
             InitializeComponent();
             MaxHeight = SystemParameters.WorkArea.Height;
             MaxWidth = SystemParameters.WorkArea.Width;
             WebView.Source = new Uri(System.IO.Path.GetFullPath(MAP_PATH));
-            InitializeAsync();
             mapInteract = new MapInteraction(this);
+            InitializeAsync();
+            
+
         }
 
         /**
@@ -36,8 +40,23 @@ namespace SportConnect
         {
             await WebView.EnsureCoreWebView2Async(null);
             await WebView.CoreWebView2.ExecuteScriptAsync("window.addEventListener('contextmenu', window => {window.preventDefault();});");
+            await AddEventsToMap();
             WebView.CoreWebView2.WebMessageReceived += RespondToEvent;
             
+        }
+
+        async Task AddEventsToMap()
+        {
+            BusinessLogic dbConn = new BusinessLogic();
+            List<Event> fullEventList = dbConn.GetAllEvents();
+            foreach (Event item in fullEventList)
+            {
+                await WebView.CoreWebView2.ExecuteScriptAsync($"var cm = L.marker([{item.Latitude},{item.Longitude}]);");
+                await WebView.CoreWebView2.ExecuteScriptAsync($"var pop = '{item.Name} <button>Join</button>';");
+                await WebView.CoreWebView2.ExecuteScriptAsync("cm.bindPopup(pop);");
+                await WebView.CoreWebView2.ExecuteScriptAsync("cm.addTo(myMap);");
+            }
+
         }
 
         private void RespondToEvent(object sender, CoreWebView2WebMessageReceivedEventArgs e)

@@ -77,5 +77,12 @@ namespace SportConnect
                 "FROM Users " +
                 "WHERE Users.user_id = " + user_Id;
         }
+
+        public string GetAllEvents()
+        {
+            return "SELECT *" +
+                "   FROM Events" +
+                "   LIMIT 100 ";
+        }
     }
 }

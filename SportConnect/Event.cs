@@ -60,12 +60,54 @@ namespace SportConnect
                                     DateTimeStyles.None,
                                     out result);
             End = result;
-            MaxPlayers = MaxPlayers;
+            MaxPlayers = maxPlayers;
             SkillLevel = skill;
             Location = location;
             Latitude = latitude;
             Longitude = longitude;
-            
+
+            DisplayString = "Name: " + Name + "\n" +
+                            "Sport: " + Sport + "\n" +
+                            "Start: " + Start + "\n" +
+                            "End: " + End + "\n" +
+                            "Maximum Players: " + MaxPlayers + "\n" +
+                            "Skill Level: " + SkillLevel + "\n" +
+                            "Location: " + Location;
+
+        }
+
+        public Event(
+                    int id,
+                    string name,
+                    string sport,
+                    DateTime start,
+                    DateTime end,
+                    int maxPlayers,
+                    string skill,
+                    string location,
+                    double latitude,
+                    double longitude)
+        {
+            Id = id;
+            Name = name;
+            Sport = sport;
+            string format = "d";
+            Start = start;
+            End = end;
+            MaxPlayers = maxPlayers;
+            SkillLevel = skill;
+            Location = location;
+            Latitude = latitude;
+            Longitude = longitude;
+
+            DisplayString = "Name: " + Name + "\n" +
+                            "Sport: " + Sport + "\n" +
+                            "Start: " + Start + "\n" +
+                            "End: " + End + "\n" +
+                            "Maximum Players: " + MaxPlayers + "\n" +
+                            "Skill Level: " + SkillLevel + "\n" +
+                            "Location: " + Location;
+
         }
         public int Id {get; set;}
         public string Name { get; set; }

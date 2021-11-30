@@ -14,6 +14,11 @@ namespace SportConnect
     {
         DataConnection dc = new DataConnection();
 
+        private enum EventColumnNames {event_id = 0, owner = 1, event_name = 2,
+                                      latitude = 3, longitude = 4, sport = 5,
+                                      start_date = 6, end_date = 7, max_players = 8,
+                                      skill_level = 9, location = 10 };
+
 
         public MySqlDataReader selectForlogin(string username, string password)
         {
@@ -84,7 +89,40 @@ namespace SportConnect
         //Trevor Abel
         public List<Event> GetAllEvents()
         {
-            return null;
+            string query = dc.GetAllEvents();
+            List<Event> fullEventList = new List<Event>();
+            try
+            {
+                MySqlConnection connectionStringToDB = new
+                    MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
+                MySqlCommand cmd = new MySqlCommand(query, connectionStringToDB);
+                connectionStringToDB.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+                
+                while (reader.Read())
+                {
+                    Event nextEvent = new Event(reader.GetInt32((int)EventColumnNames.owner),
+                        reader.GetString((int)EventColumnNames.event_name),
+                        reader.GetString((int)EventColumnNames.sport),
+                        reader.GetDateTime((int)EventColumnNames.start_date),
+                        reader.GetDateTime((int)EventColumnNames.end_date),
+                        reader.GetInt32((int)EventColumnNames.max_players),
+                        reader.GetString((int)EventColumnNames.skill_level),
+                        reader.GetString((int)EventColumnNames.location),
+                        (double)reader.GetFloat((int)EventColumnNames.latitude),
+                        (double)reader.GetFloat((int)EventColumnNames.longitude));
+
+                    fullEventList.Add(nextEvent);
+                }
+                reader.Close();
+                connectionStringToDB.Close();
+                return fullEventList;
+            }
+            catch (MySqlException ex)
+            {
+            }
+
+            return fullEventList;
         }
     }
 

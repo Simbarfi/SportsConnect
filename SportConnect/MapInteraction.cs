@@ -43,7 +43,8 @@ namespace SportConnect
 
             return "";
         }
-        
+
+
         private bool GetLatLngFromMessage(ref double lat, ref double lng, string msg)
         { //"LatLng(44.024483, -88.550062)"
             bool success = false;
@@ -56,10 +57,8 @@ namespace SportConnect
         private void AddEventToDB(Event newEvent)
         {
             BusinessLogic dbLogic = new BusinessLogic();
-            if (dbLogic.InsertEvent(newEvent, parentWindow.CurUser))
-                MessageBox.Show("It worked");
-            else
-                MessageBox.Show("it didnt");
+            dbLogic.InsertEvent(newEvent, parentWindow.CurUser);
+
         }
         
     }
