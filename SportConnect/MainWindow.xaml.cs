@@ -52,6 +52,7 @@ namespace SportConnect
         private void btnLoginUp(object sender, RoutedEventArgs e)
         {
             SignIn signIn = new SignIn();
+            signIn.Owner = this;
             signIn.Show();
         }
 

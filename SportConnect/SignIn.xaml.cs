@@ -50,6 +50,7 @@ namespace SportConnect
                         MeetupMapWindow meetup = new MeetupMapWindow(user);
                         meetup.Show();
                         Hide();
+                        Owner.Hide();
                     }
                     else
                     {
