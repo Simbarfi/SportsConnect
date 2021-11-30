@@ -23,28 +23,30 @@ namespace SportConnect
     /// </summary>
     public partial class SignIn : Window
     {
-        private string connectionStringToDB =
-            ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString;
-        DataConnection DT = new DataConnection();
+        
 
         BusinessLogic BL = new BusinessLogic();
         public SignIn()
         {
             InitializeComponent();
+           
 
         }
 
         User user = new User();
-        DataConnection dc = new DataConnection();
+        
         private void Login_Click(object sender, RoutedEventArgs e)
         {
 
-            if (txtUserName.Text != string.Empty || txtPassword.Text != string.Empty)
+            if (txtUserName.Text != string.Empty || txtPassword.Password != string.Empty)
             {
-                using (BL.selectForlogin(txtUserName.Text, txtPassword.Text))
+                using (BL.selectForlogin(txtUserName.Text, txtPassword.Password))
                 {
-                    if (BL.selectForlogin(txtUserName.Text, txtPassword.Text).HasRows)
+                    if (BL.selectForlogin(txtUserName.Text, txtPassword.Password).HasRows)
                     {
+                        MySqlDataReader userReader = BL.selectForlogin(txtUserName.Text, txtPassword.Password);
+                        userReader.Read();
+                        user = new User(Int16.Parse(userReader["user_id"].ToString()));
                         MeetupMapWindow meetup = new MeetupMapWindow(user);
                         meetup.Show();
                     }
