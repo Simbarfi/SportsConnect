@@ -36,7 +36,11 @@ namespace SportConnect
             {
                 if (txtPassword.Password == txtConfirmPassword.Password)
                 {
-                    BL.InsertUser(txtUsername.Text, txtFirstName.Text, txtLastName.Text, txtEmail.Text, txtPassword.Password, "", "", "");
+                    BitmapImage basicImg = new BitmapImage();
+                    basicImg.BeginInit();
+                    basicImg.UriSource = new Uri(@"/User.png", UriKind.RelativeOrAbsolute);
+                    basicImg.EndInit();
+                    BL.InsertUser(txtUsername.Text, txtFirstName.Text, txtLastName.Text, txtEmail.Text, txtPassword.Password, "", "", BL.BitmapToByteArray(basicImg));
                     MessageBox.Show("User Added");
                 }
                 else

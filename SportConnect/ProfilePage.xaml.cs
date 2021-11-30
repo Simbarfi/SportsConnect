@@ -89,7 +89,7 @@ namespace SportConnect
 
             // Set filter for file extension and default file extension 
             dlg.DefaultExt = ".png";
-            dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
+            dlg.Filter = /**"JPEG Files (*.jpeg)";|*.jpeg|*/"PNG Files (*.png)|*.png";/**|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";**/
 
 
             // Display OpenFileDialog by calling ShowDialog method 
@@ -102,7 +102,12 @@ namespace SportConnect
                 // Open document 
                 string filename = dlg.FileName;
                 fileLocation = filename;
-                ProfilePic.Source = new BitmapImage(new Uri(fileLocation));
+
+                BitmapImage basicImg = new BitmapImage();
+                basicImg.BeginInit();
+                basicImg.UriSource = new Uri(@""+ fileLocation , UriKind.RelativeOrAbsolute);
+                basicImg.EndInit();
+                ProfilePic.Source = basicImg;
             }
 
 
@@ -158,14 +163,19 @@ namespace SportConnect
                     }
                     FirstLast.Content = reader["first_name"] + " " + reader["last_name"];
 
-                    if (!(reader["image"].Equals(System.DBNull.Value)))
+                    if ((reader["image"].Equals(System.DBNull.Value)))
                     {
                         //take blob and covert into source
-                        //ProfilePic.Source = ConvertByteArrayToBitmapImage((byte[])reader["Image"]);
+                        ProfilePic.Source = ConvertByteArrayToBitmapImage((byte[])reader["image"]);
 
                     } else
                     {
-                        ProfilePic.Source = new BitmapImage( new Uri("User.png"));
+                        BitmapImage basicImg = new BitmapImage();
+                        basicImg.BeginInit();
+                        basicImg.UriSource = new Uri(@"/User.png", UriKind.RelativeOrAbsolute);
+                        basicImg.EndInit();
+
+                        ProfilePic.Source = basicImg;
                     }
                 }
             }
@@ -226,30 +236,46 @@ namespace SportConnect
             connection.Open();
 
             //convert ImageSource into byte array
-            var bmp = imgsource as BitmapImage;
 
-            int height = bmp.PixelHeight;
-            int width = bmp.PixelWidth;
-            int stride = width * ((bmp.Format.BitsPerPixel + 7) / 8);
+            BitmapImage basicImg = new BitmapImage();
+            basicImg.BeginInit();
+            basicImg.UriSource = new Uri(@"" + imgsource, UriKind.RelativeOrAbsolute);
+            basicImg.EndInit();
 
-            byte[] bits = new byte[height * stride];
-            bmp.CopyPixels(bits, stride, 0);
-
+            Byte[] bits = BitmapToByteArray(basicImg);
+            
 
             MySqlCommand command = new MySqlCommand(db.UpdateUserBioInDatabase(user_Id,bio, bits), connection);
             int result = command.ExecuteNonQuery();
             return result == 1;
         }
 
+        public static Byte[] BitmapToByteArray(BitmapImage image)
+        {
+            byte[] Data;
+            PngBitmapEncoder PngEncoder = new PngBitmapEncoder();
+            PngEncoder.Frames.Add(BitmapFrame.Create(image));
+            using (System.IO.MemoryStream MS = new System.IO.MemoryStream())
+            {
+                PngEncoder.Save(MS);
+                Data = MS.ToArray();
+            }
+            return Data;
+        }
         public static BitmapImage ConvertByteArrayToBitmapImage(Byte[] bytes)
         {
-            var stream = new MemoryStream(bytes);
-            stream.Seek(0, SeekOrigin.Begin);
-            var image = new BitmapImage();
-            image.BeginInit();
-            image.StreamSource = stream;
-            image.EndInit();
-            return image;
+            System.IO.MemoryStream Stream = new System.IO.MemoryStream(bytes);
+            Stream.Write(bytes, 0, bytes.Length);
+            Stream.Position = 0;
+            System.Drawing.Image img = System.Drawing.Image.FromStream(Stream);
+            BitmapImage bitImage = new BitmapImage();
+            bitImage.BeginInit();
+            System.IO.MemoryStream MS = new System.IO.MemoryStream();
+            img.Save(MS, System.Drawing.Imaging.ImageFormat.Png);
+            MS.Seek(0, System.IO.SeekOrigin.Begin);
+            bitImage.StreamSource = MS;
+            bitImage.EndInit();
+            return bitImage;
         }
 
         private void openChat(object sender, RoutedEventArgs e)
