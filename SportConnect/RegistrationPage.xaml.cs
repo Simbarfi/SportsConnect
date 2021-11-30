@@ -38,6 +38,9 @@ namespace SportConnect
                 {
                     BL.InsertUser(txtUsername.Text, txtFirstName.Text, txtLastName.Text, txtEmail.Text, txtPassword.Password, "", "", "");
                     MessageBox.Show("User Added");
+                    SignIn sign = new SignIn();
+                    sign.Show();
+                    Hide();
                 }
                 else
                 {
