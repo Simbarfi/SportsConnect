@@ -47,6 +47,10 @@ function reactToMessage(event) {
 	
 }
 
+function attendEvent(e) {
+	wv.postMessage(`AttendEvent@${e}`);
+}
+
 
 setup();
 

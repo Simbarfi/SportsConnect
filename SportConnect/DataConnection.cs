@@ -47,13 +47,13 @@ namespace SportConnect
                 "values ('" + userID + "','" + dataSent + "','" + dataReceived + "','" + messagelogs + "', '" + context + "');";
         }
 
-        public string InsertAttendedEventsIntoDatabase(int attEventId, int UserId, int Event_Id)
+        public string InsertAttendedEventsIntoDatabase(int UserId, int Event_Id)
         {
             MySqlConnection connectionStringToDB = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
 
             string query;
-            return query = "INSERT INTO d6304c5_Team3.AttendedEvents (att_event_id, user_id, event_id)" +
-                "values ('" + attEventId + "','" + UserId + "','" + Event_Id + "');";
+            return query = "INSERT INTO d6304c5_Team3.AttendedEvents (user_id, event_id)" +
+                "values ('" + UserId + "','" + Event_Id + "');";
         }
 
         public string UpdateUserBioInDatabase(int user_Id, string bio, Byte[] img)
@@ -81,7 +81,8 @@ namespace SportConnect
         public string GetAllEvents()
         {
             return "SELECT *" +
-                "   FROM Events" +
+                "   FROM d6304c5_Team3.Events" +
+                "   WHERE start_date >= NOW()" +
                 "   LIMIT 100 ";
         }
     }

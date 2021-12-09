@@ -88,12 +88,44 @@ namespace SportConnect
                     string skill,
                     string location,
                     double latitude,
-                    double longitude)
+                    double longitude,
+                    int owner)
         {
             Id = id;
             Name = name;
             Sport = sport;
-            string format = "d";
+            Start = start;
+            End = end;
+            MaxPlayers = maxPlayers;
+            SkillLevel = skill;
+            Location = location;
+            Latitude = latitude;
+            Longitude = longitude;
+            Owner = owner;
+
+            DisplayString = "Name: " + Name + "\n" +
+                            "Sport: " + Sport + "\n" +
+                            "Start: " + Start + "\n" +
+                            "End: " + End + "\n" +
+                            "Maximum Players: " + MaxPlayers + "\n" +
+                            "Skill Level: " + SkillLevel + "\n" +
+                            "Location: " + Location;
+
+        }
+
+        public Event(
+                    string name,
+                    string sport,
+                    DateTime start,
+                    DateTime end,
+                    int maxPlayers,
+                    string skill,
+                    string location,
+                    double latitude,
+                    double longitude)
+        {
+            Name = name;
+            Sport = sport;
             Start = start;
             End = end;
             MaxPlayers = maxPlayers;
@@ -111,6 +143,7 @@ namespace SportConnect
                             "Location: " + Location;
 
         }
+
         public int Id {get; set;}
         public string Name { get; set; }
         public string Sport { get; set; }

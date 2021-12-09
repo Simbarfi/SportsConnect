@@ -22,9 +22,9 @@ namespace SportConnect
     {
         public MainWindow()
         {
-            InitializeComponent();
-            //new MeetupMapWindow(null).Show();
-            //Close();
+            InitializeComponent(); 
+            new MeetupMapWindow(null).Show();
+            Close();
             //MeetupMapWindow window1 = new();
             //window1.Show();
 

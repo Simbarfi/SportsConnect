@@ -28,8 +28,8 @@ namespace SportConnect
             addWin.Owner = parentWindow;
             addWin.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             bool? didAddEvent = addWin.ShowDialog();
-
-            if (didAddEvent.Value)
+            
+            if (didAddEvent.HasValue && didAddEvent.Value)
             {
                 AddEventToDB(addWin.NewEvent);
                 JsonSerializerOptions options = new JsonSerializerOptions
@@ -60,6 +60,18 @@ namespace SportConnect
             dbLogic.InsertEvent(newEvent, parentWindow.CurUser);
 
         }
-        
+
+        internal bool AttendEvent(int currUserId, string eventIdAsString)
+        {
+            if(int.TryParse(eventIdAsString, out int eventId))
+            {
+                BusinessLogic dbLogic = new BusinessLogic();
+                return dbLogic.InsertAttendedEvent(currUserId, eventId);
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

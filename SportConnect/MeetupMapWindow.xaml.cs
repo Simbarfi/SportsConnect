@@ -19,9 +19,9 @@ namespace SportConnect
         private MapInteraction mapInteract;
         public MeetupMapWindow(User currentUser)
         {
-            CurUser = currentUser;
-            //User fu = new User(1);
-            //CurUser = fu;
+            //CurUser = currentUser;
+            User fu = new User(1);
+            CurUser = fu;
             InitializeComponent();
             MaxHeight = SystemParameters.WorkArea.Height;
             MaxWidth = SystemParameters.WorkArea.Width;
@@ -51,10 +51,14 @@ namespace SportConnect
             List<Event> fullEventList = dbConn.GetAllEvents();
             foreach (Event item in fullEventList)
             {
-                await WebView.CoreWebView2.ExecuteScriptAsync($"var cm = L.marker([{item.Latitude},{item.Longitude}]);");
-                await WebView.CoreWebView2.ExecuteScriptAsync($"var pop = '{item.Name} <button>Join</button>';");
-                await WebView.CoreWebView2.ExecuteScriptAsync("cm.bindPopup(pop);");
-                await WebView.CoreWebView2.ExecuteScriptAsync("cm.addTo(myMap);");
+                if(item.Start > DateTime.Now)
+                {
+                    await WebView.CoreWebView2.ExecuteScriptAsync($"var cm = L.marker([{item.Latitude},{item.Longitude}]);");
+                    await WebView.CoreWebView2.ExecuteScriptAsync($"var pop = '{item.Name} <button name=\"{item.Id}\" onclick=\"attendEvent(name)\">Join</button>';");
+                    await WebView.CoreWebView2.ExecuteScriptAsync("cm.bindPopup(pop);");
+                    await WebView.CoreWebView2.ExecuteScriptAsync("cm.addTo(myMap);");
+                }
+                
             }
 
         }
@@ -70,6 +74,16 @@ namespace SportConnect
                     string eventDetails = mapInteract.CreateEvent(splitResponse[1]);
                     WebView.CoreWebView2.PostWebMessageAsString(eventDetails);
                     WebView.CoreWebView2.ExecuteScriptAsync($"console.log({eventDetails})");
+                    break;
+                case "AttendEvent":
+                    if(mapInteract.AttendEvent(CurUser.UserId, splitResponse[1]))
+                    {
+                        MessageBox.Show(this, "Event joined successfully");
+                    }
+                    else
+                    {
+                        MessageBox.Show(this, "Failed to join event");
+                    }
                     break;
             }
         }
@@ -130,6 +144,15 @@ namespace SportConnect
             {
                 DragMove();
             }
+        }
+
+        private void WindowOnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if(WebView.CoreWebView2 != null)
+            {
+                ResizeMap();
+            }
+            
         }
     }
 }

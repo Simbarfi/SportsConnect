@@ -99,7 +99,7 @@ namespace SportConnect
                 
                 while (reader.Read())
                 {
-                    Event nextEvent = new Event(reader.GetInt32((int)EventColumnNames.owner),
+                    Event nextEvent = new Event(reader.GetInt32((int)EventColumnNames.event_id),
                         reader.GetString((int)EventColumnNames.event_name),
                         reader.GetString((int)EventColumnNames.sport),
                         reader.GetDateTime((int)EventColumnNames.start_date),
@@ -108,7 +108,8 @@ namespace SportConnect
                         reader.GetString((int)EventColumnNames.skill_level),
                         reader.GetString((int)EventColumnNames.location),
                         (double)reader.GetFloat((int)EventColumnNames.latitude),
-                        (double)reader.GetFloat((int)EventColumnNames.longitude));
+                        (double)reader.GetFloat((int)EventColumnNames.longitude),
+                        reader.GetInt32((int)EventColumnNames.owner));
 
                     fullEventList.Add(nextEvent);
                 }
@@ -121,6 +122,27 @@ namespace SportConnect
             }
 
             return fullEventList;
+        }
+
+        //Trevor Abel
+        public bool InsertAttendedEvent(int currUserId, int eventToAttendId)
+        {
+            string query = dc.InsertAttendedEventsIntoDatabase(currUserId, eventToAttendId);
+            try
+            {
+                MySqlConnection connectionStringToDB = new
+                    MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
+                MySqlCommand cmd = new MySqlCommand(query, connectionStringToDB);
+                connectionStringToDB.Open();
+                int rowsAffected = cmd.ExecuteNonQuery();
+                connectionStringToDB.Close();
+                return rowsAffected == 1;
+            }
+            catch (MySqlException ex)
+            {
+            }
+            return false;
+
         }
 
         public Byte[] BitmapToByteArray(BitmapImage image)
