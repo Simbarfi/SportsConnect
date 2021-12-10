@@ -49,12 +49,16 @@ namespace SportConnect
         {
             BusinessLogic dbConn = new BusinessLogic();
             List<Event> fullEventList = dbConn.GetAllEvents();
+            await WebView.CoreWebView2.ExecuteScriptAsync("myMap.getPane('markerPane').replaceChildren()");
+            await WebView.CoreWebView2.ExecuteScriptAsync("myMap.getPane('shadowPane').replaceChildren()");
             foreach (Event item in fullEventList)
             {
                 if(item.Start > DateTime.Now)
                 {
+                    string eventHostName = new BusinessLogic().GetUserName(item.Owner);
                     await WebView.CoreWebView2.ExecuteScriptAsync($"var cm = L.marker([{item.Latitude},{item.Longitude}]);");
-                    await WebView.CoreWebView2.ExecuteScriptAsync($"var pop = '{item.Name} <button name=\"{item.Id}\" onclick=\"attendEvent(name)\">Join</button>';");
+                    await WebView.CoreWebView2.ExecuteScriptAsync($"var pop = '<div><h1>{item.Name}</h1><div>Hosted by: {eventHostName}</div><div>Location: {item.Location}</div><div>Sport: {item.Sport}</div><div>Start time: {item.Start}</div><div>End time: {item.End}</div><div>Skill: {item.SkillLevel}</div><div>Looking for {item.MaxPlayers} players</div></div>';");
+                    await WebView.CoreWebView2.ExecuteScriptAsync($"pop += ' <button name=\"{item.Id}\" onclick=\"attendEvent(name)\">Join</button>';");
                     await WebView.CoreWebView2.ExecuteScriptAsync("cm.bindPopup(pop);");
                     await WebView.CoreWebView2.ExecuteScriptAsync("cm.addTo(myMap);");
                 }
@@ -73,7 +77,8 @@ namespace SportConnect
                     
                     string eventDetails = mapInteract.CreateEvent(splitResponse[1]);
                     WebView.CoreWebView2.PostWebMessageAsString(eventDetails);
-                    WebView.CoreWebView2.ExecuteScriptAsync($"console.log({eventDetails})");
+                    _ = AddEventsToMap();
+                    //WebView.CoreWebView2.ExecuteScriptAsync($"console.log({eventDetails})");
                     break;
                 case "AttendEvent":
                     if(mapInteract.AttendEvent(CurUser.UserId, splitResponse[1]))

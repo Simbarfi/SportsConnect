@@ -145,6 +145,28 @@ namespace SportConnect
 
         }
 
+        public string GetUserName(int userId)
+        {
+            string query = dc.GetUser(userId);
+            string username = null;
+            try
+            {
+                MySqlConnection connectionStringToDB = new
+                    MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
+                MySqlCommand cmd = new MySqlCommand(query, connectionStringToDB);
+                connectionStringToDB.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
+                username = reader.GetString("user_name");
+                reader.Close();
+                connectionStringToDB.Close();
+            }
+            catch (MySqlException ex)
+            {
+            }
+            return username;
+        }
+
         public Byte[] BitmapToByteArray(BitmapImage image)
         {
             byte[] Data;

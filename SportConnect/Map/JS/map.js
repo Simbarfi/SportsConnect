@@ -43,10 +43,6 @@ function setup() {
 	myMap.on('click', onMapClick);
 }
 
-function reactToMessage(event) {
-	
-}
-
 function attendEvent(e) {
 	wv.postMessage(`AttendEvent@${e}`);
 }

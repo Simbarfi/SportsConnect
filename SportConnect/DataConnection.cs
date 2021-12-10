@@ -85,5 +85,12 @@ namespace SportConnect
                 "   WHERE start_date >= NOW()" +
                 "   LIMIT 100 ";
         }
+
+        public string GetUser(int userId)
+        {
+            return "SELECT Users.user_name " +
+                   "FROM d6304c5_Team3.Users " +
+                  $"WHERE user_id = {userId} ";
+        }
     }
 }

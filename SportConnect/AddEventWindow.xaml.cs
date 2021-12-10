@@ -33,40 +33,76 @@ namespace SportConnect
 
         private void AddEntryButOnClick(object sender, RoutedEventArgs e)
         {
-            string eventName = MySqlHelper.EscapeString(EventText.Text);
-            string sport = MySqlHelper.EscapeString(SportText.Text);
-            int maxPlayers = int.Parse(MaxPlayersText.Text);
-            string skillLevel = MySqlHelper.EscapeString(SkillLevelText.Text);
-            string location = MySqlHelper.EscapeString(SkillLevelText.Text);
-            DateTime startDate = GetStartDate();
-            DateTime endDate = GetEndDate();
-            if (startDate != DateTime.MinValue)
+            Dictionary<string, string> fields = new Dictionary<string, string>();
+            //fields["eventName"] = "";
+            fields.Add("eventName", MySqlHelper.EscapeString(EventText.Text));
+            fields.Add("sport", MySqlHelper.EscapeString(SportText.Text));
+            fields.Add("maxPlayers", MaxPlayersText.Text);
+            fields.Add("skillLevel", MySqlHelper.EscapeString(SkillLevelText.Text));
+            fields.Add("location", MySqlHelper.EscapeString(LocationText.Text));
+            if (ValidateFields(fields))
             {
-                if (endDate != DateTime.MinValue)
+                DateTime startDate = GetStartDate();
+                DateTime endDate = GetEndDate();
+                if (ValidateDates(startDate, endDate))
                 {
-                    NewEvent = new Event(eventName,
-                        sport,
-                        startDate,
-                        endDate,
-                        maxPlayers,
-                        skillLevel,
-                        location,
-                        lat,
-                        lng);
+                    NewEvent = new Event(fields["eventName"],
+                            fields["sport"],
+                            startDate,
+                            endDate,
+                            int.Parse(fields["maxPlayers"]),
+                            fields["skillLevel"],
+                            fields["location"],
+                            lat,
+                            lng);
                     DialogResult = true;
                     Close();
                 }
-                else
+            }
+        }
+
+        private bool ValidateFields(Dictionary<string, string> fieldsDict)
+        {
+            foreach (string field in fieldsDict.Values)
+            {
+                if (field.Length == 0)
                 {
-                    MessageBox.Show(this, "Please enter a valid end date (hh:mm).");
+                    return false;
                 }
             }
-            else
+
+            return true;
+        }
+
+        private bool ValidateDates(DateTime start, DateTime end)
+        {
+            bool result = false;
+            if (start == DateTime.MinValue && end == DateTime.MinValue)
+            {
+                MessageBox.Show(this, "Please enter valid start and end dates (hh:mm).");
+            }
+            else if (start == end)
+            {
+                MessageBox.Show(this, "Your start and end times are the same. Please give some time to your event.");
+            }
+            else if(start > end)
+            {
+                MessageBox.Show(this, "Please ensure your start time is before your end time.");
+            } 
+            else if (start == DateTime.MinValue)
             {
                 MessageBox.Show(this, "Please enter a valid start date (hh:mm).");
             }
-            
-            
+            else if (end == DateTime.MinValue)
+            {
+                MessageBox.Show(this, "Please enter a valid end date (hh:mm).");
+            }
+            else
+            {
+                result = true;
+            }
+
+            return result;
         }
 
         private DateTime GetStartDate()
@@ -120,6 +156,18 @@ namespace SportConnect
         {
             Regex r = new Regex("[^0-9]");
             e.Handled = r.IsMatch(e.Text);
+        }
+
+        private void TextBoxOnFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox text = sender as TextBox;
+            text.SelectAll();
+        }
+
+        private void TextBoxGotMouseFocus(object sender, MouseEventArgs e)
+        {
+            TextBox text = sender as TextBox;
+            text.SelectAll();
         }
     }
 }

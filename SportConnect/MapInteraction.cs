@@ -50,7 +50,7 @@ namespace SportConnect
             bool success = false;
             string[] editedMessage = msg.Replace("LatLng(", "").Replace(')', ' ').Trim().Split(',');
             success = double.TryParse(editedMessage[0], out lat);
-            success = double.TryParse(editedMessage[1], out lng);
+            success = success && double.TryParse(editedMessage[1], out lng);
             return success;
         }
 
