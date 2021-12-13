@@ -56,7 +56,12 @@ namespace SportConnect
             }
         }
 
-        //Trevor Abel
+        /*
+         * Trevor Abel
+         * Attempts to insert an event into the database, owned by
+         * the passed-in user.
+         * returns true if the event is successfully inserted, else false.
+         */
         public bool InsertEvent(Event newEvent, User currUser)
         {
             string query = dc.InsertEventIntoDatabase(currUser.UserId,
@@ -84,7 +89,10 @@ namespace SportConnect
             }
             return false;
         }
-        //Trevor Abel
+        /*
+         * Trevor Abel
+         * Gets a list of all current events
+         */
         public List<Event> GetAllEvents()
         {
             string query = dc.GetAllEvents();
@@ -124,7 +132,11 @@ namespace SportConnect
             return fullEventList;
         }
 
-        //Trevor Abel
+        /*
+         * Trevor Abel
+         * Inserts an attendedEvent into the database
+         * returns true if the event is successfully attended, else false
+         */
         public bool InsertAttendedEvent(int currUserId, int eventToAttendId)
         {
             string query = dc.InsertAttendedEventsIntoDatabase(currUserId, eventToAttendId);
@@ -144,7 +156,11 @@ namespace SportConnect
             return false;
 
         }
-
+        /**
+         * Trevor Abel
+         * Gets a user's name based on their id.
+         * returns the user's name if successfull, else null
+         */
         public string GetUserName(int userId)
         {
             string query = dc.GetUser(userId);
