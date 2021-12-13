@@ -12,6 +12,9 @@ namespace SportConnect
     /// Interaction logic for MeetupMapWindow, which contains the map for
     /// viewing and creating events.
     /// </summary>
+    /// A note for using the map: Running the project with a debugger(or through Code 2019) can
+    /// cause the map to crash the application when adding a new event. If you run the .exe file
+    /// produced by the build, this will NOT happen, and can run the application normally.
     public partial class MeetupMapWindow : Window
     {
         private const string MAPPATH = "./Map/location.html";
