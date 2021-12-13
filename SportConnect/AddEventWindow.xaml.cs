@@ -116,11 +116,12 @@ namespace SportConnect
         }
 
         private DateTime GetDate(DatePicker datePicker, TextBox timeOfDayBox, ComboBox amPmCombo)
-        { ///^(0?[1-9]|1[0-2]):[0-5][0-9]$/   
+        { 
+            Regex correctTime = new Regex("^(0?[1-9]|1[0-2]):[0-5][0-9]$");
             DateTime? selectedDate = datePicker.SelectedDate;
             TimeSpan timeOfDay;
             bool hasValidTime = TimeSpan.TryParse(timeOfDayBox.Text, out timeOfDay);
-            if (selectedDate.HasValue && hasValidTime)
+            if (selectedDate.HasValue && hasValidTime && correctTime.IsMatch(timeOfDayBox.Text))
             {
                 const int am = 0;
                 const int pm = 1;

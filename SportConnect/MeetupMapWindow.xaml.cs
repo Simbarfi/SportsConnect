@@ -39,7 +39,7 @@ namespace SportConnect
         async void InitializeAsync()
         {
             await WebView.EnsureCoreWebView2Async(null);
-            await WebView.CoreWebView2.ExecuteScriptAsync("window.addEventListener('contextmenu', window => {window.preventDefault();});");
+            await WebView.CoreWebView2.ExecuteScriptAsync(MapScripts.PreventRightClickMenu);
             await AddEventsToMap();
             WebView.CoreWebView2.WebMessageReceived += RespondToEvent;
             
@@ -49,22 +49,15 @@ namespace SportConnect
         {
             BusinessLogic dbConn = new BusinessLogic();
             List<Event> fullEventList = dbConn.GetAllEvents();
-            await WebView.CoreWebView2.ExecuteScriptAsync("myMap.getPane('markerPane').replaceChildren()");
-            await WebView.CoreWebView2.ExecuteScriptAsync("myMap.getPane('shadowPane').replaceChildren()");
+            await WebView.CoreWebView2.ExecuteScriptAsync(MapScripts.RemoveMarkers + MapScripts.RemoveShadows);
             foreach (Event item in fullEventList)
             {
                 if(item.Start > DateTime.Now)
                 {
                     string eventHostName = new BusinessLogic().GetUserName(item.Owner);
-                    await WebView.CoreWebView2.ExecuteScriptAsync($"var cm = L.marker([{item.Latitude},{item.Longitude}]);");
-                    await WebView.CoreWebView2.ExecuteScriptAsync($"var pop = '<div><h1>{item.Name}</h1><div>Hosted by: {eventHostName}</div><div>Location: {item.Location}</div><div>Sport: {item.Sport}</div><div>Start time: {item.Start}</div><div>End time: {item.End}</div><div>Skill: {item.SkillLevel}</div><div>Looking for {item.MaxPlayers} players</div></div>';");
-                    await WebView.CoreWebView2.ExecuteScriptAsync($"pop += ' <button name=\"{item.Id}\" onclick=\"attendEvent(name)\">Join</button>';");
-                    await WebView.CoreWebView2.ExecuteScriptAsync("cm.bindPopup(pop);");
-                    await WebView.CoreWebView2.ExecuteScriptAsync("cm.addTo(myMap);");
+                    await WebView.CoreWebView2.ExecuteScriptAsync(MapScripts.AddEventToMap(item, eventHostName));
                 }
-                
             }
-
         }
 
         private void RespondToEvent(object sender, CoreWebView2WebMessageReceivedEventArgs e)
@@ -78,7 +71,6 @@ namespace SportConnect
                     string eventDetails = mapInteract.CreateEvent(splitResponse[1]);
                     WebView.CoreWebView2.PostWebMessageAsString(eventDetails);
                     _ = AddEventsToMap();
-                    //WebView.CoreWebView2.ExecuteScriptAsync($"console.log({eventDetails})");
                     break;
                 case "AttendEvent":
                     if(mapInteract.AttendEvent(CurUser.UserId, splitResponse[1]))
@@ -95,8 +87,6 @@ namespace SportConnect
 
         private void ProfileButtonOnClick(object sender, RoutedEventArgs e)
         {
-            //Dalton- when calling profile page call in the order (the id of the profile your viewing, the id of the current user, this)
-            //Also make sure to only hide your window instead of close it. That way I can use the back button to reopen your window
             ProfilePage profile = new ProfilePage(CurUser.UserId , CurUser.UserId, this);
             profile.Show();
             Hide();
@@ -128,9 +118,7 @@ namespace SportConnect
 
         private void ResizeMap()
         { 
-            WebView.CoreWebView2.ExecuteScriptAsync($"document.getElementById('mapid').style.height = '{WebView.ActualHeight}px';");
-            WebView.CoreWebView2.ExecuteScriptAsync($"document.getElementById('mapid').style.width = '{WebView.ActualWidth}px';");
-            WebView.CoreWebView2.ExecuteScriptAsync("myMap.invalidateSize(15);");
+            WebView.CoreWebView2.ExecuteScriptAsync(MapScripts.ResizeMap(WebView.ActualHeight, WebView.ActualWidth));
         }
 
         private void MinimizeButOnClick(object sender, RoutedEventArgs e)
