@@ -21,6 +21,7 @@ namespace SportConnect
         }
         /**
          * Trevor Abel
+         * CreateEvent
          * Opens an AddEventWindow to create a new event.
          * msg is the latitude and longitude in this form: LatLng(00.00, 00.00);
          * returns a Json string of the event or an empty string if failed
@@ -52,6 +53,7 @@ namespace SportConnect
 
         /**
          * Trevor Abel
+         * GetLatLngFromMessage
          * Creates a latitude and longitude from a string in the format: LatLng(00.00, 00.00)
          * returns true if both values are parsed successfully, else false;
          */
@@ -65,6 +67,7 @@ namespace SportConnect
         }
         /**
          * Trevor Abel
+         * AddEventToDB
          * Adds an event to the database.
          */
         private void AddEventToDB(Event newEvent)
@@ -74,6 +77,7 @@ namespace SportConnect
         }
         /**
          * Trevor Abel
+         * AttendEvent
          * Lets a user attend an event and stores it in the database
          * returns true if user successfully attends the event, else false
          */

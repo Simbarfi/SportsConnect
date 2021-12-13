@@ -30,6 +30,7 @@ namespace SportConnect
 
         /**
         * Trevor Abel
+        * InitializeAsync
         * Ensure webview is intialized before starting, add responses
         * to map inputs, and add events to the map.
         */
@@ -45,6 +46,7 @@ namespace SportConnect
         }
         /**
          * Trevor Abel
+         * AddEventsToMap
          * Gets current events from the database and displays them on the
          * map. Events are current if they have not started yet.
          */
@@ -69,6 +71,7 @@ namespace SportConnect
         }
         /**
          *Trevor Abel
+         *RespondToEvent
          * Handles messages sent from the map to the program.
          * There are two possible messages: to create and event
          * or attend one.
@@ -107,6 +110,7 @@ namespace SportConnect
         }
         /**
          * Trevor Abel
+         * ProfileButtonOnClick
          * Handler for Profile button's onclick.
          * Creates a new profile page and shows it.
          * This page is hidden to be brought back later.
@@ -120,6 +124,7 @@ namespace SportConnect
         }
         /**
          * Trevor Abel
+         * ChatButtonOnClick
          * Handler for Chat button's onclick.
          * Creates a new chat page and shows it.
          * This page is hidden to be brought back later.
@@ -132,6 +137,7 @@ namespace SportConnect
         }
         /**
          *Trevor Abel
+         *MaximizeButOnClick
          * Custom maximize button's onclick
          * Maximizes the window or sets it back to normal
          */
@@ -154,6 +160,7 @@ namespace SportConnect
         }
         /**
          * Trevor Abel
+         * ResizeMap
          * Resizes the JS map based on the webview's height and width
          */
         private void ResizeMap()
@@ -164,6 +171,7 @@ namespace SportConnect
         }
         /**
          *Trevor Abel
+         *MinimizeButOnClick
          *Custom minimize button's onclick.
          *Minimizes the window.
          */
@@ -173,6 +181,7 @@ namespace SportConnect
         }
         /**
          *Trevor Abel
+         *CloseButOnClick
          *Custom close button's onclick
          * Closes the entire application.
          */
@@ -182,6 +191,7 @@ namespace SportConnect
         }
         /**
          * Trevor Abel
+         * WindowBorMouseDown
          * Custom window mouseDown.
          * Allows the window to be dragged like a normal window.
          */
@@ -195,6 +205,7 @@ namespace SportConnect
         }
         /**
          * Trevor Abel
+         * WindowOnSizeChanged
          * Window SizeChanged event
          * Resizes the map if the webview exists
          * Allows map to resize whenever the window is resized.
