@@ -1,18 +1,27 @@
 ﻿
 namespace SportConnect
 {
+    /**
+     *Trevor Abel
+     * This class contains all the Javascript run in C#
+     * by this program.
+     */
     public static class MapScripts
     {
 
         public static readonly string PreventRightClickMenu =
-            "window.addEventListener('contextmenu', window => {window.preventDefault();});";
+            "window.addEventListener('contextmenu', window => {window.preventDefault();});"; 
 
         public static readonly string RemoveMarkers =
             "myMap.getPane('markerPane').replaceChildren();";
 
         public static readonly string RemoveShadows =
             "myMap.getPane('shadowPane').replaceChildren();";
-
+        /**
+         * Trevor Abel
+         * Gets a script for adding an event to the map with 
+         * a descriptive popup.
+         */
         public static string AddEventToMap(Event newEvent, string hostName)
         {
             return $"var cm = L.marker([{newEvent.Latitude},{newEvent.Longitude}]); " +
@@ -25,7 +34,10 @@ namespace SportConnect
                 "cm.bindPopup(pop);" +
                 "cm.addTo(myMap);";
         }
-
+        /**
+         * Trevor Abel
+         * Gets a script for resizing the map to a given height and width.
+         */
         public static string ResizeMap(double height, double width)
         {
             return $"document.getElementById('mapid').style.height = '{height}px';" +

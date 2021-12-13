@@ -29,7 +29,7 @@
         </Canvas>
         <Canvas HorizontalAlignment="Center" Height="32" VerticalAlignment="Top" Width="430" Margin="0,82,0,0">
             <Label x:Name="StartLab" Content="Start" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18" Foreground="#FFF9F4F4"  Canvas.Top="1" Width="105" HorizontalContentAlignment="Right"/>
-            <TextBox x:Name="StartText" TextWrapping="Wrap" Width="67" MaxLines="1" Canvas.Left="255" Canvas.Top="7" AllowDrop="False" MaxLength="5" Text="00:00" PreviewTextInput="StartPreviewTextInput" GotMouseCapture="TextBoxGotMouseFocus" GotFocus="TextBoxOnFocus" TabIndex="4"/>
+            <TextBox x:Name="StartText" TextWrapping="Wrap" Width="67" MaxLines="1" Canvas.Left="255" Canvas.Top="7" AllowDrop="False" MaxLength="5" Text="00:00" PreviewTextInput="StartEndPreviewTextInput" GotMouseCapture="TextBoxGotMouseFocus" GotFocus="TextBoxOnFocus" TabIndex="4"/>
             <DatePicker x:Name="StartDatePic" Width="134" Canvas.Left="117" BorderBrush="{x:Null}" Canvas.Top="4" IsTabStop="True" TabIndex="3" />
             <ComboBox x:Name="StartAMPMCom" Canvas.Left="333" Canvas.Top="7" Width="38" Height="18" Padding="3,1.1,0,3" TabIndex="5">
                 <ComboBoxItem Content="AM" IsSelected="True"/>
@@ -38,7 +38,7 @@
         </Canvas>
         <Canvas HorizontalAlignment="Center" Height="32" VerticalAlignment="Top" Width="430" Margin="0,119,0,0">
             <Label x:Name="EndLab" Content="End" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18" Foreground="#FFF9F4F4"  Canvas.Top="1" Width="106" HorizontalContentAlignment="Right"/>
-            <TextBox x:Name="EndText" TextWrapping="Wrap" Width="67" MaxLines="1" Canvas.Left="255" Canvas.Top="7" AllowDrop="False" MaxLength="5" Text="00:00" PreviewTextInput="StartPreviewTextInput" TabIndex="7" GotMouseCapture="TextBoxGotMouseFocus" GotFocus="TextBoxOnFocus"/>
+            <TextBox x:Name="EndText" TextWrapping="Wrap" Width="67" MaxLines="1" Canvas.Left="255" Canvas.Top="7" AllowDrop="False" MaxLength="5" Text="00:00" PreviewTextInput="StartEndPreviewTextInput" TabIndex="7" GotMouseCapture="TextBoxGotMouseFocus" GotFocus="TextBoxOnFocus"/>
             <DatePicker x:Name="EndDatePic" Width="134" Canvas.Left="117" Canvas.Top="4" BorderBrush="{x:Null}" IsTabStop="True" TabIndex="6" />
             <ComboBox x:Name="EndAMPMCom" Canvas.Left="333" Canvas.Top="7" Width="38" Height="18" Padding="3,1.1,0,3" TabIndex="8">
                 <ComboBoxItem Content="AM" IsSelected="True"/>
