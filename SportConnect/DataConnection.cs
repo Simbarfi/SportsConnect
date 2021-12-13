@@ -71,11 +71,11 @@ namespace SportConnect
                 " ORDER BY Events.start_date ASC";
         }
 
-        public string GetUserInfo(int user_Id)
+        public string GetUserInfo(int userId)
         {
             return "SELECT first_name, last_name, image, bio " +
                 "FROM Users " +
-                "WHERE Users.user_id = " + user_Id;
+                "WHERE Users.user_id = " + userId;
         }
 
         public string GetAllEvents()
@@ -83,6 +83,29 @@ namespace SportConnect
             return "SELECT *" +
                 "   FROM Events" +
                 "   LIMIT 100 ";
+        }
+
+        public string RemoveAllAttendingEvent(int eventId)
+        {
+            return "DELETE " +
+                "FROM AttendedEvents " +
+                "WHERE AttendedEvents.event_id = " + eventId;
+        }
+
+        public string RemoveOneAttendingEvent(int eventId, int userId)
+        {
+            return "DELETE " +
+                "FROM AttendedEvents " +
+                "WHERE AttendedEvents.event_id = " + eventId +
+                "AND user_id = " + userId;
+        }
+
+        public string DeleteEvent(int eventId)
+        {
+            return "DELETE " +
+                "FROM Events " +
+                "WHERE event_id = " + eventId;
+                
         }
     }
 }

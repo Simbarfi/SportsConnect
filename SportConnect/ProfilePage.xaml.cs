@@ -37,6 +37,7 @@ namespace SportConnect
             {
                 EditProfileButton.IsEnabled = false;
                 EditProfileButton.Visibility = Visibility.Hidden;
+                
             }
 
         }
@@ -196,7 +197,7 @@ namespace SportConnect
 
             try
             {
-                List<Event> myList = new List<Event>(); 
+                List<Event> myList = new List<Event>();
                 while (reader2.Read())
                 {
                     //for each event in reader2 add a listboxitem to upcomingEvents
@@ -212,15 +213,7 @@ namespace SportConnect
                     Int16.Parse(reader2["owner"].ToString()));
 
                     myList.Add(currentEvent);
-
-                    /**
-                    MessageBox.Show(reader2["start_date"].ToString());
-                    MessageBox.Show(reader2["max_players"].ToString());
-                    MessageBox.Show(reader2["sport"].ToString());
-                    MessageBox.Show(reader2["location"].ToString());
-                    **/
-                    
-                    
+                                   
                 }
                 UpcomingEvents.ItemsSource = myList;
             }
@@ -228,6 +221,7 @@ namespace SportConnect
             {
                 // Always call Close when done reading.
                 reader2.Close();
+                connection.Close();
             }
             
         }
@@ -255,6 +249,7 @@ namespace SportConnect
 
             MySqlCommand command = new MySqlCommand(db.UpdateUserBioInDatabase(user_Id,bio, bits), connection);
             int result = command.ExecuteNonQuery();
+            connection.Close();
             return result == 1;
         }
 
@@ -301,6 +296,56 @@ namespace SportConnect
                 Hide();
             } 
             else{
+                MessageBox.Show("Select An Event");
+            }
+        }
+
+        private void LeaveEvent(object sender, RoutedEventArgs e)
+        {
+            if (UpcomingEvents.SelectedItem != null)
+            {
+                Event currentEvent = (Event)UpcomingEvents.SelectedItem;
+                MessageBox.Show(currentEvent.Name);
+
+                MessageBoxResult result = MessageBox.Show("ARE YOU SURE?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNoCancel);
+                
+                if(result == MessageBoxResult.Yes)
+                {
+                    MySqlConnection connection = new MySqlConnection(connectionStringToDB);
+                    connection.Open();
+                    //if owner delete event 
+                    //remove all from attended with eventId
+                    if (currentEvent.Owner == user_Id)
+                    {
+                        //remove all from attended with eventId
+                        //then delete event
+                        MySqlCommand command = new MySqlCommand(db.RemoveAllAttendingEvent(currentEvent.Id), connection);
+                        command.ExecuteNonQuery();
+
+                        //Possibly delete chats if needed
+
+                        
+                        MySqlCommand command2 = new MySqlCommand(db.DeleteEvent(currentEvent.Id), connection);
+                        command2.ExecuteNonQuery();
+
+                        //MessageBox.Show("YOU GOT HERE" + user_Id + " " +currentEvent.Owner);
+
+                    }
+                    else
+                    {
+                        //else remove from attended events
+                        MySqlCommand command = new MySqlCommand(db.RemoveOneAttendingEvent(currentEvent.Id, user_Id), connection);
+                        command.ExecuteNonQuery();
+                        
+                    }
+                    
+                    connection.Close();
+                    InsertInfo(user_Id);
+
+                }
+            }
+            else
+            {
                 MessageBox.Show("Select An Event");
             }
         }

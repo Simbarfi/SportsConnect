@@ -111,6 +111,12 @@ namespace SportConnect
                             "Location: " + Location;
 
         }
+
+        public Boolean LeaveEvent()
+        {
+            System.Diagnostics.Trace.WriteLine(Name);
+            return true;
+        }
         public int Id {get; set;}
         public string Name { get; set; }
         public string Sport { get; set; }
@@ -126,6 +132,8 @@ namespace SportConnect
         public double Longitude { get; set; }
 
         public int Owner { get; set; }
+
+
 
     }
 }
