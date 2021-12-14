@@ -9,7 +9,8 @@
         Height="322" 
         Width="450"
         WindowStyle="None"
-        AllowsTransparency="True">
+        AllowsTransparency="True"
+        ResizeMode="NoResize">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -17,33 +18,46 @@
                 <GradientStop Color="#FF311717" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
+
         <Canvas HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="420" Margin="10,10,0,0">
-            <Label x:Name="EventLab" Content="Event Name" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18" Foreground="#FFF9F4F4"/>
-            <TextBox x:Name="EventText" TextWrapping="Wrap" Width="300" VerticalScrollBarVisibility="Auto" MaxLines="1" Canvas.Left="120" Canvas.Top="6"/>
+            <Label x:Name="EventLab" Content="Event Name" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18" Foreground="#FFF9F4F4" Width="106" HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="EventText" TextWrapping="Wrap" Width="150" VerticalScrollBarVisibility="Auto" MaxLines="1" Canvas.Left="120" Canvas.Top="6" MaxLength="100" GotFocus="TextBoxOnFocus" GotMouseCapture="TextBoxGotMouseFocus" TabIndex="1"/>
         </Canvas>
         <Canvas HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="390" Margin="10,46,0,0">
-            <Label x:Name="SportLab" Content="Sport" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18" Foreground="#FFFAF9F9"/>
-            <TextBox x:Name="SportText" TextWrapping="Wrap" Width="300" MaxLines="1" Canvas.Left="90" Canvas.Top="6"/>
+            <Label x:Name="SportLab" Content="Sport" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18" Foreground="#FFFAF9F9"  Width="106" HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="SportText" TextWrapping="Wrap" Width="150" MaxLines="1" Canvas.Left="120" Canvas.Top="6" MaxLength="45" GotFocus="TextBoxOnFocus" GotMouseCapture="TextBoxGotMouseFocus" TabIndex="2"/>
         </Canvas>
-        <Canvas HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="390" Margin="10,82,0,0">
-            <Label x:Name="StartLab" Content="Start" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18" Foreground="#FFF9F4F4"/>
-            <TextBox x:Name="StartText" TextWrapping="Wrap" Width="120" MaxLines="1" Canvas.Left="75" Canvas.Top="7"/>
-            <Label x:Name="EndLab" Content="End" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18" Canvas.Left="206" Canvas.Top="1" Foreground="#FFF7F1F1"/>
-            <TextBox x:Name="EndText" TextWrapping="Wrap" Width="120" MaxLines="1" IsUndoEnabled="False" Canvas.Left="270" Canvas.Top="7"/>
+        <Canvas HorizontalAlignment="Center" Height="32" VerticalAlignment="Top" Width="430" Margin="0,82,0,0">
+            <Label x:Name="StartLab" Content="Start" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18" Foreground="#FFF9F4F4"  Canvas.Top="1" Width="105" HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="StartText" TextWrapping="Wrap" Width="67" MaxLines="1" Canvas.Left="255" Canvas.Top="7" AllowDrop="False" MaxLength="5" Text="00:00" PreviewTextInput="StartEndPreviewTextInput" GotMouseCapture="TextBoxGotMouseFocus" GotFocus="TextBoxOnFocus" TabIndex="4"/>
+            <DatePicker x:Name="StartDatePic" Width="134" Canvas.Left="117" BorderBrush="{x:Null}" Canvas.Top="4" IsTabStop="True" TabIndex="3" />
+            <ComboBox x:Name="StartAMPMCom" Canvas.Left="333" Canvas.Top="7" Width="38" Height="18" Padding="3,1.1,0,3" TabIndex="5">
+                <ComboBoxItem Content="AM" IsSelected="True"/>
+                <ComboBoxItem Content="PM"/>
+            </ComboBox>
         </Canvas>
-        <Canvas HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="171" Margin="10,119,0,0">
-            <Label x:Name="MaxPlayersLab" Content="Max Players" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18" Foreground="#FFF9F4F4"/>
-            <TextBox x:Name="MaxPlayersText" TextWrapping="Wrap" Width="60" MaxLines="1" IsUndoEnabled="False" Canvas.Left="111" Canvas.Top="6"/>
+        <Canvas HorizontalAlignment="Center" Height="32" VerticalAlignment="Top" Width="430" Margin="0,119,0,0">
+            <Label x:Name="EndLab" Content="End" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18" Foreground="#FFF9F4F4"  Canvas.Top="1" Width="106" HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="EndText" TextWrapping="Wrap" Width="67" MaxLines="1" Canvas.Left="255" Canvas.Top="7" AllowDrop="False" MaxLength="5" Text="00:00" PreviewTextInput="StartEndPreviewTextInput" TabIndex="7" GotMouseCapture="TextBoxGotMouseFocus" GotFocus="TextBoxOnFocus"/>
+            <DatePicker x:Name="EndDatePic" Width="134" Canvas.Left="117" Canvas.Top="4" BorderBrush="{x:Null}" IsTabStop="True" TabIndex="6" />
+            <ComboBox x:Name="EndAMPMCom" Canvas.Left="333" Canvas.Top="7" Width="38" Height="18" Padding="3,1.1,0,3" TabIndex="8">
+                <ComboBoxItem Content="AM" IsSelected="True"/>
+                <ComboBoxItem Content="PM"/>
+            </ComboBox>
         </Canvas>
-        <Canvas HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="167" Margin="10,155,0,0">
-            <Label x:Name="SkillLevelLab" Content="Skill Level" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18" Foreground="#FFF9F4F4"/>
-            <TextBox x:Name="SkillLevelText" TextWrapping="Wrap" Width="60" MaxLines="1" IsUndoEnabled="False" Canvas.Left="107" Canvas.Top="6"/>
+        <Canvas HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="374" Margin="10,156,0,0">
+            <Label x:Name="MaxPlayersLab" Content="Max Players" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18" Foreground="#FFF9F4F4" Width="106" HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="MaxPlayersText" TextWrapping="Wrap" Width="30" MaxLines="1" IsUndoEnabled="False" Canvas.Left="120" Canvas.Top="6" PreviewTextInput="MaxPlayersTextOnPreviewTextChange"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MaxLength="3" Height="Auto" VerticalAlignment="Center" HorizontalAlignment="Center" GotFocus="TextBoxOnFocus" GotMouseCapture="TextBoxGotMouseFocus" TabIndex="9"/>
         </Canvas>
-        <Canvas HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="160" Margin="10,191,0,0">
-            <Label x:Name="LocationLab" Content="Location" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18" Foreground="#FFF9F4F4"/>
-            <TextBox x:Name="LocationText" TextWrapping="Wrap" Width="60" MaxLines="1" IsUndoEnabled="False" Canvas.Left="100" Canvas.Top="6"/>
+        <Canvas HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="220" Margin="10,192,0,0">
+            <Label x:Name="SkillLevelLab" Content="Skill Level" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18" Foreground="#FFF9F4F4" Width="106" HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="SkillLevelText" TextWrapping="Wrap" Width="80" MaxLines="1" IsUndoEnabled="False" Canvas.Left="120" Canvas.Top="6" MaxLength="25" GotFocus="TextBoxOnFocus" GotMouseCapture="TextBoxGotMouseFocus" TabIndex="10"/>
         </Canvas>
-        <Button x:Name="AddEntryBut" Style="{DynamicResource RoundedButtonStyle}" Content="Add Entry" HorizontalAlignment="Left" Margin="240,217,0,0" VerticalAlignment="Top" Height="30" Width="100" FontFamily="Times New Roman" FontSize="18" Click="AddEntryButOnClick" />
-        <Button x:Name="ExitBut" Style="{DynamicResource RoundedButtonStyle}" Content="Exit" HorizontalAlignment="Left" Margin="240,252,0,0" VerticalAlignment="Top" Height="30" Width="100" FontFamily="Times New Roman" FontSize="18" Click="ExitButOnClose" />
+        <Canvas HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="269" Margin="10,228,0,0">
+            <Label x:Name="LocationLab" Content="Location" FontFamily="Times New Roman" FontWeight="Bold" FontSize="18" Foreground="#FFF9F4F4" Width="106" HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="LocationText" TextWrapping="Wrap" Width="140" MaxLines="1" IsUndoEnabled="False" Canvas.Left="120" Canvas.Top="6" MaxLength="80" GotFocus="TextBoxOnFocus" GotMouseCapture="TextBoxGotMouseFocus" TabIndex="11"/>
+        </Canvas>
+        <Button x:Name="AddEntryBut" Style="{DynamicResource RoundedButtonStyle}" Content="Add Entry" HorizontalAlignment="Left" Margin="284,210,0,0" VerticalAlignment="Top" Height="30" Width="100" FontFamily="Times New Roman" FontSize="18" Click="AddEntryButOnClick" TabIndex="12" />
+        <Button x:Name="ExitBut" Style="{DynamicResource RoundedButtonStyle}" Content="Exit" HorizontalAlignment="Left" Margin="284,244,0,0" VerticalAlignment="Top" Height="30" Width="100" FontFamily="Times New Roman" FontSize="18" Click="ExitButOnClose" TabIndex="13" />
     </Grid>
 </Window>

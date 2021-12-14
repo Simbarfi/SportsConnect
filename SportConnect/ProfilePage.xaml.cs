@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
+
 namespace SportConnect
 {
     /// <summary>
@@ -20,20 +21,22 @@ namespace SportConnect
         private string connectionStringToDB =
             ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString;
         private int user_Id = -1;
+        private User CurUser;
         private Window previousWindow;
         DataConnection db = new();
 
-        public ProfilePage(int profileUserId, int currentUserId, Window previous)
+        public ProfilePage(int profileUserId, User currentUser, Window previous)
         {
             //Depending on who views the profile page hide the edit profile button
             //Also Depending on profile viewed...pull their info
             previousWindow = previous;
             user_Id = profileUserId;
+            CurUser = currentUser;
             InitializeComponent();
             InsertInfo(user_Id);
 
             //Cannot edit if not
-            if(profileUserId != currentUserId)
+            if(profileUserId != currentUser.UserId)
             {
                 EditProfileButton.IsEnabled = false;
                 EditProfileButton.Visibility = Visibility.Hidden;
@@ -68,7 +71,8 @@ namespace SportConnect
                 {
                     //Update in sql
                     string bioString = BioDesc.Text.ToString();
-                    if (updateUser(bioString, ProfilePic.Source))
+
+                    if (updateUser(bioString))
                     {/**All Good**/} 
                     else
                     {
@@ -92,7 +96,7 @@ namespace SportConnect
 
             // Set filter for file extension and default file extension 
             dlg.DefaultExt = ".png";
-            dlg.Filter = /**"JPEG Files (*.jpeg)";|*.jpeg|*/"PNG Files (*.png)|*.png";/**|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";**/
+            dlg.Filter = "JPEG Files (*.jpeg);|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
 
 
             // Display OpenFileDialog by calling ShowDialog method 
@@ -106,11 +110,26 @@ namespace SportConnect
                 string filename = dlg.FileName;
                 fileLocation = filename;
 
-                BitmapImage basicImg = new BitmapImage();
-                basicImg.BeginInit();
-                basicImg.UriSource = new Uri(@""+ fileLocation , UriKind.RelativeOrAbsolute);
-                basicImg.EndInit();
+
+                BitmapImage basicImg = new BitmapImage(new Uri(fileLocation, UriKind.RelativeOrAbsolute));
                 ProfilePic.Source = basicImg;
+
+                using (FileStream fs = new FileStream(fileLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                {
+                    System.IO.BufferedStream bf = new BufferedStream(fs);
+                    byte[] buffer = new byte[bf.Length];
+                    bf.Read(buffer, 0, buffer.Length);
+
+                    byte[] buffer_new = buffer;
+
+                    fs.Close();
+                    bf.Close();
+                
+
+                    //Change source to byte array and update user
+                    updateUser(BioDesc.Text, buffer_new);
+                }
+
             }
 
 
@@ -166,25 +185,16 @@ namespace SportConnect
                     }
                     FirstLast.Content = reader["first_name"] + " " + reader["last_name"];
 
-                    if ((reader["image"].Equals(System.DBNull.Value))) //NEEDS TO BE CHANGED BACK
+                    if (!(reader["image"].Equals(System.DBNull.Value))) //NEEDS TO BE CHANGED BACK
                     {
-                        //take blob and covert into source
-                        //ProfilePic.Source = ConvertByteArrayToBitmapImage((byte[])reader["image"]);
-                        BitmapImage basicImg = new BitmapImage();
-                        basicImg.BeginInit();
-                        basicImg.UriSource = new Uri(@"/User.png", UriKind.RelativeOrAbsolute);
-                        basicImg.EndInit();
+                        //Attempting to pull image from database
+                        Byte[] byteArray = (byte[])reader["image"];
 
-                        ProfilePic.Source = basicImg;
-                    } else
-                    {
-                        BitmapImage basicImg = new BitmapImage();
-                        basicImg.BeginInit();
-                        basicImg.UriSource = new Uri(@"/User.png", UriKind.RelativeOrAbsolute);
-                        basicImg.EndInit();
+                        //take byte array and turn into profilepic source
 
-                        ProfilePic.Source = basicImg;
-                    }
+                        ProfilePic.Source = ToImage(byteArray);
+
+                    } 
                 }
             }
             finally
@@ -232,53 +242,22 @@ namespace SportConnect
          * Returns boolean, true if successful
          * 
          **/
-        private Boolean updateUser(string bio, ImageSource imgsource)
+        private Boolean updateUser(string bio, Byte[] img)
+        {
+            
+            MySqlConnection connection = new MySqlConnection(connectionStringToDB);
+            db.UpdateUserImgInDatabase(user_Id, img,connection);
+            return true;
+        }
+
+        private Boolean updateUser(string bio)
         {
             MySqlConnection connection = new MySqlConnection(connectionStringToDB);
             connection.Open();
-
-            //convert ImageSource into byte array
-
-            BitmapImage basicImg = new BitmapImage();
-            basicImg.BeginInit();
-            basicImg.UriSource = new Uri(@"" + imgsource, UriKind.RelativeOrAbsolute);
-            basicImg.EndInit();
-
-            Byte[] bits = BitmapToByteArray(basicImg);
-            
-
-            MySqlCommand command = new MySqlCommand(db.UpdateUserBioInDatabase(user_Id,bio, bits), connection);
+            MySqlCommand command = new MySqlCommand(db.UpdateUserBioInDatabase(user_Id, bio), connection);
             int result = command.ExecuteNonQuery();
             connection.Close();
             return result == 1;
-        }
-
-        public static Byte[] BitmapToByteArray(BitmapImage image)
-        {
-            byte[] Data;
-            PngBitmapEncoder PngEncoder = new PngBitmapEncoder();
-            PngEncoder.Frames.Add(BitmapFrame.Create(image));
-            using (System.IO.MemoryStream MS = new System.IO.MemoryStream())
-            {
-                PngEncoder.Save(MS);
-                Data = MS.ToArray();
-            }
-            return Data;
-        }
-        public static BitmapImage ConvertByteArrayToBitmapImage(Byte[] bytes)
-        {
-            System.IO.MemoryStream Stream = new System.IO.MemoryStream(bytes,0,bytes.Length);
-            //Stream.Write(bytes, 0, bytes.Length);
-            //Stream.Position = 0;
-            System.Drawing.Image img = System.Drawing.Image.FromStream(Stream);
-            BitmapImage bitImage = new BitmapImage();
-            bitImage.BeginInit();
-            System.IO.MemoryStream MS = new System.IO.MemoryStream();
-            img.Save(MS, System.Drawing.Imaging.ImageFormat.Png);
-            MS.Seek(0, System.IO.SeekOrigin.Begin);
-            bitImage.StreamSource = MS;
-            bitImage.EndInit();
-            return bitImage;
         }
 
         private void openChat(object sender, RoutedEventArgs e)
@@ -291,13 +270,22 @@ namespace SportConnect
 
                 //I will send a user and event to the chat window and hide the 
                 //ChatPage chat = new ChatPage();
-                ChatPage chat = new ChatPage(user_Id,currentEvent, this);
+                EventChat chat = new EventChat(CurUser,currentEvent, this);
                 chat.Show();
                 Hide();
             } 
             else{
                 MessageBox.Show("Select An Event");
             }
+        }
+
+        public BitmapImage ToImage(byte[] array)
+        {
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.StreamSource = new System.IO.MemoryStream(array);
+            image.EndInit();
+            return image;
         }
 
         private void LeaveEvent(object sender, RoutedEventArgs e)

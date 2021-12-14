@@ -35,9 +35,9 @@ namespace SportConnect
             return dataReader;
         }
 
-        public bool InsertUser(string Username, string FName, string LName, string Email, string Password, string bio, string DOB, byte[] image)
+        public bool InsertUser(string Username, string FName, string LName, string Email, string Password, string bio, string DOB)
         {
-            string query = dc.InsertUserIntoDatabase( Username, FName, LName, Email, Password, bio, DOB, image);
+            string query = dc.InsertUserIntoDatabase( Username, FName, LName, Email, Password, bio, DOB);
             try
             {
                 MySqlConnection connectionStringToDB = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
@@ -56,7 +56,12 @@ namespace SportConnect
             }
         }
 
-        //Trevor Abel
+        /*
+         * Trevor Abel
+         * Attempts to insert an event into the database, owned by
+         * the passed-in user.
+         * returns true if the event is successfully inserted, else false.
+         */
         public bool InsertEvent(Event newEvent, User currUser)
         {
             string query = dc.InsertEventIntoDatabase(currUser.UserId,
@@ -84,7 +89,10 @@ namespace SportConnect
             }
             return false;
         }
-        //Trevor Abel
+        /*
+         * Trevor Abel
+         * Gets a list of all current events
+         */
         public List<Event> GetAllEvents()
         {
             string query = dc.GetAllEvents();
@@ -99,7 +107,7 @@ namespace SportConnect
                 
                 while (reader.Read())
                 {
-                    Event nextEvent = new Event(reader.GetInt32((int)EventColumnNames.owner),
+                    Event nextEvent = new Event(reader.GetInt32((int)EventColumnNames.event_id),
                         reader.GetString((int)EventColumnNames.event_name),
                         reader.GetString((int)EventColumnNames.sport),
                         reader.GetDateTime((int)EventColumnNames.start_date),
@@ -108,7 +116,8 @@ namespace SportConnect
                         reader.GetString((int)EventColumnNames.skill_level),
                         reader.GetString((int)EventColumnNames.location),
                         (double)reader.GetFloat((int)EventColumnNames.latitude),
-                        (double)reader.GetFloat((int)EventColumnNames.longitude));
+                        (double)reader.GetFloat((int)EventColumnNames.longitude),
+                        reader.GetInt32((int)EventColumnNames.owner));
 
                     fullEventList.Add(nextEvent);
                 }
@@ -123,33 +132,109 @@ namespace SportConnect
             return fullEventList;
         }
 
-        public Byte[] BitmapToByteArray(BitmapImage image)
+        /*
+         * Trevor Abel
+         * Inserts an attendedEvent into the database
+         * returns true if the event is successfully attended, else false
+         */
+        public bool InsertAttendedEvent(int currUserId, int eventToAttendId)
         {
-            byte[] Data;
-            JpegBitmapEncoder JpegEncoder = new JpegBitmapEncoder();
-            JpegEncoder.Frames.Add(BitmapFrame.Create(image));
-            using (System.IO.MemoryStream MS = new System.IO.MemoryStream())
+            string query = dc.InsertAttendedEventsIntoDatabase(currUserId, eventToAttendId);
+            try
             {
-                JpegEncoder.Save(MS);
-                Data = MS.ToArray();
+                MySqlConnection connectionStringToDB = new
+                    MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
+                MySqlCommand cmd = new MySqlCommand(query, connectionStringToDB);
+                connectionStringToDB.Open();
+                int rowsAffected = cmd.ExecuteNonQuery();
+                connectionStringToDB.Close();
+                return rowsAffected == 1;
             }
-            return Data;
+            catch (MySqlException ex)
+            {
+            }
+            return false;
+
         }
-        public BitmapImage ConvertByteArrayToBitmapImage(Byte[] bytes)
+
+        public Boolean AlreadyAttendingEvent(int curUserId, int eventId)
         {
-            System.IO.MemoryStream Stream = new System.IO.MemoryStream();
-            Stream.Write(bytes, 0, bytes.Length);
-            Stream.Position = 0;
-            System.Drawing.Image img = System.Drawing.Image.FromStream(Stream);
-            BitmapImage bitImage = new BitmapImage();
-            bitImage.BeginInit();
-            System.IO.MemoryStream MS = new System.IO.MemoryStream();
-            img.Save(MS, System.Drawing.Imaging.ImageFormat.Jpeg);
-            MS.Seek(0, System.IO.SeekOrigin.Begin);
-            bitImage.StreamSource = MS;
-            bitImage.EndInit();
-            return bitImage;
+            MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
+
+            connection.Open();
+            MySqlCommand command = new MySqlCommand(dc.AlreadyAttendingEvent(curUserId,eventId), connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            return reader.HasRows;
         }
+
+        /**
+         * Trevor Abel
+         * Gets a user's name based on their id.
+         * returns the user's name if successfull, else null
+         */
+        public string GetUserName(int userId)
+        {
+            string query = dc.GetUser(userId);
+            string username = null;
+            try
+            {
+                MySqlConnection connectionStringToDB = new
+                    MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
+                MySqlCommand cmd = new MySqlCommand(query, connectionStringToDB);
+                connectionStringToDB.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
+                username = reader.GetString("user_name");
+                reader.Close();
+                connectionStringToDB.Close();
+            }
+            catch (MySqlException ex)
+            {
+            }
+            return username;
+        }
+
+        public void InsertChat(string mes, string username, int eventId)
+        {
+            MySqlConnection connectionStringToDB = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
+            MySqlCommand cmd = new MySqlCommand(dc.InsertEventChat(mes, username, eventId), connectionStringToDB);
+            MySqlDataReader MyReader;
+            connectionStringToDB.Open();
+            MyReader = cmd.ExecuteReader();
+            connectionStringToDB.Close();
+        }
+
+        public List<Message> GetMessages(int eventId) 
+        {
+            List<Message> messages = new List<Message>();
+            MySqlConnection connectionStringToDB = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
+            MySqlCommand cmd = new MySqlCommand(dc.GetEventChat(eventId), connectionStringToDB);
+            MySqlDataReader MyReader;
+            connectionStringToDB.Open();
+            MyReader = cmd.ExecuteReader();
+
+
+            try
+            {
+                while (MyReader.Read())
+                {
+                    //username, message, eventId
+                    string username = MyReader["username"].ToString();
+                    string message = MyReader["message"].ToString();
+                    int event_Id = Int16.Parse(MyReader["event_id"].ToString());
+
+                    messages.Add(new Message(username, message, event_Id));
+                    
+                }
+            }
+            finally
+            {
+                MyReader.Close();
+                connectionStringToDB.Close();
+            }
+            return messages;
+        }
+
     }
 
     

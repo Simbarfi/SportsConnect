@@ -40,7 +40,7 @@ namespace SportConnect
                     basicImg.BeginInit();
                     basicImg.UriSource = new Uri(@"/User.png", UriKind.RelativeOrAbsolute);
                     basicImg.EndInit();
-                    BL.InsertUser(txtUsername.Text, txtFirstName.Text, txtLastName.Text, txtEmail.Text, txtPassword.Password, "", "", BL.BitmapToByteArray(basicImg));
+                    BL.InsertUser(txtUsername.Text, txtFirstName.Text, txtLastName.Text, txtEmail.Text, txtPassword.Password, "", "");
                     MessageBox.Show("User Added");
                     SignIn sign = new SignIn();
                     sign.Show();

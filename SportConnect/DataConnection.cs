@@ -20,13 +20,13 @@ namespace SportConnect
         }
 
 
-        public string InsertUserIntoDatabase(string Username, string FName, string LName, string Email, string Password, string bio, string DOB, byte[] image)
+        public string InsertUserIntoDatabase(string Username, string FName, string LName, string Email, string Password, string bio, string DOB)
         {
             MySqlConnection connectionStringToDB = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
 
             string query;
             return query = "INSERT INTO d6304c5_Team3.Users (user_name, first_name, last_name, email, password, bio, DOB, image)" +
-                "values ('" + Username + "','" + FName + "','" + LName + "','" + Email + "','" + Password + "', '" + bio + "', '" + DOB + "', '" + image + "');";
+                "values ('" + Username + "','" + FName + "','" + LName + "','" + Email + "','" + Password + "', '" + bio + "', '" + DOB + "', '" + System.DBNull.Value + "');";
         }
         
 
@@ -47,18 +47,24 @@ namespace SportConnect
                 "values ('" + userID + "','" + dataSent + "','" + dataReceived + "','" + messagelogs + "', '" + context + "');";
         }
 
-        public string InsertAttendedEventsIntoDatabase(int attEventId, int UserId, int Event_Id)
+        public string InsertAttendedEventsIntoDatabase(int UserId, int Event_Id)
         {
             MySqlConnection connectionStringToDB = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
 
             string query;
-            return query = "INSERT INTO d6304c5_Team3.AttendedEvents (att_event_id, user_id, event_id)" +
-                "values ('" + attEventId + "','" + UserId + "','" + Event_Id + "');";
+            return query = "INSERT INTO d6304c5_Team3.AttendedEvents (user_id, event_id)" +
+                "values ('" + UserId + "','" + Event_Id + "');";
         }
 
-        public string UpdateUserBioInDatabase(int user_Id, string bio, Byte[] img)
+        public void UpdateUserImgInDatabase(int user_Id, Byte[] img, MySqlConnection connection)
         {
-            return "UPDATE Users SET bio = '" + bio + "', image = '" + img + "' WHERE user_id = " + user_Id;
+            connection.Open();
+            MySqlCommand comm = connection.CreateCommand();
+            comm.CommandText = "UPDATE Users SET image = @image WHERE user_id = @userId";
+            comm.Parameters.AddWithValue("@image", img);
+            comm.Parameters.AddWithValue("@userId", user_Id);
+            comm.ExecuteNonQuery();
+            connection.Close();
         }
 
         public string getUpcomingEvents(int user_Id)
@@ -81,8 +87,16 @@ namespace SportConnect
         public string GetAllEvents()
         {
             return "SELECT *" +
-                "   FROM Events" +
+                "   FROM d6304c5_Team3.Events" +
+                "   WHERE start_date >= NOW()" +
                 "   LIMIT 100 ";
+        }
+
+        public string GetUser(int userId)
+        {
+            return "SELECT Users.user_name " +
+                   "FROM d6304c5_Team3.Users " +
+                  $"WHERE user_id = {userId} ";
         }
 
         public string RemoveAllAttendingEvent(int eventId)
@@ -106,6 +120,33 @@ namespace SportConnect
                 "FROM Events " +
                 "WHERE event_id = " + eventId;
                 
+        }
+
+        public string AlreadyAttendingEvent(int curUserId, int eventId)
+        {
+            return "SELECT * " +
+                "FROM AttendedEvents " +
+                "WHERE user_id = " + curUserId + " " +
+                "AND event_id = " + eventId;
+        }
+
+        internal string InsertEventChat(string mes, string username, int eventId)
+        {
+            return "INSERT INTO d6304c5_Team3.EventChats (username, message, event_id)" +
+                "values ('" + username + "','" + mes + "','" + eventId + "');";
+        }
+
+        internal string GetEventChat(int eventId)
+        {
+            return "SELECT * " +
+                "FROM EventChats " +
+                "WHERE event_id = " + eventId + " " +
+                "ORDER BY EventChats.idEventChats ASC";
+        }
+
+        internal string UpdateUserBioInDatabase(int user_Id, string bio)
+        {
+            return "UPDATE Users SET bio = '" + bio +  "' WHERE user_id = " + user_Id;
         }
     }
 }

@@ -1,15 +1,15 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 using System.Runtime.InteropServices;
 using System.Text.Json;
-using System.IO;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
-using System.Configuration;
 
 namespace SportConnect
 {
+    /**
+     * Trevor Abel
+     * A class for interacting with the meetup map
+     */
     [ComVisible(true)]
     public class MapInteraction
     {
@@ -19,6 +19,12 @@ namespace SportConnect
         {
             parentWindow = win;
         }
+        /**
+         * Trevor Abel
+         * Opens an AddEventWindow to create a new event.
+         * msg is the latitude and longitude in this form: LatLng(00.00, 00.00);
+         * returns a Json string of the event or an empty string if failed
+         */
         public string CreateEvent(string msg)
         { 
             double latitude = 0;
@@ -28,8 +34,8 @@ namespace SportConnect
             addWin.Owner = parentWindow;
             addWin.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             bool? didAddEvent = addWin.ShowDialog();
-
-            if (didAddEvent.Value)
+            
+            if (didAddEvent.HasValue && didAddEvent.Value)
             {
                 AddEventToDB(addWin.NewEvent);
                 JsonSerializerOptions options = new JsonSerializerOptions
@@ -44,22 +50,52 @@ namespace SportConnect
             return "";
         }
 
-
+        /**
+         * Trevor Abel
+         * Creates a latitude and longitude from a string in the format: LatLng(00.00, 00.00)
+         * returns true if both values are parsed successfully, else false;
+         */
         private bool GetLatLngFromMessage(ref double lat, ref double lng, string msg)
         { //"LatLng(44.024483, -88.550062)"
             bool success = false;
             string[] editedMessage = msg.Replace("LatLng(", "").Replace(')', ' ').Trim().Split(',');
             success = double.TryParse(editedMessage[0], out lat);
-            success = double.TryParse(editedMessage[1], out lng);
+            success = success && double.TryParse(editedMessage[1], out lng);
             return success;
         }
-
+        /**
+         * Trevor Abel
+         * Adds an event to the database.
+         */
         private void AddEventToDB(Event newEvent)
         {
             BusinessLogic dbLogic = new BusinessLogic();
             dbLogic.InsertEvent(newEvent, parentWindow.CurUser);
-
+            AttendEvent(parentWindow.CurUser.UserId, newEvent.Id.ToString());
         }
-        
+        /**
+         * Trevor Abel
+         * Lets a user attend an event and stores it in the database
+         * returns true if user successfully attends the event, else false
+         */
+        internal bool AttendEvent(int currUserId, string eventIdAsString)
+        {
+            if(int.TryParse(eventIdAsString, out int eventId))
+            {
+                //check to see if already attending
+
+
+                BusinessLogic dbLogic = new BusinessLogic();
+                if (!(dbLogic.AlreadyAttendingEvent(currUserId, eventId)))
+                {
+                    return dbLogic.InsertAttendedEvent(currUserId, eventId);
+                }
+                return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

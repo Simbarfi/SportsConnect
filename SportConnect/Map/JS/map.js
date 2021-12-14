@@ -1,21 +1,37 @@
-//window.chrome.webview.postMessage()
-//window.chrome.webview.addEventListener(\'message\', event => alert(event.data));"
 var myMap;
 var wv = window.chrome.webview;
 var tempMarker;
 
+/*Trevor Abel
+ *Gets a new map marker
+ * Unnecessary in its current state, but allows
+ * for general manipulation of the new marker
+ * in every case.
+ */
 function getMarker(latlng) {
 	var mark = L.marker(latlng);
 	return mark;
 }
-
+/*
+ * Trevor Abel
+ * Map onclick
+ * Adds a temporary marker to the map and sends
+ * the program a CreateEvent message.
+ */
 function onMapClick(e) {
 	tempMarker = getMarker(e.latlng);
 	tempMarker.addTo(myMap);
 	wv.postMessage(`CreateEvent@${e.latlng}`);
 }
-
-function CreateEvent(response) {
+/*
+ *Trevor Abel 
+ * If event creation is successful, the temporary marker
+ * becomes a permanent one, with a popup filled with 
+ * temporary information.
+ * If event creation is unsuccessful, the temporary marker
+ * is removed.
+ */
+function createEvent(response) {
 	if (response.length !== 0) {
 		response = JSON.parse(response);
 		var popupMessage = '<p>' + response.Name + '</p>' +
@@ -30,7 +46,10 @@ function CreateEvent(response) {
 		tempMarker.removeFrom(myMap);
 	}
 }
-
+/*
+ * Trevor Abel
+ * Creates a map and adds its onclick event
+ */
 function setup() {
 	myMap = L.map('mapid').setView([44.0262, -88.5517], 15);
 	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -42,15 +61,18 @@ function setup() {
 
 	myMap.on('click', onMapClick);
 }
-
-function reactToMessage(event) {
-	
+/*
+ * Trevor Abel
+ * Sends a message to the program to attend an event
+ */
+function attendEvent(e) {
+	wv.postMessage(`AttendEvent@${e}`);
 }
 
-
+//Run Setup on pageload
 setup();
-
-wv.addEventListener('message', event => CreateEvent(event.data));
+//Listen for messages from program
+wv.addEventListener('message', event => createEvent(event.data));
 
 
 

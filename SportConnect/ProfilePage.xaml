@@ -22,7 +22,11 @@
                 <GradientStop Color="#FF6C3939" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Image x:Name="ProfilePic"  IsEnabled="False" Source="/User.png" Margin="10,6,0,0" Height="138" VerticalAlignment="Top" HorizontalAlignment="Left" Width="132"/>
+        <Image x:Name="ProfilePic"  IsEnabled="False" Margin="10,6,0,0" Height="138" VerticalAlignment="Top" HorizontalAlignment="Left" Width="132">
+            <Image.Source>
+                <BitmapImage UriSource="/User.png" />
+            </Image.Source>
+        </Image>
         <Button x:Name="EditProfileButton" Style="{DynamicResource RoundedButtonStyle}" Content="Edit Profile" HorizontalAlignment="Left" Margin="639,15,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click" Height="20"/>
         <TextBox Name="BioDesc" Foreground="black" AcceptsReturn="True" HorizontalAlignment="Left" Height="277" Margin="20,143,0,0" Text="Insert Bio Here" TextWrapping="Wrap" VerticalAlignment="Top" Width="417" TextChanged="TextBox_TextChanged_1" IsEnabled="False" RenderTransformOrigin="0.5,0.5" Background="White" FontSize="14"/>
         <Button Opacity="0" x:Name ="EditProfPic" Style="{DynamicResource RoundedButtonStyle}" HorizontalAlignment="Left" Height="45" Margin="97,10,0,0" VerticalAlignment="Top" Width="45" IsEnabled="False" Click="EditProfPic_Click" BorderBrush="{x:Null}">

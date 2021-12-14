@@ -46,11 +46,11 @@ namespace SportConnect
                     {
                         MySqlDataReader userReader = BL.selectForlogin(txtUserName.Text, txtPassword.Password);
                         userReader.Read();
-                        user = new User(Int16.Parse(userReader["user_id"].ToString()));
+                        user = new User(Int16.Parse(userReader["user_id"].ToString()),userReader["user_name"].ToString());
                         MeetupMapWindow meetup = new MeetupMapWindow(user);
                         meetup.Show();
                         Hide();
-                        Owner.Hide();
+                        //Owner.Hide();
                     }
                     else
                     {

@@ -10,7 +10,7 @@
         WindowStyle="None"
         Background="#36393F"
         AllowsTransparency="True"
-        ResizeMode="CanResizeWithGrip"
+        ResizeMode="CanResizeWithGrip" SizeChanged="WindowOnSizeChanged"
         >
     <Grid >
         <Grid.RowDefinitions>
