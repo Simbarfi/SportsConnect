@@ -19,6 +19,7 @@ namespace SportConnect
             "myMap.getPane('shadowPane').replaceChildren();";
         /**
          * Trevor Abel
+         * AddEventToMap
          * Gets a script for adding an event to the map with 
          * a descriptive popup.
          */
@@ -36,6 +37,7 @@ namespace SportConnect
         }
         /**
          * Trevor Abel
+         * ResizeMap
          * Gets a script for resizing the map to a given height and width.
          */
         public static string ResizeMap(double height, double width)

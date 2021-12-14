@@ -58,6 +58,7 @@ namespace SportConnect
 
         /*
          * Trevor Abel
+         * InsertEvent
          * Attempts to insert an event into the database, owned by
          * the passed-in user.
          * returns true if the event is successfully inserted, else false.
@@ -91,6 +92,7 @@ namespace SportConnect
         }
         /*
          * Trevor Abel
+         * GetAllEvents
          * Gets a list of all current events
          */
         public List<Event> GetAllEvents()
@@ -134,6 +136,7 @@ namespace SportConnect
 
         /*
          * Trevor Abel
+         * InsertAttendedEvent
          * Inserts an attendedEvent into the database
          * returns true if the event is successfully attended, else false
          */
@@ -169,6 +172,7 @@ namespace SportConnect
 
         /**
          * Trevor Abel
+         * GetUserName
          * Gets a user's name based on their id.
          * returns the user's name if successfull, else null
          */

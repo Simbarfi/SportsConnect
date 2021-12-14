@@ -25,6 +25,7 @@ namespace SportConnect
         }
         /**
          * Trevor Abel
+         * AddEntryButOnClick
          * AddEntryButton onclick
          * Tries to create a new event based on the filled out fields.
          */
@@ -59,6 +60,7 @@ namespace SportConnect
         }
         /**
          * Trevor Abel
+         * ValidateFields
          * Validates that each text field has content(length > 0).
          */
         private bool ValidateFields(Dictionary<string, string> fieldsDict)
@@ -75,6 +77,7 @@ namespace SportConnect
         }
         /**
          * Trevor Abel
+         * ValidateDates
          * Checks if the start and end dates are both valid.
          */
         private bool ValidateDates(DateTime start, DateTime end)
@@ -115,6 +118,7 @@ namespace SportConnect
         }
         /**
          * Trevor Abel
+         * GetStartDate
          * Gets the Start date from the three start date fields.
          */
         private DateTime GetStartDate()
@@ -123,6 +127,7 @@ namespace SportConnect
         }
         /**
          * Trevor Abel
+         * GetEndDate
          * Gets the End date from the three end date fields.
          */
         private DateTime GetEndDate()
@@ -131,6 +136,7 @@ namespace SportConnect
         }
         /**
          * Trevor Abel
+         * GetDate
          * Gets a date from three date fields.
          * The DatePicker has the date, the TextBox has the time,
          * and the ComboBox tells you if it's in the AM or PM.
@@ -166,6 +172,7 @@ namespace SportConnect
         }
         /**
          * Trevor Abel
+         * ExitButOnClose
          * Exit Button onClose
          * Closes the window and sets the result to false
          */
@@ -176,6 +183,7 @@ namespace SportConnect
         }
         /**
          * Trevor Abel
+         * StartEndPreviewTextInput
          * StartText EndText PreviewTextInput
          * Ensures only numbers are entered into the text field
          */
@@ -186,6 +194,7 @@ namespace SportConnect
         }
         /**
          * Trevor Abel
+         * MaxPlayersTextOnPreviewTextChange
          * MaxPlayersText PreviewTextChange
          * Ensures only numbers are entered into the text field
          */
@@ -196,6 +205,7 @@ namespace SportConnect
         }
         /**
          * Trevor Abel
+         * TextBoxOnFocus
          * Generic TextBox onFocus
          * Selects all text when the textBox is focused.
          */
@@ -206,6 +216,7 @@ namespace SportConnect
         }
         /**
          * Trevor Abel
+         * TextBoxGotMouseFocus
          * Generic TextBox onMouseFocus
          * Selects all text when the textBox captures the mouse.
          */
