@@ -94,6 +94,7 @@ namespace SportConnect
                 {
                     return dbLogic.InsertAttendedEvent(currUserId, eventId);
                 }
+                
                 return false;
             }
             else

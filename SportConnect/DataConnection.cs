@@ -25,8 +25,8 @@ namespace SportConnect
             MySqlConnection connectionStringToDB = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLDB2"].ConnectionString);
 
             string query;
-            return query = "INSERT INTO d6304c5_Team3.Users (user_name, first_name, last_name, email, password, bio, DOB, image)" +
-                "values ('" + Username + "','" + FName + "','" + LName + "','" + Email + "','" + Password + "', '" + bio + "', '" + DOB + "', '" + System.DBNull.Value + "');";
+            return query = "INSERT INTO d6304c5_Team3.Users (user_name, first_name, last_name, email, password, bio, DOB)" +
+                "values ('" + Username + "','" + FName + "','" + LName + "','" + Email + "','" + Password + "', '" + bio + "', '" + DOB + "');";
         }
         
 
@@ -111,7 +111,7 @@ namespace SportConnect
             return "DELETE " +
                 "FROM AttendedEvents " +
                 "WHERE AttendedEvents.event_id = " + eventId +
-                "AND user_id = " + userId;
+                " AND user_id = " + userId;
         }
 
         public string DeleteEvent(int eventId)
@@ -133,7 +133,7 @@ namespace SportConnect
         internal string InsertEventChat(string mes, string username, int eventId)
         {
             return "INSERT INTO d6304c5_Team3.EventChats (username, message, event_id)" +
-                "values ('" + username + "','" + mes + "','" + eventId + "');";
+                " values ('" + username + "','" + mes + "','" + eventId + "');";
         }
 
         internal string GetEventChat(int eventId)

@@ -197,7 +197,7 @@
                             Grid.Column="1"
                             Margin="0,0,16,0">
                     <Border CornerRadius="50" Background="Transparent">
-                        <Button Click="Button_Click">
+                        <Button Click="Button_Click" Height="35">
                             <Image Source="/send.png"
                                    Width="33"
                                    RenderOptions.BitmapScalingMode="Fant" Height="30"
